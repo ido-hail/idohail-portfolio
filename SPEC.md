@@ -301,9 +301,11 @@ Accessibility is verified manually and with an automated scanner before launch, 
 * **Framework:** Astro
 * **Rendering:** Static generation only
 * **Language:** TypeScript
-* **Styling:** Tailwind CSS
+* **Styling:** Tailwind CSS 4, via the `@tailwindcss/vite` integration
 * **Content:** Astro Content Collections
 * **Package manager:** npm
+
+Build/URL conventions: `build.format` is `directory` and `trailingSlash` is `always`. `build.inlineStylesheets` is `never`, so styles are served as linked stylesheets rather than inlined — supporting the strict CSP required by §15.2.
 
 No SSR.
 
@@ -315,7 +317,7 @@ No runtime Worker application code unless a future requirement provides a concre
 
 ### 8.2 Toolchain Reproducibility
 
-Use **Node.js 22 LTS** for the project.
+Use **Node.js 24 LTS** for the project. The supported Node version is restricted to the Node 24 major (e.g. `>=24.0.0 <25.0.0` in `package.json` `engines`).
 
 The supported Node version must be pinned using an appropriate repository-level mechanism such as:
 
