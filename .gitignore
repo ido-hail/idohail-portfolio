@@ -1,0 +1,19 @@
+# build
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# environment
+.env
+.env.*
+.dev.vars
+
+# cloudflare
+.wrangler/
+
+# editor / OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
