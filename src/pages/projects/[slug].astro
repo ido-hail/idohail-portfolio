@@ -1,0 +1,117 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { siteConfig } from "../../config/site";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { data } = project;
+const { Content } = await render(project);
+
+const linkClass =
+  "rounded text-sm font-medium text-blue-600 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900";
+---
+
+<BaseLayout
+  title={`${data.title} — ${siteConfig.name}`}
+  description={data.description}
+>
+  <p class="text-sm font-semibold tracking-wide text-blue-600 uppercase">
+    {data.year}
+  </p>
+  <h1 class="mt-2 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+    {data.title}
+  </h1>
+  <p class="mt-4 max-w-2xl text-lg leading-relaxed text-slate-600">
+    {data.description}
+  </p>
+
+  {
+    data.tags.length > 0 && (
+      <ul class="mt-6 flex flex-wrap gap-2">
+        {data.tags.map((tag) => (
+          <li class="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-500">
+            {tag}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    (data.githubUrl || data.liveUrl) && (
+      <div class="mt-6 flex flex-wrap items-center gap-6">
+        {data.githubUrl && (
+          <a href={data.githubUrl} class={linkClass}>
+            GitHub ↗
+          </a>
+        )}
+        {data.liveUrl && (
+          <a href={data.liveUrl} class={linkClass}>
+            Live ↗
+          </a>
+        )}
+      </div>
+    )
+  }
+
+  <div
+    class="case-study mt-12 max-w-2xl text-base leading-relaxed text-slate-700"
+  >
+    <Content />
+  </div>
+
+  <a href="/projects/" class={`mt-12 inline-block ${linkClass}`}
+    >← Back to all projects</a
+  >
+</BaseLayout>
+
+<style>
+  /* Minimal, hand-styled treatment for rendered Markdown case-study
+     content — no typography plugin dependency for this small a surface.
+     Case-study Markdown starts at h2 (the page template owns the h1). */
+  .case-study :global(h2) {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-slate-900);
+  }
+  .case-study :global(h2:first-child) {
+    margin-top: 0;
+  }
+  .case-study :global(p) {
+    margin-top: 0.75rem;
+  }
+  .case-study :global(ul),
+  .case-study :global(ol) {
+    margin-top: 0.75rem;
+    padding-left: 1.25rem;
+  }
+  .case-study :global(ul) {
+    list-style-type: disc;
+  }
+  .case-study :global(ol) {
+    list-style-type: decimal;
+  }
+  .case-study :global(a) {
+    color: var(--color-blue-600);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .case-study :global(a:hover) {
+    color: var(--color-blue-700);
+  }
+  .case-study :global(strong) {
+    font-weight: 600;
+    color: var(--color-slate-900);
+  }
+</style>

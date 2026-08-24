@@ -1,13 +1,99 @@
 ---
+import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { siteConfig } from "../../config/site";
+
+const entries = await getCollection("experience");
+const sorted = entries.sort((a, b) => {
+  if (a.data.order !== b.data.order) {
+    return a.data.order - b.data.order;
+  }
+  return a.id.localeCompare(b.id);
+});
+
+// Pre-render each entry's body once, alongside the entry itself.
+const rendered = await Promise.all(
+  sorted.map(async (entry) => ({
+    entry,
+    Content: (await render(entry)).Content,
+  })),
+);
+
+function formatDateRange(start: string, end: string | undefined) {
+  return `${start} — ${end ?? "Present"}`;
+}
 ---
 
 <BaseLayout title={`Experience — ${siteConfig.name}`}>
   <h1 class="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
     Experience
   </h1>
-  <p class="mt-5 max-w-2xl text-base leading-relaxed text-slate-600">
-    Professional experience entries will be added in a later phase.
-  </p>
+
+  {
+    rendered.length === 0 ? (
+      <p class="mt-5 max-w-2xl text-base leading-relaxed text-slate-600">
+        Professional experience entries will be added in a later phase.
+      </p>
+    ) : (
+      <div class="mt-10 space-y-12">
+        {rendered.map(({ entry, Content }) => (
+          <article class="max-w-2xl border-t border-slate-200 pt-8 first:border-t-0 first:pt-0">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <h2 class="text-xl font-semibold text-slate-900">
+                {entry.data.role} · {entry.data.company}
+              </h2>
+              <p class="text-sm font-medium text-slate-500">
+                {formatDateRange(entry.data.startDate, entry.data.endDate)}
+              </p>
+            </div>
+            {entry.data.tags.length > 0 && (
+              <ul class="mt-3 flex flex-wrap gap-2">
+                {entry.data.tags.map((tag) => (
+                  <li class="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-500">
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div class="experience-body mt-4 text-sm leading-relaxed text-slate-600">
+              <Content />
+            </div>
+          </article>
+        ))}
+      </div>
+    )
+  }
 </BaseLayout>
+
+<style>
+  /* Each entry's body sits under its own h2 role/company header above,
+     so any subsections within the body (e.g. a longer narrative that
+     wants to separate scope from impact) must start at h3. */
+  .experience-body :global(h3) {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-slate-900);
+  }
+  .experience-body :global(h3:first-child) {
+    margin-top: 0;
+  }
+  .experience-body :global(p) {
+    margin-top: 0.75rem;
+  }
+  .experience-body :global(p:first-child) {
+    margin-top: 0;
+  }
+  .experience-body :global(ul),
+  .experience-body :global(ol) {
+    margin-top: 0.75rem;
+    padding-left: 1.25rem;
+  }
+  .experience-body :global(ul) {
+    list-style-type: disc;
+  }
+  .experience-body :global(ol) {
+    list-style-type: decimal;
+  }
+</style>
