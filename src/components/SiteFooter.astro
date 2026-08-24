@@ -1,0 +1,47 @@
+---
+import { siteConfig } from "../config/site";
+
+const year = new Date().getFullYear();
+const linkClass =
+  "rounded text-sm font-medium uppercase tracking-wide text-slate-500 hover:text-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900";
+---
+
+<footer class="border-t border-slate-200">
+  <div
+    class="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12"
+  >
+    <ul class="flex flex-wrap gap-x-8 gap-y-2">
+      {
+        siteConfig.email && (
+          <li>
+            <a href={`mailto:${siteConfig.email}`} class={linkClass}>
+              Email
+            </a>
+          </li>
+        )
+      }
+      <li>
+        <a href={siteConfig.githubUrl} class={linkClass}>GitHub</a>
+      </li>
+      {
+        siteConfig.linkedinUrl && (
+          <li>
+            <a href={siteConfig.linkedinUrl} class={linkClass}>
+              LinkedIn
+            </a>
+          </li>
+        )
+      }
+      {
+        siteConfig.resumePath && (
+          <li>
+            <a href={siteConfig.resumePath} class={linkClass}>
+              Resume
+            </a>
+          </li>
+        )
+      }
+    </ul>
+    <p class="text-xs text-slate-400">© {year} {siteConfig.name}</p>
+  </div>
+</footer>

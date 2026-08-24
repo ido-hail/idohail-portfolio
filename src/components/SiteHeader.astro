@@ -1,0 +1,57 @@
+---
+import { siteConfig } from "../config/site";
+
+const currentPath = Astro.url.pathname;
+
+const navLinkClass = (isActive: boolean) =>
+  `rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900 ${
+    isActive ? "text-slate-900" : "text-slate-600 hover:text-blue-600"
+  }`;
+---
+
+<header class="border-b border-slate-200">
+  <div
+    class="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-x-8 sm:px-8 lg:px-12"
+  >
+    <a
+      href="/"
+      class="rounded text-lg font-semibold tracking-tight text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900"
+    >
+      {siteConfig.name}
+    </a>
+    <nav aria-label="Primary">
+      <ul
+        class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium sm:gap-x-8"
+      >
+        {
+          siteConfig.nav.map((item) => {
+            const isActive = item.href === currentPath;
+            return (
+              <li>
+                <a
+                  href={item.href}
+                  aria-current={isActive ? "page" : undefined}
+                  class={navLinkClass(isActive)}
+                >
+                  {item.label}
+                </a>
+              </li>
+            );
+          })
+        }
+        {
+          siteConfig.resumePath && (
+            <li>
+              <a
+                href={siteConfig.resumePath}
+                class="rounded border border-slate-300 px-3 py-1 text-slate-700 hover:border-blue-600 hover:text-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900"
+              >
+                Resume
+              </a>
+            </li>
+          )
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

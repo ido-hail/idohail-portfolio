@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+@theme {
+  /* System font stack, per the no-webfonts / neutral-technical visual requirement. */
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+}

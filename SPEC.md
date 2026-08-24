@@ -8,7 +8,7 @@
 
 ## 1. Goals
 
-* Present a credible, professional engineering profile to technical recruiters and hiring managers for DevOps, Technical Operations, DataOps, and adjacent infrastructure-oriented roles.
+* Present a single, credible engineering identity — **Technical Operations & Engineering**, spanning DevOps/cloud/platform work, Data Operations/Data Engineering, and technical leadership — to technical recruiters and hiring managers, rather than reading as three disconnected personas.
 
 * Demonstrate — not just describe — good engineering practice. The repository, CI/CD pipeline, deployment model, security configuration, and documentation are themselves part of the portfolio.
 
@@ -38,49 +38,48 @@ The website is a statically generated multi-page site.
 
 #### `/` — Home
 
-Contains:
+A concise portfolio landing page. Content here is a teaser toward the dedicated routes below — it must not reproduce the resume or duplicate the depth found on `/projects/`, `/experience/`, or `/about/`.
 
-* **Hero / Intro**
+Contains, in order:
+
+* **Hero**
 
   * Name
-  * Professional title/tagline
-  * GitHub
-  * LinkedIn
-  * Email
-  * Resume link
+  * Primary positioning: "Technical Operations & Engineering"
+  * Supporting focus: "DevOps · Data Systems · Automation · Technical Leadership"
+  * Short 1–2 sentence value proposition
+  * CTAs: View Projects, Experience, Resume (Resume CTA only when the resume asset is available)
+  * No secondary GitHub/LinkedIn/Email link row in the Hero — those live in the Footer.
 
-* **About**
+* **Core Focus**
 
-  * Short professional summary focused on Technical Operations, DevOps, DataOps, automation, cloud infrastructure, data systems, and operational ownership.
+  * Three concise capability areas, presented as capabilities rather than separate job personas:
 
-* **How This Site Is Built**
+    * Lead & Operate
+    * Build & Automate
+    * Data & Reliability
 
-  * A short technical callout explaining that the site uses Astro, TypeScript, Tailwind CSS, GitHub Actions, and Cloudflare Workers.
-  * This must remain concise.
-  * The full technical explanation belongs in the site's project case study.
+* **Selected Work**
 
-* **Skills & Certifications**
+  * Prominent, visually weighted featured-project presentation.
+  * Intended final layout: one prominent featured project plus two smaller secondary featured projects.
+  * Driven by the Projects content collection's `Featured status` and ordering metadata once Content Collections exist (§4.1).
+  * Projects should emphasize problem/outcome before technology.
 
-  * Concise grouped presentation of relevant technologies and certifications.
-  * Example categories may include:
+* **Impact Snapshot**
 
-    * Cloud / Infrastructure
-    * CI/CD
-    * Containers / Orchestration
-    * Data / Databases
-    * Automation / Languages
-    * Observability
-    * Networking
-  * Avoid large keyword walls.
+  * Structural placeholder for a small number of measurable, evidence-based career outcomes.
+  * Compact, evidence-oriented presentation rather than a resume-style bullet list.
+  * Must not contain invented or unverified metrics.
 
-* **Contact**
+* **Short About**
 
-  * Static links only:
+  * Concise professional positioning.
+  * Links to `/about/` for the full story.
 
-    * Email
-    * GitHub
-    * LinkedIn
-    * Resume
+* **Contact / CTA**
+
+  * A distinct closing call-to-action (e.g. "Let's Connect"), not a duplicate of the Footer's link list.
 
 No contact form is required.
 
@@ -141,17 +140,42 @@ The portfolio website itself must appear as one project with a complete case stu
 * Dependency maintenance
 * Technical trade-offs
 
+#### `/about`
+
+The full professional story — the depth that would otherwise be crammed onto the homepage. Contains:
+
+* Professional story
+* Full capability groups (see "Skills taxonomy" below)
+* Skills
+* Certifications
+* Working approach
+* AI-assisted engineering/tooling, where factual
+
+**Skills taxonomy**
+
+Skills and capabilities are organized around four durable, evidence-based groups:
+
+* Technical Leadership & Operations
+* Cloud, DevOps & Platform
+* Data & Automation
+* Engineering Productivity
+
+Do not present these as a keyword wall or with skill-level progress bars.
+
 ### 3.2 Navigation
 
 Persistent top-level navigation:
 
-* Home
-* Experience
 * Projects
+* Experience
 * About
-* Contact
+* Resume
 
-`About` and `Contact` may navigate to homepage anchors.
+`Home` is not a separate primary navigation item — the site name/logo links to `/`.
+
+`Resume` links directly to the resume PDF asset (§5); it is not a page route, and it is omitted from navigation while no resume asset is configured.
+
+`Contact` is not a primary navigation item. Contact links appear in the homepage's closing Contact/CTA section and persist in the Footer.
 
 A footer repeats the key external/contact links.
 
@@ -184,6 +208,8 @@ Typical project metadata may include:
 * Featured status
 * Ordering metadata
 
+`Featured status` and ordering metadata are what will drive the homepage's Selected Work section (§3.1) once this collection exists.
+
 The file name / entry ID should be used as the route identifier unless a separate custom slug provides a concrete benefit.
 
 Typical experience metadata may include:
@@ -212,13 +238,15 @@ The same principle applies to experience entries.
 
 ## 5. Resume
 
-A current resume PDF is stored as a static site asset and linked from the Hero and Contact areas.
+A current resume PDF is stored as a static site asset and linked from the Hero, primary navigation, and Footer.
+
+The resume link is a direct link to the PDF asset — there is no dedicated `/resume/` route.
 
 The resume is maintained manually.
 
 There is no resume-generation pipeline.
 
-The resume link must remain easy to find and work without JavaScript.
+The resume link must remain easy to find and work without JavaScript. Where the resume asset is not yet configured, the link must not be rendered rather than pointing to a broken or placeholder URL.
 
 ---
 
@@ -244,6 +272,10 @@ The resume link must remain easy to find and work without JavaScript.
 
 * Avoid visual choices whose primary purpose is demonstrating frontend complexity.
 
+* Restrained cards, subtle section backgrounds, and one subtle accent color are permitted only where they improve hierarchy and scannability — not as decoration for its own sake.
+
+* Explicitly avoid: card-heavy UI, skill-level progress bars, decorative dashboards, gradients or illustrations without informational value, and visual complexity whose main purpose is demonstrating frontend skill rather than serving the content.
+
 ### 6.1 Responsive Design
 
 The website must work correctly from small mobile widths through large desktop displays.
@@ -264,6 +296,19 @@ Representative verification widths:
 * ~1440px
 
 These are verification points, not hard-coded breakpoints.
+
+### 6.2 Homepage Presentation
+
+The homepage must not render as a repeated sequence of identical heading-divider-paragraph sections. Presentation should match each section's content type:
+
+* Hero — strong typography and whitespace.
+* Core Focus — a restrained three-column capability presentation.
+* Selected Work — project-oriented visual hierarchy, given real visual weight; may use a wider canvas than the surrounding prose sections.
+* Impact Snapshot — compact, evidence-oriented presentation.
+* Short About — short prose.
+* Contact CTA — a distinct closing block.
+
+Project-oriented sections may use a wider layout, but prose line length must remain readable, constrained independently of the outer container width.
 
 ---
 
@@ -1060,9 +1105,10 @@ After launch:
 Verify the resume link from:
 
 * Hero
-* Contact
+* Primary navigation
+* Footer
 
-Confirm it resolves to the current PDF.
+Confirm it resolves to the current PDF, and confirm the link (and the primary navigation entry) do not render while no resume asset is configured.
 
 ---
 
