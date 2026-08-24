@@ -27,12 +27,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Current commands
 
 ```bash
-npm run dev       # local dev server
-npm run build     # production static build
-npm run preview   # preview the production build locally
+npm run dev            # local dev server
+npm run build          # production static build
+npm run preview        # preview the production build locally
+npm run check          # astro check (Astro/TypeScript validation)
+npm run lint           # eslint .
+npm run format         # prettier --write .
+npm run format:check   # prettier --check .
+npm run verify         # format:check, then lint, then check, then build
 ```
 
-These are the only scripts that exist today. Do not assume `check`, `lint`, `format`, or `verify` exist until they are actually added to `package.json`.
+`npm run verify` runs `format:check`, `lint`, the Astro/TypeScript `check`, and the production `build`, in that order, as the local quality gate.
 
 ## Workflow
 
@@ -65,3 +70,4 @@ These are already implemented in `astro.config.mjs` / `package.json` and should 
 - `trailingSlash` is `always`.
 - `build.inlineStylesheets` is `never`.
 - Tailwind uses the Tailwind 4 Vite integration (`@tailwindcss/vite`), not `@astrojs/tailwind` or a `tailwind.config.js`.
+- TypeScript is intentionally kept on the current 6.x line because the installed `@astrojs/check` and `typescript-eslint` versions do not support TypeScript 7. Do not upgrade the TypeScript major without checking peer compatibility first.

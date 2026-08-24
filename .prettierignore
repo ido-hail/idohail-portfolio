@@ -1,0 +1,10 @@
+dist/
+.astro/
+node_modules/
+package-lock.json
+
+# Project-control documents: automated prose reformatting here creates
+# unnecessary churn. README.md, docs/*.md, and Markdown content files stay
+# within Prettier's normal scope.
+SPEC.md
+CLAUDE.md
