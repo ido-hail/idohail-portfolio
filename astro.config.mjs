@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 
+import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
@@ -14,6 +15,8 @@ export default defineConfig({
     // so `style-src 'self'` is sufficient for the production CSP.
     inlineStylesheets: "never",
   },
+
+  integrations: [sitemap()],
 
   vite: {
     plugins: [tailwindcss()],

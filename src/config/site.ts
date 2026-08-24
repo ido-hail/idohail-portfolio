@@ -14,6 +14,10 @@
  * asset rather than an internal route, and must not appear at all while
  * `resumePath` is null. Consumers render it as a separate, conditional
  * element alongside `nav` (see SiteHeader).
+ *
+ * There is no `siteUrl` field here: the canonical production origin
+ * lives in exactly one place, `astro.config.mjs`'s `site` value, read at
+ * render time via `Astro.site`. This avoids keeping two copies in sync.
  */
 
 export interface NavItem {
@@ -28,11 +32,6 @@ export interface SiteConfig {
   readonly positioning: string;
   /** Supporting focus areas, shown as a secondary line under the positioning. */
   readonly focus: string;
-  /**
-   * Canonical production site URL.
-   * Must match the `site` value in astro.config.mjs.
-   */
-  readonly siteUrl: string;
   readonly githubUrl: string;
   /** LinkedIn URL — `null` until the real value is supplied. */
   readonly linkedinUrl: string | null;
@@ -48,7 +47,6 @@ export const siteConfig: SiteConfig = {
   name: "Ido Hail",
   positioning: "Technical Operations & Engineering",
   focus: "DevOps · Data Systems · Automation · Technical Leadership",
-  siteUrl: "https://idohail.com",
   githubUrl: "https://github.com/ido-hail",
   linkedinUrl: null,
   email: null,

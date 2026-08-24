@@ -2,13 +2,42 @@
 import "../styles/global.css";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import { siteConfig } from "../config/site";
 
 interface Props {
   title: string;
-  description?: string;
+  description: string;
+  /** Open Graph type. Defaults to "website"; project case studies pass "article". */
+  type?: "website" | "article";
+  /** Per-page Open Graph/Twitter image, resolved to an absolute URL. Omitted entirely (no site-wide fallback exists yet) if not passed. */
+  ogImage?: string;
+  /** Pre-built JSON-LD object, serialized and embedded as-is. Only the homepage passes one this phase. */
+  jsonLd?: Record<string, unknown>;
 }
 
-const { title, description } = Astro.props;
+const { title, description, type = "website", ogImage, jsonLd } = Astro.props;
+
+// The canonical production origin lives in exactly one place —
+// astro.config.mjs's `site` value — never duplicated in siteConfig.
+const site = Astro.site;
+if (!site) {
+  throw new Error("Astro site URL is required for canonical SEO metadata.");
+}
+
+// Preserves the project's trailing-slash URL policy: Astro.url.pathname
+// already reflects `trailingSlash: "always"`, so this is correct for
+// every route, including the dynamic project slug route, with no
+// per-page canonical handling required.
+const canonicalUrl = new URL(Astro.url.pathname, site).toString();
+
+const absoluteOgImage = ogImage ? new URL(ogImage, site).toString() : undefined;
+
+// JSON.stringify already produces valid JSON; escaping "<" additionally
+// guards against a future JSON-LD value that happens to contain
+// "</script>" and would otherwise terminate the script block early.
+const jsonLdScript = jsonLd
+  ? JSON.stringify(jsonLd).replace(/</g, "\\u003c")
+  : undefined;
 ---
 
 <html lang="en">
@@ -16,7 +45,29 @@ const { title, description } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    {description && <meta name="description" content={description} />}
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={siteConfig.name} />
+    {absoluteOgImage && <meta property="og:image" content={absoluteOgImage} />}
+
+    <meta
+      name="twitter:card"
+      content={absoluteOgImage ? "summary_large_image" : "summary"}
+    />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {absoluteOgImage && <meta name="twitter:image" content={absoluteOgImage} />}
+
+    {
+      jsonLdScript && (
+        <script type="application/ld+json" is:inline set:html={jsonLdScript} />
+      )
+    }
   </head>
   <body
     class="flex min-h-screen flex-col bg-white font-sans text-slate-900 antialiased"

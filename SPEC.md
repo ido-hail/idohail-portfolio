@@ -510,7 +510,7 @@ Per-project OG images are optional.
 
 Provide:
 
-* `sitemap.xml`
+* `sitemap-index.xml` (with generated chunk file(s))
 * `robots.txt`
 * Canonical URLs
 
@@ -922,7 +922,7 @@ The initial production release is complete when all of the following are true:
 
 12. There is no unintended horizontal overflow.
 
-13. `sitemap.xml` resolves from production.
+13. `sitemap-index.xml` resolves from production.
 
 14. `robots.txt` resolves from production and references the correct production domain/sitemap.
 
@@ -1087,7 +1087,7 @@ Also resize between these widths to identify breakpoint-specific defects.
 
 From production:
 
-* Fetch `/sitemap.xml`.
+* Fetch `/sitemap-index.xml`.
 * Fetch `/robots.txt`.
 * Verify canonical URLs.
 * Verify Open Graph metadata.
