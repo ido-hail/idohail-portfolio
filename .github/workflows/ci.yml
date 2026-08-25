@@ -260,44 +260,51 @@ jobs:
             --message "main @ ${{ github.sha }}" \
             --tag "main-${{ github.sha }}"
 
-          node -e '
-            const fs = require("node:fs");
-            const outputPath = process.env.WRANGLER_OUTPUT_FILE_PATH;
-            const githubOutputPath = process.env.GITHUB_OUTPUT;
-            // Track the single latest version-upload object as a whole,
-            // not its fields independently — fields must both come from
-            // the SAME record, never combined across different records.
-            let latest = null;
-            try {
-              const lines = fs.readFileSync(outputPath, "utf8").split("\n").filter(Boolean);
-              for (const line of lines) {
-                let obj;
-                try {
-                  obj = JSON.parse(line);
-                } catch {
-                  continue;
-                }
-                if (obj && obj.type === "version-upload") {
-                  latest = obj;
-                }
+          # A quoted heredoc delimiter ('NODE_SCRIPT') means Bash treats
+          # everything up to the closing NODE_SCRIPT line as fully
+          # literal text — no quote/backtick/expansion parsing at all —
+          # so JavaScript comments and strings below may safely contain
+          # apostrophes, double quotes, or backticks without risking the
+          # kind of shell-quoting break a single-quoted `node -e '...'`
+          # string is vulnerable to.
+          node <<'NODE_SCRIPT'
+          const fs = require("node:fs");
+          const outputPath = process.env.WRANGLER_OUTPUT_FILE_PATH;
+          const githubOutputPath = process.env.GITHUB_OUTPUT;
+          // Track the single latest version-upload object as a whole,
+          // not its fields independently — fields must both come from
+          // the SAME record, never combined across different records.
+          let latest = null;
+          try {
+            const lines = fs.readFileSync(outputPath, "utf8").split("\n").filter(Boolean);
+            for (const line of lines) {
+              let obj;
+              try {
+                obj = JSON.parse(line);
+              } catch {
+                continue;
               }
-            } catch {}
-
-            const versionId = latest && latest.version_id ? latest.version_id : "";
-            const previewUrl = latest && latest.preview_url ? latest.preview_url : "";
-
-            if (!versionId) {
-              console.log("::error::wrangler versions upload did not report a version_id in the latest version-upload record in WRANGLER_OUTPUT_FILE_PATH");
-              process.exit(1);
+              if (obj && obj.type === "version-upload") {
+                latest = obj;
+              }
             }
-            if (!previewUrl) {
-              console.log("::error::wrangler versions upload did not report a preview_url in the latest version-upload record in WRANGLER_OUTPUT_FILE_PATH");
-              process.exit(1);
-            }
+          } catch {}
 
-            fs.appendFileSync(githubOutputPath, `version_id=${versionId}\n`);
-            fs.appendFileSync(githubOutputPath, `preview_url=${previewUrl}\n`);
-          '
+          const versionId = latest && latest.version_id ? latest.version_id : "";
+          const previewUrl = latest && latest.preview_url ? latest.preview_url : "";
+
+          if (!versionId) {
+            console.log("::error::wrangler versions upload did not report a version_id in the latest version-upload record in WRANGLER_OUTPUT_FILE_PATH");
+            process.exit(1);
+          }
+          if (!previewUrl) {
+            console.log("::error::wrangler versions upload did not report a preview_url in the latest version-upload record in WRANGLER_OUTPUT_FILE_PATH");
+            process.exit(1);
+          }
+
+          fs.appendFileSync(githubOutputPath, `version_id=${versionId}\n`);
+          fs.appendFileSync(githubOutputPath, `preview_url=${previewUrl}\n`);
+          NODE_SCRIPT
 
       # Explicitly promotes the exact version just uploaded to 100% of
       # production traffic, using the flag form (not shorthand). --version-id
@@ -353,32 +360,51 @@ jobs:
           # its absence after a zero exit code is treated as an error,
           # not best-effort: Cloudflare may already have applied the
           # deployment even though we can't confirm its ID here.
-          DEPLOYMENT_ID=$(node -e '
-            const fs = require("node:fs");
-            const path = process.env.WRANGLER_OUTPUT_FILE_PATH;
-            // Track the single latest version-deploy object as a whole.
-            // If that latest record lacks deployment_id, this must
-            // return empty — never fall back to an older record's deployment_id.
-            let latest = null;
-            try {
-              const lines = fs.readFileSync(path, "utf8").split("\n").filter(Boolean);
-              for (const line of lines) {
-                let obj;
-                try {
-                  obj = JSON.parse(line);
-                } catch {
-                  continue;
-                }
-                if (obj && obj.type === "version-deploy") {
-                  latest = obj;
-                }
+          #
+          # Quoted heredoc, same reasoning as the upload step above: the
+          # JavaScript comment below deliberately contains an apostrophe
+          # ("record's") — the exact pattern that broke the previous
+          # single-quoted `node -e '...'` form in production — to prove
+          # this construct tolerates it. The script writes deployment_id
+          # to GITHUB_OUTPUT itself and exits non-zero if it can't find
+          # one, so the shell branches on a real exit code rather than
+          # inspecting a captured string.
+          set +e
+          node <<'NODE_SCRIPT'
+          const fs = require("node:fs");
+          const path = process.env.WRANGLER_OUTPUT_FILE_PATH;
+          const githubOutputPath = process.env.GITHUB_OUTPUT;
+          // Track the single latest version-deploy object as a whole.
+          // If that latest record lacks deployment_id, this must fail
+          // closed — never fall back to an older record's deployment_id.
+          let latest = null;
+          try {
+            const lines = fs.readFileSync(path, "utf8").split("\n").filter(Boolean);
+            for (const line of lines) {
+              let obj;
+              try {
+                obj = JSON.parse(line);
+              } catch {
+                continue;
               }
-            } catch {}
-            const found = latest && latest.deployment_id ? latest.deployment_id : "";
-            process.stdout.write(found);
-          ')
+              if (obj && obj.type === "version-deploy") {
+                latest = obj;
+              }
+            }
+          } catch {}
 
-          if [ -z "$DEPLOYMENT_ID" ]; then
+          const deploymentId = latest && latest.deployment_id ? latest.deployment_id : "";
+
+          if (!deploymentId) {
+            process.exit(1);
+          }
+
+          fs.appendFileSync(githubOutputPath, `deployment_id=${deploymentId}\n`);
+          NODE_SCRIPT
+          PARSE_EXIT_CODE=$?
+          set -e
+
+          if [ "$PARSE_EXIT_CODE" -ne 0 ]; then
             {
               echo "### Cloudflare Production Deployment — AMBIGUOUS STATE"
               echo "- Commit: \`${{ github.sha }}\`"
@@ -390,8 +416,6 @@ jobs:
             echo "::error::wrangler versions deploy exited 0 but WRANGLER_OUTPUT_FILE_PATH did not contain a version-deploy object with a non-empty deployment_id. Cloudflare may already have applied this deployment — verify manually (dashboard or 'wrangler deployments list') before taking further action. Not automatically re-promoting."
             exit 1
           fi
-
-          echo "deployment_id=$DEPLOYMENT_ID" >> "$GITHUB_OUTPUT"
 
       - name: Publish production deployment summary
         run: |
