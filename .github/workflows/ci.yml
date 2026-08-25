@@ -189,3 +189,220 @@ jobs:
             echo "### Cloudflare Preview"
             echo "🔗 ${{ steps.wrangler_upload.outputs.preview_url }}"
           } >> "$GITHUB_STEP_SUMMARY"
+
+  production:
+    name: Production
+    needs: validate
+    # Explicit guard even though the workflow-level push trigger already
+    # restricts this to main — production is the highest-stakes job here.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    # Serialize production runs. A running job is never cancelled; if
+    # multiple pushes queue up, only the newest pending one survives
+    # (GitHub's default concurrency-group behavior) — final state always
+    # converges on the latest main commit, intermediate ones may be
+    # skipped entirely, which is acceptable here.
+    concurrency:
+      group: production
+      cancel-in-progress: false
+    # contents: read only. Referencing `environment:` records this run
+    # in the environment's deployment history automatically, regardless
+    # of token permissions — deployments: write would only be needed if
+    # this workflow called the Deployments REST API directly, which it
+    # does not. actions: read is not needed either: contents: read alone
+    # already proved sufficient for same-run download-artifact in the
+    # preview job's real executed run.
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      # npm ci here is only to obtain the repo-pinned wrangler binary
+      # (a devDependency) and read wrangler.jsonc — dist/ is not rebuilt.
+      - name: Install dependencies
+        run: npm ci
+
+      # Restores the exact artifact validate produced for this exact
+      # commit, directly into ./dist — matching wrangler.jsonc's
+      # assets.directory. No Astro rebuild.
+      - name: Download validated dist artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: dist-${{ github.sha }}
+          path: ./dist
+
+      # Uploads a new Worker version from the validated artifact. This
+      # alone does not shift any production traffic. The Node script
+      # itself validates and fails closed — no eval, no shell
+      # round-tripping of Wrangler's output. Both version_id and
+      # preview_url are required from the structured "version-upload"
+      # object — never constructed. preview_url is needed for
+      # post-production smoke testing, since preview_urls=true remains
+      # active for every version regardless of its production traffic
+      # status.
+      - name: Upload Cloudflare Worker version (production)
+        id: wrangler_upload
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/wrangler-upload.ndjson
+        run: |
+          npx wrangler versions upload \
+            --message "main @ ${{ github.sha }}" \
+            --tag "main-${{ github.sha }}"
+
+          node -e '
+            const fs = require("node:fs");
+            const outputPath = process.env.WRANGLER_OUTPUT_FILE_PATH;
+            const githubOutputPath = process.env.GITHUB_OUTPUT;
+            // Track the single latest version-upload object as a whole,
+            // not its fields independently — fields must both come from
+            // the SAME record, never combined across different records.
+            let latest = null;
+            try {
+              const lines = fs.readFileSync(outputPath, "utf8").split("\n").filter(Boolean);
+              for (const line of lines) {
+                let obj;
+                try {
+                  obj = JSON.parse(line);
+                } catch {
+                  continue;
+                }
+                if (obj && obj.type === "version-upload") {
+                  latest = obj;
+                }
+              }
+            } catch {}
+
+            const versionId = latest && latest.version_id ? latest.version_id : "";
+            const previewUrl = latest && latest.preview_url ? latest.preview_url : "";
+
+            if (!versionId) {
+              console.log("::error::wrangler versions upload did not report a version_id in the latest version-upload record in WRANGLER_OUTPUT_FILE_PATH");
+              process.exit(1);
+            }
+            if (!previewUrl) {
+              console.log("::error::wrangler versions upload did not report a preview_url in the latest version-upload record in WRANGLER_OUTPUT_FILE_PATH");
+              process.exit(1);
+            }
+
+            fs.appendFileSync(githubOutputPath, `version_id=${versionId}\n`);
+            fs.appendFileSync(githubOutputPath, `preview_url=${previewUrl}\n`);
+          '
+
+      # Explicitly promotes the exact version just uploaded to 100% of
+      # production traffic, using the flag form (not shorthand). --version-id
+      # + --percentage together already force non-interactive prompt
+      # defaults in Wrangler's own handler logic; --yes is passed too for
+      # explicit clarity. versions deploy has no route/domain/trigger
+      # flags at all — structurally incapable of touching routes, DNS,
+      # or custom domains.
+      #
+      # The wrangler exit code is captured explicitly (set +e / set -e)
+      # rather than relying on the shell's default -e, so this step can
+      # still report state on any failure mode before failing. A
+      # non-zero exit code does NOT prove the remote Cloudflare
+      # deployment was not created — a server-side promotion may
+      # theoretically have occurred before a transport/client failure
+      # was observed — so that case is reported as unknown/unverified
+      # state, never as "not promoted". No retry, no auto-promote, no
+      # auto-rollback in either failure case.
+      - name: Promote version to production (100%)
+        id: wrangler_promote
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/wrangler-deploy.ndjson
+        run: |
+          set +e
+          npx wrangler versions deploy \
+            --version-id "${{ steps.wrangler_upload.outputs.version_id }}" \
+            --percentage 100 \
+            --message "main @ ${{ github.sha }}" \
+            --yes
+          DEPLOY_EXIT_CODE=$?
+          set -e
+
+          if [ "$DEPLOY_EXIT_CODE" -ne 0 ]; then
+            {
+              echo "### Cloudflare Production Deployment — PROMOTION COMMAND FAILED"
+              echo "- Commit: \`${{ github.sha }}\`"
+              echo "- Worker: \`idohail-portfolio\`"
+              echo "- Version ID (uploaded): \`${{ steps.wrangler_upload.outputs.version_id }}\`"
+              echo "- Version Preview URL (uploaded version): ${{ steps.wrangler_upload.outputs.preview_url }}"
+              echo "- wrangler versions deploy exit code: $DEPLOY_EXIT_CODE"
+              echo "- Status: promotion command failed; remote Cloudflare deployment state is unverified. Inspect deployment history before taking further action."
+              echo ""
+              echo "Run \`npx wrangler deployments list\` or check the Cloudflare dashboard to determine the actual remote state before taking any further action."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::error::wrangler versions deploy exited $DEPLOY_EXIT_CODE. Remote Cloudflare deployment state is UNKNOWN/UNVERIFIED — a non-zero exit code does not prove the promotion did not occur server-side. Version ${{ steps.wrangler_upload.outputs.version_id }} was uploaded. Inspect 'npx wrangler deployments list' or the Cloudflare dashboard before taking further action. Not retrying, not auto-promoting, not rolling back."
+            exit 1
+          fi
+
+          # Parse only the labeled structured field. deployment_id is an
+          # officially-emitted field for a successful version-deploy —
+          # its absence after a zero exit code is treated as an error,
+          # not best-effort: Cloudflare may already have applied the
+          # deployment even though we can't confirm its ID here.
+          DEPLOYMENT_ID=$(node -e '
+            const fs = require("node:fs");
+            const path = process.env.WRANGLER_OUTPUT_FILE_PATH;
+            // Track the single latest version-deploy object as a whole.
+            // If that latest record lacks deployment_id, this must
+            // return empty — never fall back to an older record's deployment_id.
+            let latest = null;
+            try {
+              const lines = fs.readFileSync(path, "utf8").split("\n").filter(Boolean);
+              for (const line of lines) {
+                let obj;
+                try {
+                  obj = JSON.parse(line);
+                } catch {
+                  continue;
+                }
+                if (obj && obj.type === "version-deploy") {
+                  latest = obj;
+                }
+              }
+            } catch {}
+            const found = latest && latest.deployment_id ? latest.deployment_id : "";
+            process.stdout.write(found);
+          ')
+
+          if [ -z "$DEPLOYMENT_ID" ]; then
+            {
+              echo "### Cloudflare Production Deployment — AMBIGUOUS STATE"
+              echo "- Commit: \`${{ github.sha }}\`"
+              echo "- Worker: \`idohail-portfolio\`"
+              echo "- Version ID: \`${{ steps.wrangler_upload.outputs.version_id }}\`"
+              echo "- Version Preview URL: ${{ steps.wrangler_upload.outputs.preview_url }}"
+              echo "- Status: wrangler versions deploy exited 0, but no version-deploy object with a deployment_id was found in structured output. Cloudflare may already have created the deployment — verify manually before taking any action."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::error::wrangler versions deploy exited 0 but WRANGLER_OUTPUT_FILE_PATH did not contain a version-deploy object with a non-empty deployment_id. Cloudflare may already have applied this deployment — verify manually (dashboard or 'wrangler deployments list') before taking further action. Not automatically re-promoting."
+            exit 1
+          fi
+
+          echo "deployment_id=$DEPLOYMENT_ID" >> "$GITHUB_OUTPUT"
+
+      - name: Publish production deployment summary
+        run: |
+          {
+            echo "### Cloudflare Production Deployment"
+            echo "- Commit: \`${{ github.sha }}\`"
+            echo "- Worker: \`idohail-portfolio\`"
+            echo "- Version ID: \`${{ steps.wrangler_upload.outputs.version_id }}\`"
+            echo "- Deployment ID: \`${{ steps.wrangler_promote.outputs.deployment_id }}\`"
+            echo "- Version Preview URL (verification only): ${{ steps.wrangler_upload.outputs.preview_url }}"
+            echo "- Status: promoted to 100%"
+            echo ""
+            echo "_No production hostname/custom domain is attached yet — the Preview URL above is for verification only, not the GitHub environment URL._"
+          } >> "$GITHUB_STEP_SUMMARY"
