@@ -90,3 +90,102 @@ jobs:
           name: dist-${{ github.sha }}
           path: dist/
           retention-days: 3
+
+  preview:
+    name: Preview
+    needs: validate
+    # Only same-repo PRs targeting main (the pull_request trigger above
+    # already restricts the base branch). Fork PRs are excluded because
+    # their head repo differs from this one, so Cloudflare credentials
+    # are never reachable from a fork's workflow run. Dependabot PRs are
+    # excluded explicitly by PR author, since Dependabot opens PRs from
+    # branches inside this same repository (not a fork), so the fork
+    # check alone would not exclude them.
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.user.login != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      # npm ci here is only to obtain the repo-pinned wrangler binary
+      # (a devDependency) and read wrangler.jsonc — dist/ is not rebuilt.
+      - name: Install dependencies
+        run: npm ci
+
+      # Restores the exact artifact validate produced, directly into
+      # ./dist (upload-artifact archived dist/'s contents, not the
+      # folder itself, so download-artifact's `path` lands them here
+      # unnested) — matching wrangler.jsonc's assets.directory.
+      - name: Download validated dist artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: dist-${{ github.sha }}
+          path: ./dist
+
+      # versions upload only creates a new Worker version + Preview URL.
+      # It never promotes traffic, attaches routes/domains, or touches
+      # DNS. Structured output is written to WRANGLER_OUTPUT_FILE_PATH
+      # (NDJSON) instead of being parsed from human-readable stdout;
+      # that path lives under runner.temp, not the repo workspace, so
+      # it can never end up inside dist/ or the uploaded artifact.
+      - name: Upload Cloudflare Worker version (preview)
+        id: wrangler_upload
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/wrangler-output.ndjson
+        run: |
+          npx wrangler versions upload \
+            --message "PR #${{ github.event.pull_request.number }} @ ${{ github.sha }}" \
+            --tag "pr-${{ github.event.pull_request.number }}"
+
+          # Parse only Wrangler's own structured NDJSON output. Take the
+          # most recent version-upload object with a non-empty
+          # preview_url. Never construct/guess a URL from the Worker
+          # name or version ID. Uses the already-installed Node 24
+          # runtime — no jq, no extra dependency.
+          PREVIEW_URL=$(node -e '
+            const fs = require("node:fs");
+            const path = process.env.WRANGLER_OUTPUT_FILE_PATH;
+            let found = "";
+            try {
+              const lines = fs.readFileSync(path, "utf8").split("\n").filter(Boolean);
+              for (const line of lines) {
+                let obj;
+                try {
+                  obj = JSON.parse(line);
+                } catch {
+                  continue;
+                }
+                if (obj && obj.type === "version-upload" && obj.preview_url) {
+                  found = obj.preview_url;
+                }
+              }
+            } catch {}
+            process.stdout.write(found);
+          ')
+
+          if [ -z "$PREVIEW_URL" ]; then
+            echo "::error::wrangler versions upload did not report a version-upload object with preview_url in WRANGLER_OUTPUT_FILE_PATH"
+            exit 1
+          fi
+
+          echo "preview_url=$PREVIEW_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Publish preview URL to job summary
+        run: |
+          {
+            echo "### Cloudflare Preview"
+            echo "🔗 ${{ steps.wrangler_upload.outputs.preview_url }}"
+          } >> "$GITHUB_STEP_SUMMARY"
