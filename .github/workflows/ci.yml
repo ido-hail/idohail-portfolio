@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Each quality gate runs as its own step (rather than one
+      # `npm run verify` step) so a failure is visible per-gate in the
+      # GitHub Actions UI. The gates themselves stay defined once, in
+      # package.json — this only orchestrates them separately.
+      - name: Format check
+        run: npm run format:check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Astro/TypeScript check
+        run: npm run check
+
+      # The one and only production build. Both link-check passes and the
+      # uploaded artifact operate on this exact dist/ — nothing rebuilds
+      # after this step.
+      - name: Build
+        run: npm run build
+
+      # Internal links: blocking. --offline makes zero network requests,
+      # so this can't be flaky; --root-dir resolves root-relative hrefs
+      # (e.g. /about/) against the built dist/ output.
+      - name: Check internal links (blocking)
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: >-
+            --offline
+            --root-dir ./dist
+            --no-progress
+            './dist/**/*.html'
+            './dist/**/*.xml'
+          fail: true
+          token: ""
+
+      # External links: best effort. Network-enabled, so a flaky/slow
+      # third party (e.g. github.com) must not fail CI.
+      #
+      # TEMPORARY: idohail.com is excluded here only because the custom
+      # production domain is not live yet (SPEC §14.3) — canonical/OG
+      # self-links currently point at a domain nothing is deployed to.
+      # Remove this --exclude once the custom domain is attached so those
+      # self-links get checked too.
+      - name: Check external links (best effort)
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        continue-on-error: true
+        with:
+          args: >-
+            --root-dir ./dist
+            --no-progress
+            --exclude '^https://idohail\.com/'
+            './dist/**/*.html'
+          fail: true
+          failIfEmpty: false
+          token: ""
+
+      # Uploaded once per commit under a SHA-scoped name so a future
+      # Preview/Production job in this SAME workflow run (needs: validate)
+      # can download this exact validated dist/ without rebuilding.
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist-${{ github.sha }}
+          path: dist/
+          retention-days: 3
