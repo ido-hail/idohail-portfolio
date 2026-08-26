@@ -817,33 +817,39 @@ The repository must contain:
 
 ### `README.md`
 
-Public entry point for the repository.
+Public entry point for the repository. This repository is published as
+part of a personal engineering portfolio, for recruiters, hiring
+managers, and engineers to inspect the architecture, implementation
+quality, and engineering decisions — not as an open-source project, a
+reusable template, or a repository a third party is expected to run a
+copy of. `README.md` is a concise technical overview, not a setup guide.
 
 Include:
 
 * What the project is
-* Live production URL
+* Deployment status, stated truthfully (do not describe a domain as
+  live before it is attached and verified)
 * Architecture summary
 * Technology stack
-* Supported Node version
-* Local setup
-* Development command
-* Validation commands
-* Production build command
-* CI/CD summary
-* Deployment summary
-* How to add a project
-* How to add an experience entry
-* Links to architecture/deployment documentation
+* Engineering approach summary
+* CI/CD architecture summary
+* Security posture summary
+* Important repository structure
+* Links to `docs/ARCHITECTURE.md` and `docs/DEPLOYMENT.md`
+* Copyright / proprietary status
 
-Use reproducible setup instructions such as:
+Do not include:
 
-```bash
-npm ci
-npm run dev
-```
+* Installation or local environment setup instructions
+* Development, build, or validation commands (e.g. `npm ci`,
+  `npm run dev`, `npm run build`, `npm run verify`)
+* Clone or reproduction instructions
+* "How to add a project" / "how to add an experience entry" content
+  workflow instructions
 
-rather than assuming undocumented local state.
+These commands remain valid internal engineering commands, defined in
+`package.json` and exercised by CI (§8.2, §11) — `README.md` simply does
+not teach a third party how to reproduce the project locally.
 
 ### `SPEC.md`
 
@@ -857,7 +863,8 @@ Do not turn it into a development diary.
 
 ### `docs/ARCHITECTURE.md`
 
-Explain:
+Explain the architecture and its rationale — not a tutorial for cloning
+or operating another copy of the site:
 
 * Repository structure
 * Application architecture
@@ -867,17 +874,25 @@ Explain:
 * Why Cloudflare Workers Static Assets
 * Why there is no backend
 * CI/CD architecture
-* Preview deployment model
+* Preview/Production deployment model
 * Important trade-offs
+
+It may describe how content is modeled internally (e.g. Content
+Collection schemas) as part of explaining the application architecture.
+It is not a guide for provisioning or operating another copy of the
+site.
 
 Keep it concise and technically meaningful.
 
 ### `docs/DEPLOYMENT.md`
 
-Explain:
+Explain the architecture and operational behavior of this project's own
+deployment system, for an authorized maintainer with the required
+Cloudflare/GitHub access — not a general guide for provisioning or
+recreating this project in another account:
 
 * Cloudflare prerequisites
-* Required GitHub secrets
+* Required GitHub secrets (names, not values)
 * CI flow
 * Preview flow
 * Production deployment
@@ -885,6 +900,13 @@ Explain:
 * Security-header deployment
 * Production verification
 * Rollback/recovery procedure
+
+### `LICENSE`
+
+Proprietary, all-rights-reserved notice. Public visibility of this
+repository is for portfolio review and reference only and must not be
+described as permission to reuse, copy, modify, or redistribute the
+source code.
 
 ### Not Required
 
@@ -944,7 +966,7 @@ The initial production release is complete when all of the following are true:
 
 23. Dependabot configuration is active.
 
-24. `README.md`, `SPEC.md`, `docs/ARCHITECTURE.md`, and `docs/DEPLOYMENT.md` exist and accurately reflect the implemented system.
+24. `README.md`, `LICENSE`, `SPEC.md`, `docs/ARCHITECTURE.md`, and `docs/DEPLOYMENT.md` exist and accurately reflect the implemented system.
 
 25. An authorized maintainer with the required Cloudflare/GitHub access can understand the production deployment procedure from documentation alone.
 
@@ -967,18 +989,22 @@ Critical/actionable findings should be investigated rather than optimizing solel
 
 Run before initial launch and after material architecture/deployment changes.
 
-### 18.1 Fresh Clone
+### 18.1 Local Build Verification
 
-Clone the repository into a clean location.
+Performed by the developer during development and after material
+architecture/deployment changes. This is an internal engineering check,
+not a public reproduction workflow — it is not documented in
+`README.md` as a setup guide.
 
-Using only `README.md`:
+From a clean checkout:
 
 ```bash
 npm ci
 npm run dev
 ```
 
-Then run all documented validation and production-build commands.
+Then run the validation and production-build commands defined in
+`package.json` (`npm run verify`).
 
 Confirm no undocumented local dependency is required.
 
