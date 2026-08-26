@@ -45,32 +45,38 @@ Contains, in order:
 * **Hero**
 
   * Name
-  * Primary positioning: "Technical Operations & Engineering"
-  * Supporting focus: "DevOps · Data Systems · Automation · Technical Leadership"
+  * Primary positioning: "Technical Operations"
+  * Supporting focus: "Production Systems · Reliability & Automation · Cloud Infrastructure · Data & Integrations"
   * Short 1–2 sentence value proposition
   * CTAs: View Projects, Experience, Resume (Resume CTA only when the resume asset is available)
   * No secondary GitHub/LinkedIn/Email link row in the Hero — those live in the Footer.
+
+  The positioning is deliberately a professional domain rather than a single job title, and the focus ordering is intentional: production first, then reliability/automation, then cloud, then data/integrations. Data is significant technical depth but must not lead the profile, and cloud/DevOps capability is evidenced through projects rather than presented as professional tenure.
+
+* **Impact Snapshot**
+
+  * A small number of measurable, evidence-based career outcomes.
+  * Compact, evidence-oriented presentation rather than a resume-style bullet list.
+  * Must not contain invented or unverified metrics.
+  * Placed directly below the Hero, so the positioning claim is supported by evidence before the reader reaches the capability and project sections.
 
 * **Core Focus**
 
   * Three concise capability areas, presented as capabilities rather than separate job personas:
 
-    * Lead & Operate
-    * Build & Automate
-    * Data & Reliability
+    * Production & Reliability
+    * Automation & Data Systems
+    * Cloud & Infrastructure
+
+  * Leadership is a differentiator expressed through the Short About, About page and Experience entries — it must not become a fourth capability area.
 
 * **Selected Work**
 
   * Prominent, visually weighted featured-project presentation.
-  * Intended final layout: one prominent featured project plus two smaller secondary featured projects.
-  * Driven by the Projects content collection's `Featured status` and ordering metadata once Content Collections exist (§4.1).
+  * Intended layout: one prominent featured project plus one or more smaller secondary featured projects, degrading cleanly by the number of featured entries.
+  * Driven by the Projects content collection's `Featured status` and ordering metadata (§4.1).
   * Projects should emphasize problem/outcome before technology.
-
-* **Impact Snapshot**
-
-  * Structural placeholder for a small number of measurable, evidence-based career outcomes.
-  * Compact, evidence-oriented presentation rather than a resume-style bullet list.
-  * Must not contain invented or unverified metrics.
+  * Cards are text-only; project diagrams and screenshots belong inside the individual case studies.
 
 * **Short About**
 
@@ -145,22 +151,27 @@ The portfolio website itself must appear as one project with a complete case stu
 The full professional story — the depth that would otherwise be crammed onto the homepage. Contains:
 
 * Professional story
+* Professional progression
 * Full capability groups (see "Skills taxonomy" below)
-* Skills
-* Certifications
 * Working approach
-* AI-assisted engineering/tooling, where factual
+* Technical training
 
 **Skills taxonomy**
 
 Skills and capabilities are organized around four durable, evidence-based groups:
 
-* Technical Leadership & Operations
-* Cloud, DevOps & Platform
-* Data & Automation
-* Engineering Productivity
+* Production Operations & Reliability
+* Automation & Data Systems
+* Cloud & Infrastructure
+* Systems & Security Foundations
 
 Do not present these as a keyword wall or with skill-level progress bars.
+
+**Evidence accuracy**
+
+The site's structure already separates evidence: Experience is professional work, Projects are hands-on engineering projects, and training is training. Do not attach repetitive source disclaimers to every group; clarify the source only where ambiguity would otherwise overclaim.
+
+Completed coursework must not be presented as formal certification. Items such as the CCNA or MCSA curricula are training programs, not earned certifications, and there is no Certifications section.
 
 ### 3.2 Navigation
 
@@ -216,10 +227,12 @@ Typical experience metadata may include:
 
 * Company
 * Role
-* Start date
-* End date
+* Start year
+* End year (omitted for a current role)
 * Ordering metadata
 * Technology tags where useful
+
+Employment dates are published at year precision. The schema stores years as integers rather than a more precise value the site would immediately discard when rendering, and month-level dates are deliberately not published.
 
 Schemas should use Astro's supported Zod integration and provide compile-time/type-checking support.
 
@@ -302,9 +315,9 @@ These are verification points, not hard-coded breakpoints.
 The homepage must not render as a repeated sequence of identical heading-divider-paragraph sections. Presentation should match each section's content type:
 
 * Hero — strong typography and whitespace.
+* Impact Snapshot — compact, evidence-oriented presentation.
 * Core Focus — a restrained three-column capability presentation.
 * Selected Work — project-oriented visual hierarchy, given real visual weight; may use a wider canvas than the surrounding prose sections.
-* Impact Snapshot — compact, evidence-oriented presentation.
 * Short About — short prose.
 * Contact CTA — a distinct closing block.
 

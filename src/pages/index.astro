@@ -19,26 +19,39 @@ const eyebrowHeading =
 
 const coreFocusItems = [
   {
-    title: "Lead & Operate",
+    title: "Production & Reliability",
     description:
-      "Own technical operations, incidents, cross-functional delivery, and the processes that keep systems and teams running reliably.",
+      "Owning how production actually behaves: monitoring and alerting, incident investigation, root-cause analysis, and getting releases ready to ship safely. The work that keeps systems dependable rather than merely deployed.",
   },
   {
-    title: "Build & Automate",
+    title: "Automation & Data Systems",
     description:
-      "Build practical cloud, CI/CD, container, and automation workflows with reliability and maintainability in mind.",
+      "SQL and Python automation across production databases and pipelines — data-quality controls, validation, API and integration work, and the operational tooling that replaces manual routine.",
   },
   {
-    title: "Data & Reliability",
+    title: "Cloud & Infrastructure",
     description:
-      "Build and validate data workflows using automation, observability, orchestration, and data-quality practices.",
+      "AWS, Docker, Kubernetes and Terraform applied to complete delivery lifecycles, with CI/CD, immutable image delivery and Prometheus/Grafana monitoring. Built hands-on in the projects below.",
   },
 ] as const;
 
+// Each item carries its own headline value; the section is evidence, so
+// nothing here is rendered without a real measured outcome behind it.
 const impactItems = [
-  "Measurable outcome — added in a later phase.",
-  "Measurable outcome — added in a later phase.",
-  "Measurable outcome — added in a later phase.",
+  {
+    value: "2M+",
+    description: "Production environment supporting 2M+ users.",
+  },
+  {
+    value: ">30%",
+    description:
+      "Fewer production data incidents after building an automated SQL and Python data-quality framework.",
+  },
+  {
+    value: "Real-time",
+    description:
+      "Detection of production issues moved from next-day discovery to immediate alerting.",
+  },
 ] as const;
 
 // Selected Work degrades gracefully with the number of featured projects
@@ -80,7 +93,7 @@ const personJsonLd = {
 
 <BaseLayout
   title={`${siteConfig.name} — ${siteConfig.positioning}`}
-  description={`${siteConfig.positioning} — ${siteConfig.focus}`}
+  description="Technical Operations: production reliability, monitoring and automation in environments serving 2M+ users, plus hands-on cloud and infrastructure engineering projects."
   jsonLd={personJsonLd}
 >
   <!-- Hero -->
@@ -98,9 +111,11 @@ const personJsonLd = {
       {siteConfig.focus}
     </p>
     <p class="mt-6 max-w-2xl text-lg leading-relaxed text-slate-600">
-      I design, build, and operate reliable technical systems — combining
-      hands-on engineering with operational ownership across cloud, automation,
-      and data workflows.
+      I work on production systems: operating them, improving their reliability
+      and visibility, and turning recurring operational problems into automated
+      controls. Most of that experience comes from production environments
+      serving more than 2M users; my cloud and infrastructure work is
+      demonstrated through the projects on this site.
     </p>
     <div class="mt-8 flex flex-wrap items-center gap-4">
       <a href="/projects/" class={buttonPrimary}>View Projects</a>
@@ -111,6 +126,27 @@ const personJsonLd = {
             Resume →
           </a>
         )
+      }
+    </div>
+  </section>
+
+  <!-- Impact Snapshot -->
+  <section aria-labelledby="impact-heading" class="mt-24">
+    <h2 id="impact-heading" class={eyebrowHeading}>Impact Snapshot</h2>
+    <div
+      class="mt-6 grid grid-cols-1 divide-y divide-slate-200 sm:grid-cols-3 sm:divide-x sm:divide-y-0"
+    >
+      {
+        impactItems.map((item) => (
+          <div class="py-4 first:pt-0 sm:px-8 sm:py-0 sm:first:pl-0">
+            <p class="text-3xl font-bold tracking-tight text-slate-900">
+              {item.value}
+            </p>
+            <p class="mt-2 max-w-xs text-sm text-slate-600">
+              {item.description}
+            </p>
+          </div>
+        ))
       }
     </div>
   </section>
@@ -144,8 +180,9 @@ const personJsonLd = {
       <a href="/projects/" class={linkAccent}>View all projects →</a>
     </div>
     <p class="mt-3 max-w-2xl text-base leading-relaxed text-slate-600">
-      A few things I've built and operated. Full case studies are being migrated
-      into this section in a later phase.
+      Two projects where the engineering decisions are the point — how
+      infrastructure gets delivered safely, and what it costs to keep a system
+      simple.
     </p>
 
     {
@@ -156,8 +193,7 @@ const personJsonLd = {
       ) : (
         <div class={selectedWorkGridClass}>
           <article class={primaryCardClass}>
-            <div class="aspect-video w-full rounded-lg border border-slate-200 bg-slate-100" />
-            <p class={`mt-6 ${eyebrowHeading}`}>Featured Project</p>
+            <p class={eyebrowHeading}>Featured Project</p>
             <h3 class="mt-2 text-xl font-semibold text-slate-900">
               <a
                 href={`/projects/${primaryProject.id}/`}
@@ -213,23 +249,6 @@ const personJsonLd = {
     }
   </section>
 
-  <!-- Impact Snapshot -->
-  <section aria-labelledby="impact-heading" class="mt-24">
-    <h2 id="impact-heading" class={eyebrowHeading}>Impact Snapshot</h2>
-    <div
-      class="mt-6 grid grid-cols-1 divide-y divide-slate-200 sm:grid-cols-3 sm:divide-x sm:divide-y-0"
-    >
-      {
-        impactItems.map((label) => (
-          <div class="py-4 first:pt-0 sm:px-8 sm:py-0 sm:first:pl-0">
-            <p class="text-3xl font-bold tracking-tight text-slate-900">—</p>
-            <p class="mt-2 max-w-xs text-sm text-slate-600">{label}</p>
-          </div>
-        ))
-      }
-    </div>
-  </section>
-
   <!-- Short About -->
   <section aria-labelledby="about-heading" class="mt-24">
     <h2
@@ -239,12 +258,13 @@ const personJsonLd = {
       About
     </h2>
     <p class="mt-4 max-w-2xl text-base leading-relaxed text-slate-600">
-      I'm an engineer who works across technical operations, DevOps, and data
-      systems — equally comfortable owning an incident, building a deployment
-      pipeline, or validating a data workflow. My focus is dependable systems,
-      clear operational ownership, and automation that actually holds up in
-      production. This site collects the projects, experience, and case studies
-      behind that work.
+      My background is Technical Operations — production operations, incident
+      investigation, monitoring and automation in environments where downtime
+      and bad data both have real consequences. That grew into release ownership
+      and leading a small technical team. More recently I've extended the same
+      operational thinking into hands-on cloud and infrastructure projects:
+      provisioning, delivery pipelines, and the controls that make them safe to
+      run.
     </p>
     <a href="/about/" class={`mt-4 inline-block ${linkAccent}`}
       >Read more about me →</a
@@ -260,11 +280,11 @@ const personJsonLd = {
       id="contact-heading"
       class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl"
     >
-      Let's Connect
+      Get in touch
     </h2>
     <p class="mt-3 max-w-xl text-base leading-relaxed text-slate-600">
-      Open to technical operations, DevOps, and data engineering roles where
-      reliability and ownership matter. Reach out, or start with the resume.
+      If something here is relevant to what you're working on, I'm easy to
+      reach.
     </p>
     <div class="mt-6 flex flex-wrap items-center gap-4">
       {

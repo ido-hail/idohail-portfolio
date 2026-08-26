@@ -21,15 +21,12 @@ const experience = defineCollection({
   schema: z.object({
     company: z.string(),
     role: z.string(),
-    // Month-precision dates only — validated as literal YYYY-MM strings
-    // rather than coerced JS Dates, since portfolio dates never need
-    // day-level precision or timezone handling.
-    startDate: z.string().regex(/^\d{4}-\d{2}$/),
-    // Omitted endDate means the role is current/ongoing.
-    endDate: z
-      .string()
-      .regex(/^\d{4}-\d{2}$/)
-      .optional(),
+    // Year precision only. Employment dates are published as years, so
+    // the schema stores exactly that rather than a more precise value
+    // the site would immediately discard when rendering.
+    startYear: z.number().int(),
+    // Omitted endYear means the role is current/ongoing.
+    endYear: z.number().int().optional(),
     order: z.number().int().nonnegative(),
     tags: z.array(z.string()).default([]),
   }),

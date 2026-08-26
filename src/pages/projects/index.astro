@@ -24,11 +24,18 @@ const projectsGridClass =
 
 <BaseLayout
   title={`Projects — ${siteConfig.name}`}
-  description="Selected engineering projects and case studies, covering problem, architecture, and outcome."
+  description="Engineering projects covering AWS delivery lifecycles, DevSecOps release gates, and the static architecture behind this site."
 >
   <h1 class="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
     Projects
   </h1>
+
+  <p class="mt-5 max-w-2xl text-base leading-relaxed text-slate-600">
+    Three projects, each answering a different question. Two are infrastructure
+    projects built around existing open-source applications — the applications
+    are the payload, the engineering is everything around them. The third is
+    this site.
+  </p>
 
   {
     projects.length === 0 ? (
