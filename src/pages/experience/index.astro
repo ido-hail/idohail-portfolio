@@ -19,14 +19,14 @@ const rendered = await Promise.all(
   })),
 );
 
-function formatDateRange(start: string, end: string | undefined) {
+function formatYearRange(start: number, end: number | undefined) {
   return `${start} — ${end ?? "Present"}`;
 }
 ---
 
 <BaseLayout
   title={`Experience — ${siteConfig.name}`}
-  description="Professional experience, scope of ownership, and impact across technical operations and engineering roles."
+  description="Technical operations experience at YuviTal: production ownership, monitoring and automation, data-quality engineering, and leading a small technical team."
 >
   <h1 class="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
     Experience
@@ -35,7 +35,7 @@ function formatDateRange(start: string, end: string | undefined) {
   {
     rendered.length === 0 ? (
       <p class="mt-5 max-w-2xl text-base leading-relaxed text-slate-600">
-        Professional experience entries will be added in a later phase.
+        No experience entries are currently available.
       </p>
     ) : (
       <div class="mt-10 space-y-12">
@@ -46,7 +46,7 @@ function formatDateRange(start: string, end: string | undefined) {
                 {entry.data.role} · {entry.data.company}
               </h2>
               <p class="text-sm font-medium text-slate-500">
-                {formatDateRange(entry.data.startDate, entry.data.endDate)}
+                {formatYearRange(entry.data.startYear, entry.data.endYear)}
               </p>
             </div>
             {entry.data.tags.length > 0 && (

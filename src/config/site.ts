@@ -5,9 +5,11 @@
  * (identity, external links, primary navigation). Components and pages
  * should read from here rather than hard-coding these values locally.
  *
- * `linkedinUrl`, `email`, and `resumePath` are `null` because the real
- * values have not been supplied yet. Consumers must render these links
- * conditionally rather than inventing placeholder URLs/addresses.
+ * `resumePath` is `null` because the resume asset does not exist yet.
+ * Consumers must render that link conditionally rather than inventing a
+ * placeholder URL. `linkedinUrl` and `email` are nullable for the same
+ * reason and remain conditionally rendered, even though both now hold
+ * real values.
  *
  * `nav` holds internal navigation only (Projects/Experience/About).
  * Resume is intentionally not a nav entry — it links directly to a PDF
@@ -33,9 +35,9 @@ export interface SiteConfig {
   /** Supporting focus areas, shown as a secondary line under the positioning. */
   readonly focus: string;
   readonly githubUrl: string;
-  /** LinkedIn URL — `null` until the real value is supplied. */
+  /** LinkedIn URL — nullable so consumers keep rendering it conditionally. */
   readonly linkedinUrl: string | null;
-  /** Contact email — `null` until the real value is supplied. */
+  /** Contact email — nullable so consumers keep rendering it conditionally. */
   readonly email: string | null;
   /** Path to the resume asset, relative to the site root — `null` until the asset exists. */
   readonly resumePath: string | null;
@@ -45,11 +47,12 @@ export interface SiteConfig {
 
 export const siteConfig: SiteConfig = {
   name: "Ido Hail",
-  positioning: "Technical Operations & Engineering",
-  focus: "DevOps · Data Systems · Automation · Technical Leadership",
+  positioning: "Technical Operations",
+  focus:
+    "Production Systems · Reliability & Automation · Cloud Infrastructure · Data & Integrations",
   githubUrl: "https://github.com/ido-hail",
-  linkedinUrl: null,
-  email: null,
+  linkedinUrl: "https://www.linkedin.com/in/ido-hail/",
+  email: "ido16h@gmail.com",
   resumePath: null,
   nav: [
     { label: "Projects", href: "/projects/" },

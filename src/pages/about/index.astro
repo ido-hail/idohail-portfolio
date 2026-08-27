@@ -1,17 +1,188 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { siteConfig } from "../../config/site";
+
+const prose = "max-w-2xl text-base leading-relaxed text-slate-600";
+const sectionHeading =
+  "text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl";
+
+// Capability groups mirror the homepage's Core Focus areas, plus the
+// systems/security foundations underneath them. Some groups need more
+// than one paragraph, so each carries its own list.
+const capabilityGroups = [
+  {
+    title: "Production Operations & Reliability",
+    paragraphs: [
+      "Production operations and ownership, incident investigation and root-cause analysis, monitoring and alerting design, release readiness and release operations, and troubleshooting across application, API and database layers.",
+    ],
+  },
+  {
+    title: "Automation & Data Systems",
+    paragraphs: [
+      "SQL and PostgreSQL, Python and JavaScript automation, MongoDB, Snowflake, Redis, Prefect-orchestrated ETL and production pipelines, data-quality frameworks and validation, REST API testing with Postman, and operational tooling and dashboards in Retool.",
+    ],
+  },
+  {
+    title: "Cloud & Infrastructure",
+    paragraphs: [
+      "AWS, Docker, Kubernetes and EKS, Terraform, ECR, GitHub Actions CI/CD, and Prometheus and Grafana monitoring — together with the DevSecOps practices that go with them: vulnerability gates, hardened container runtimes and scoped access. This is where my project work has been concentrated, and the case studies go into the decisions in detail.",
+    ],
+  },
+  {
+    title: "Systems & Security Foundations",
+    paragraphs: [
+      "Professionally, I have run identity and access operations through JumpCloud: user lifecycle, groups, permissions and RBAC, onboarding and offboarding, and internal system access administration.",
+      "Underneath that sits broader training in Linux administration, networking, systems administration and cyber security — the background I rely on when a problem sits below the application layer.",
+    ],
+  },
+] as const;
+
+const technicalTraining = [
+  "Linux administration",
+  "Network administration (CCNA curriculum)",
+  "Microsoft systems administration (MCSA curriculum)",
+  "Cyber security",
+  "SOC fundamentals and operations",
+  "Firewall and network security fundamentals",
+  "DevSecOps",
+] as const;
 ---
 
 <BaseLayout
   title={`About — ${siteConfig.name}`}
-  description="Professional background, capabilities, and working approach."
+  description="Technical Operations background across production reliability, automation, data systems and cloud infrastructure — plus how I work and what I've been building."
 >
   <h1 class="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
     About
   </h1>
-  <p class="mt-5 max-w-2xl text-base leading-relaxed text-slate-600">
-    Professional story, capabilities, skills, certifications, and working
-    approach will be added in a later phase.
-  </p>
+
+  <div class="mt-6 space-y-4">
+    <p class={prose}>
+      I work in Technical Operations. Most of my professional experience is in
+      production: how systems behave under real load, why they fail, and what it
+      takes to keep them dependable while the business keeps changing them.
+    </p>
+    <p class={prose}>
+      That work has been hands-on throughout — querying production databases to
+      understand what actually happened, validating releases before they ship,
+      and building the monitoring that surfaces a problem while it still
+      matters.
+    </p>
+  </div>
+
+  <!-- Professional progression -->
+  <section aria-labelledby="progression-heading" class="mt-20">
+    <h2 id="progression-heading" class={sectionHeading}>
+      Professional progression
+    </h2>
+    <div class="mt-6 space-y-4">
+      <p class={prose}>
+        I started at YuviTal as a TechOps Engineer, working hands-on across
+        production and staging: backend and database testing, SQL and NoSQL
+        investigation, validating ETL and data flows, checking API-based
+        integrations, and tracking defects through to resolution with the
+        developers who fixed them. A good deal of it was investigation,
+        including fraud and abuse analysis in production data and the hardening
+        work that followed.
+      </p>
+      <p class={prose}>
+        As TechOps Team Lead the scope widened from investigating problems to
+        preventing them. I built monitoring and automated alerting across
+        production services and pipelines, wrote automated data-quality controls
+        in SQL and Python across Prefect-orchestrated pipelines supporting more
+        than 100 production tables, and took ownership of release readiness and
+        validation. The role also covered identity and access administration
+        through JumpCloud, and operational tooling built in Retool.
+      </p>
+      <p class={prose}>
+        I led a three-person technical team — one developer and two TechOps
+        engineers — while staying hands-on with the systems myself, and worked
+        directly with engineering, product, business stakeholders, vendors and
+        B2B and B2C clients on technical delivery.
+      </p>
+      <p class={prose}>
+        More recently I have been building the infrastructure side end to end:
+        AWS environments provisioned with Terraform, Kubernetes workloads, CI/CD
+        pipelines, monitoring, and the delivery and teardown automation around
+        them. The projects on this site are where that work lives.
+      </p>
+    </div>
+  </section>
+
+  <!-- Capabilities -->
+  <section aria-labelledby="capabilities-heading" class="mt-20">
+    <h2 id="capabilities-heading" class={sectionHeading}>Capabilities</h2>
+    <div class="mt-8 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
+      {
+        capabilityGroups.map((group) => (
+          <div class="border-t border-slate-200 pt-6">
+            <h3 class="text-lg font-semibold text-slate-900">{group.title}</h3>
+            <div class="mt-3 space-y-3">
+              {group.paragraphs.map((paragraph) => (
+                <p class="text-sm leading-relaxed text-slate-600">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- How I work -->
+  <section aria-labelledby="how-i-work-heading" class="mt-20">
+    <h2 id="how-i-work-heading" class={sectionHeading}>How I work</h2>
+    <div class="mt-6 space-y-4">
+      <p class={prose}>
+        Hands-on first. Leading a team never meant stopping doing the work; it
+        meant being responsible for more of it, and making sure the people
+        around me could move faster than they could alone.
+      </p>
+      <p class={prose}>
+        I prefer to fix the class of problem rather than the instance. If the
+        same incident keeps arriving, the useful work is usually removing the
+        conditions that allow it rather than closing it faster. Most of the
+        outcomes I'm satisfied with came from turning a recurring manual problem
+        into an automated control.
+      </p>
+      <p class={prose}>
+        I work across boundaries regularly — with engineering, product, business
+        stakeholders, vendors and clients. Operations sits between all of them,
+        so a large part of the role is making technical constraints legible to
+        people who don't work in them, and the reverse.
+      </p>
+    </div>
+  </section>
+
+  <!-- Technical training -->
+  <section aria-labelledby="training-heading" class="mt-20">
+    <h2 id="training-heading" class={sectionHeading}>Technical training</h2>
+    <p class={`mt-4 ${prose}`}>
+      Completed training programs covering the systems and security foundations
+      behind operations work:
+    </p>
+    <ul
+      class="mt-4 max-w-2xl list-disc space-y-2 pl-5 text-base text-slate-600"
+    >
+      {technicalTraining.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <!-- Closing -->
+  <section aria-labelledby="closing-heading" class="mt-20">
+    <h2 id="closing-heading" class="sr-only">Where to go next</h2>
+    <p class={prose}>
+      The <a
+        href="/projects/"
+        class="rounded font-medium text-blue-600 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900"
+        >projects</a
+      > go into the engineering decisions in more detail, and the <a
+        href="/experience/"
+        class="rounded font-medium text-blue-600 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900"
+        >experience</a
+      > page covers the professional work. If you want to talk about any of it, my
+      details are in the footer.
+    </p>
+  </section>
 </BaseLayout>
