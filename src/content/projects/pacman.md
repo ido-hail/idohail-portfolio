@@ -25,7 +25,7 @@ The supplied application carries legacy dependencies. That is a realistic starti
 
 ## Security gates
 
-**Trivy runs as a blocking gate.** The blocking gate targets fixable HIGH and CRITICAL findings, while remaining findings stay visible for review. This keeps the gate actionable — a blocked build can be cleared by applying an available fix — without hiding unresolved risk.
+**Trivy runs as a blocking gate.** The build fails on fixable HIGH and CRITICAL findings in the image, while remaining findings stay visible for review.
 
 **`npm audit` runs as informational.** The application's legacy dependencies produce findings that cannot all be resolved without modifying an application that exists here as a payload. Blocking on them would either stop delivery entirely or create routine pressure to bypass the gate, so the image is held to a hard standard while the dependency audit stays visible without gating the pipeline.
 
@@ -57,7 +57,7 @@ NetworkPolicy enforcement was verified directly rather than assumed from the man
 
 **The legacy dependencies remain.** They are contained rather than eliminated. Resolving them properly would mean modifying an application that exists here as a payload, so the runtime and image are hardened while the dependency history stays visible and monitored.
 
-**The gate targets fixable findings.** Findings without an available fix do not block delivery, since no action would clear them. This is a defensible line rather than an obviously correct one.
+**The gate targets fixable findings.** Findings without an available fix remain visible for review but do not block delivery. This keeps the gate actionable — a blocked build can be cleared by applying an available fix — without hiding unresolved risk.
 
 **Same cost-driven network topology as NameGen**, with the same caveat about public subnets in a short-lived environment.
 
