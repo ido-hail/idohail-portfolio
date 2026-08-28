@@ -49,6 +49,7 @@ Contains, in order:
   * Supporting focus: "Production Systems · Reliability & Automation · Cloud Infrastructure · Data & Integrations"
   * Short 1–2 sentence value proposition
   * CTAs: View Projects, Experience, Resume (Resume CTA only when the resume asset is available)
+  * A portrait image, presented as a 4:5 rounded frame alongside the text on wide viewports and after the CTAs on narrow ones. A neutral local placeholder is acceptable during development; the real portrait must be in place before public launch on the custom domain.
   * No secondary GitHub/LinkedIn/Email link row in the Hero — those live in the Footer.
 
   The positioning is deliberately a professional domain rather than a single job title, and the focus ordering is intentional: production first, then reliability/automation, then cloud, then data/integrations. Data is significant technical depth but must not lead the profile, and cloud/DevOps capability is evidenced through projects rather than presented as professional tenure.
@@ -269,9 +270,11 @@ The resume link must remain easy to find and work without JavaScript. Where the 
 
 * Do not copy its source code, markup, styles, branding, or assets.
 
-* Neutral, professional **light theme only**.
+* Neutral, professional **light theme only**, on a **warm off-white base** with white/light surfaces, deep warm-neutral text, understated neutral borders, and a single restrained blue accent.
 
 * No dark-mode implementation.
+
+* A **very subtle local background grain texture** is permitted on the page base, provided it is felt rather than read as a pattern and never reduces readability. It must be a small local asset, applied as a non-interactive fixed overlay with no layout impact. If the tile becomes recognizable as a repeating pattern, reduce its opacity or remove it.
 
 * Clean, technical, and content-first.
 
@@ -287,7 +290,7 @@ The resume link must remain easy to find and work without JavaScript. Where the 
 
 * Restrained cards, subtle section backgrounds, and one subtle accent color are permitted only where they improve hierarchy and scannability — not as decoration for its own sake.
 
-* Explicitly avoid: card-heavy UI, skill-level progress bars, decorative dashboards, gradients or illustrations without informational value, and visual complexity whose main purpose is demonstrating frontend skill rather than serving the content.
+* Explicitly avoid: card-heavy UI, skill-level progress bars, decorative dashboards, gradients or illustrations without informational value, and visual complexity whose main purpose is demonstrating frontend skill rather than serving the content. The background grain permitted above is the single deliberate exception, and it carries no informational role beyond making the page feel considered.
 
 ### 6.1 Responsive Design
 
@@ -399,10 +402,14 @@ rather than dependency resolution through `npm install`.
 Static assets may include:
 
 * Resume
+* Portrait image
+* Background texture
 * Project screenshots
 * Architecture diagrams
 * Favicons
 * Open Graph image
+
+All image assets are served locally from the site's own origin. Do not reference remotely hosted images.
 
 Use Astro's image tooling where it provides a concrete optimization benefit.
 
