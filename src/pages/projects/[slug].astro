@@ -16,7 +16,7 @@ const { data } = project;
 const { Content } = await render(project);
 
 const linkClass =
-  "rounded text-sm font-medium text-blue-600 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900";
+  "rounded text-sm font-medium text-blue-600 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900";
 ---
 
 <BaseLayout
@@ -27,10 +27,10 @@ const linkClass =
   <p class="text-sm font-semibold tracking-wide text-blue-600 uppercase">
     {data.year}
   </p>
-  <h1 class="mt-2 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+  <h1 class="mt-2 text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl">
     {data.title}
   </h1>
-  <p class="mt-4 max-w-2xl text-lg leading-relaxed text-slate-600">
+  <p class="mt-4 max-w-2xl text-lg leading-relaxed text-stone-600">
     {data.description}
   </p>
 
@@ -38,7 +38,7 @@ const linkClass =
     data.tags.length > 0 && (
       <ul class="mt-6 flex flex-wrap gap-2">
         {data.tags.map((tag) => (
-          <li class="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-500">
+          <li class="rounded-full border border-stone-200 px-3 py-1 text-xs font-medium text-stone-500">
             {tag}
           </li>
         ))}
@@ -64,7 +64,7 @@ const linkClass =
   }
 
   <div
-    class="case-study mt-12 max-w-2xl text-base leading-relaxed text-slate-700"
+    class="case-study mt-12 max-w-2xl text-base leading-relaxed text-stone-700"
   >
     <Content />
   </div>
@@ -84,7 +84,7 @@ const linkClass =
     font-size: 1.25rem;
     font-weight: 600;
     letter-spacing: -0.01em;
-    color: var(--color-slate-900);
+    color: var(--color-stone-900);
   }
   .case-study :global(h2:first-child) {
     margin-top: 0;
@@ -113,6 +113,6 @@ const linkClass =
   }
   .case-study :global(strong) {
     font-weight: 600;
-    color: var(--color-slate-900);
+    color: var(--color-stone-900);
   }
 </style>

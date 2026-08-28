@@ -2,9 +2,9 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { siteConfig } from "../../config/site";
 
-const prose = "max-w-2xl text-base leading-relaxed text-slate-600";
+const prose = "max-w-2xl text-base leading-relaxed text-stone-600";
 const sectionHeading =
-  "text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl";
+  "text-2xl font-semibold tracking-tight text-stone-900 sm:text-3xl";
 
 // Capability groups mirror the homepage's Core Focus areas, plus the
 // systems/security foundations underneath them. Some groups need more
@@ -52,7 +52,7 @@ const technicalTraining = [
   title={`About — ${siteConfig.name}`}
   description="Technical Operations background across production reliability, automation, data systems and cloud infrastructure — plus how I work and what I've been building."
 >
-  <h1 class="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+  <h1 class="text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl">
     About
   </h1>
 
@@ -115,11 +115,11 @@ const technicalTraining = [
     <div class="mt-8 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
       {
         capabilityGroups.map((group) => (
-          <div class="border-t border-slate-200 pt-6">
-            <h3 class="text-lg font-semibold text-slate-900">{group.title}</h3>
+          <div class="border-t border-stone-200 pt-6">
+            <h3 class="text-lg font-semibold text-stone-900">{group.title}</h3>
             <div class="mt-3 space-y-3">
               {group.paragraphs.map((paragraph) => (
-                <p class="text-sm leading-relaxed text-slate-600">
+                <p class="text-sm leading-relaxed text-stone-600">
                   {paragraph}
                 </p>
               ))}
@@ -163,7 +163,7 @@ const technicalTraining = [
       behind operations work:
     </p>
     <ul
-      class="mt-4 max-w-2xl list-disc space-y-2 pl-5 text-base text-slate-600"
+      class="mt-4 max-w-2xl list-disc space-y-2 pl-5 text-base text-stone-600"
     >
       {technicalTraining.map((item) => <li>{item}</li>)}
     </ul>
@@ -175,11 +175,11 @@ const technicalTraining = [
     <p class={prose}>
       The <a
         href="/projects/"
-        class="rounded font-medium text-blue-600 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900"
+        class="rounded font-medium text-blue-600 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900"
         >projects</a
       > go into the engineering decisions in more detail, and the <a
         href="/experience/"
-        class="rounded font-medium text-blue-600 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900"
+        class="rounded font-medium text-blue-600 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900"
         >experience</a
       > page covers the professional work. If you want to talk about any of it, my
       details are in the footer.

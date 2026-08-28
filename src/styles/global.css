@@ -6,3 +6,20 @@
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
 }
+
+/* Subtle paper grain over the warm page base.
+   A fixed, non-interactive overlay rather than a `body` background, so the
+   texture never scrolls, never affects layout, and can be tuned or removed
+   in one place. The tile is a local 128px PNG-8 (~5 KB); opacity is kept
+   low enough that the grain is felt rather than read as a pattern. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: url("/texture-grain.png");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  opacity: 0.035;
+}

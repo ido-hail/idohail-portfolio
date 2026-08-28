@@ -6,11 +6,11 @@ import { getFeaturedProjects } from "../lib/projects";
 // Shared, restrained button/link treatments reused across Hero and the
 // closing Contact CTA — the site's only two button-style moments.
 const buttonPrimary =
-  "inline-flex items-center justify-center rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900";
+  "inline-flex items-center justify-center rounded-lg bg-stone-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-stone-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900";
 const buttonSecondary =
-  "inline-flex items-center justify-center rounded-lg border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-900 hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900";
+  "inline-flex items-center justify-center rounded-lg border border-stone-300 px-5 py-2.5 text-sm font-semibold text-stone-700 hover:border-stone-900 hover:text-stone-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900";
 const linkAccent =
-  "rounded text-sm font-medium text-blue-600 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900";
+  "rounded text-sm font-medium text-blue-600 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900";
 
 // Section-label ("eyebrow") heading treatment, used for the more compact
 // sections so the page doesn't read as a repeated heading+rule+paragraph.
@@ -70,10 +70,10 @@ const selectedWorkGridClass =
 
 const primaryCardClass =
   featuredCount <= 1
-    ? "rounded-2xl border border-slate-200 bg-white p-6 sm:p-8"
+    ? "rounded-2xl border border-stone-200 bg-white p-6 sm:p-8"
     : featuredCount === 2
-      ? "rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 lg:col-span-2"
-      : "rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 lg:col-span-2 lg:row-span-2";
+      ? "rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 lg:col-span-2"
+      : "rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 lg:col-span-2 lg:row-span-2";
 
 // schema.org/Person for the homepage only (SPEC §10.3). Built only from
 // facts already present in siteConfig — no job title, email, location,
@@ -98,51 +98,72 @@ const personJsonLd = {
 >
   <!-- Hero -->
   <section aria-labelledby="hero-heading">
-    <h1
-      id="hero-heading"
-      class="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl"
-    >
-      {siteConfig.name}
-    </h1>
-    <p class="mt-3 text-xl font-semibold text-slate-700 sm:text-2xl">
-      {siteConfig.positioning}
-    </p>
-    <p class="mt-2 text-sm font-medium tracking-wide text-slate-500 uppercase">
-      {siteConfig.focus}
-    </p>
-    <p class="mt-6 max-w-2xl text-lg leading-relaxed text-slate-600">
-      I work on production systems: operating them, improving their reliability
-      and visibility, and turning recurring operational problems into automated
-      controls. Most of that experience comes from production environments
-      serving more than 2M users; my cloud and infrastructure work is
-      demonstrated through the projects on this site.
-    </p>
-    <div class="mt-8 flex flex-wrap items-center gap-4">
-      <a href="/projects/" class={buttonPrimary}>View Projects</a>
-      <a href="/experience/" class={buttonSecondary}>Experience</a>
+    <div class="lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-12">
+      <div class="lg:col-span-7">
+        <h1
+          id="hero-heading"
+          class="text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl lg:text-6xl"
+        >
+          {siteConfig.name}
+        </h1>
+        <p class="mt-3 text-xl font-semibold text-stone-700 sm:text-2xl">
+          {siteConfig.positioning}
+        </p>
+        <p
+          class="mt-2 text-sm font-medium tracking-wide text-stone-500 uppercase"
+        >
+          {siteConfig.focus}
+        </p>
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-stone-600">
+          I work on production systems: operating them, improving their
+          reliability and visibility, and turning recurring operational problems
+          into automated controls. Most of that experience comes from production
+          environments serving more than 2M users; my cloud and infrastructure
+          work is demonstrated through the projects on this site.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a href="/projects/" class={buttonPrimary}>View Projects</a>
+          <a href="/experience/" class={buttonSecondary}>Experience</a>
+          {
+            siteConfig.resumePath && (
+              <a href={siteConfig.resumePath} class={linkAccent}>
+                Resume →
+              </a>
+            )
+          }
+        </div>
+      </div>
+
       {
-        siteConfig.resumePath && (
-          <a href={siteConfig.resumePath} class={linkAccent}>
-            Resume →
-          </a>
-        )
+        /* Temporary neutral placeholder. Replacing it with the real portrait
+          is a src/alt swap only — the 4:5 frame and its footprint stay. */
       }
+      <div class="mt-12 lg:col-span-5 lg:mt-0">
+        <img
+          src="/portrait-placeholder.svg"
+          alt=""
+          width="400"
+          height="500"
+          decoding="async"
+          class="aspect-[4/5] w-[220px] rounded-2xl border border-stone-200 object-cover sm:w-[260px] lg:ml-auto lg:w-full lg:max-w-[380px]"
+        />
+      </div>
     </div>
   </section>
 
   <!-- Impact Snapshot -->
-  <section aria-labelledby="impact-heading" class="mt-24">
+  <section aria-labelledby="impact-heading" class="mt-16 sm:mt-20">
     <h2 id="impact-heading" class={eyebrowHeading}>Impact Snapshot</h2>
     <div
-      class="mt-6 grid grid-cols-1 divide-y divide-slate-200 sm:grid-cols-3 sm:divide-x sm:divide-y-0"
+      class="mt-6 grid grid-cols-1 divide-y divide-stone-200 sm:grid-cols-3 sm:divide-x sm:divide-y-0"
     >
       {
         impactItems.map((item) => (
           <div class="py-4 first:pt-0 sm:px-8 sm:py-0 sm:first:pl-0">
-            <p class="text-3xl font-bold tracking-tight text-slate-900">
+            <p class="text-3xl font-bold tracking-tight text-stone-900">
               {item.value}
             </p>
-            <p class="mt-2 max-w-xs text-sm text-slate-600">
+            <p class="mt-2 max-w-xs text-sm text-stone-600">
               {item.description}
             </p>
           </div>
@@ -152,14 +173,14 @@ const personJsonLd = {
   </section>
 
   <!-- Core Focus -->
-  <section aria-labelledby="core-focus-heading" class="mt-24">
+  <section aria-labelledby="core-focus-heading" class="mt-20 sm:mt-24">
     <h2 id="core-focus-heading" class={eyebrowHeading}>Core Focus</h2>
     <div class="mt-6 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-3">
       {
         coreFocusItems.map((item) => (
-          <div class="border-t border-slate-200 pt-6">
-            <h3 class="text-lg font-semibold text-slate-900">{item.title}</h3>
-            <p class="mt-3 text-sm leading-relaxed text-slate-600">
+          <div class="border-t border-stone-200 pt-6">
+            <h3 class="text-lg font-semibold text-stone-900">{item.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-stone-600">
               {item.description}
             </p>
           </div>
@@ -169,17 +190,17 @@ const personJsonLd = {
   </section>
 
   <!-- Selected Work -->
-  <section aria-labelledby="selected-work-heading" class="mt-24">
+  <section aria-labelledby="selected-work-heading" class="mt-24 sm:mt-32">
     <div class="flex flex-wrap items-baseline justify-between gap-4">
       <h2
         id="selected-work-heading"
-        class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl"
+        class="text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl"
       >
         Selected Work
       </h2>
       <a href="/projects/" class={linkAccent}>View all projects →</a>
     </div>
-    <p class="mt-3 max-w-2xl text-base leading-relaxed text-slate-600">
+    <p class="mt-3 max-w-2xl text-base leading-relaxed text-stone-600">
       Two projects where the engineering decisions are the point — how
       infrastructure gets delivered safely, and what it costs to keep a system
       simple.
@@ -187,28 +208,28 @@ const personJsonLd = {
 
     {
       !primaryProject ? (
-        <p class="mt-8 max-w-2xl text-base leading-relaxed text-slate-600">
+        <p class="mt-8 max-w-2xl text-base leading-relaxed text-stone-600">
           No featured projects are currently available.
         </p>
       ) : (
         <div class={selectedWorkGridClass}>
           <article class={primaryCardClass}>
             <p class={eyebrowHeading}>Featured Project</p>
-            <h3 class="mt-2 text-xl font-semibold text-slate-900">
+            <h3 class="mt-2 text-xl font-semibold text-stone-900">
               <a
                 href={`/projects/${primaryProject.id}/`}
-                class="rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900"
+                class="rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900"
               >
                 {primaryProject.data.title}
               </a>
             </h3>
-            <p class="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
+            <p class="mt-3 max-w-2xl text-sm leading-relaxed text-stone-600">
               {primaryProject.data.description}
             </p>
             {primaryProject.data.tags.length > 0 && (
               <ul class="mt-4 flex flex-wrap gap-2">
                 {primaryProject.data.tags.map((tag) => (
-                  <li class="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-500">
+                  <li class="rounded-full border border-stone-200 px-3 py-1 text-xs font-medium text-stone-500">
                     {tag}
                   </li>
                 ))}
@@ -223,17 +244,17 @@ const personJsonLd = {
           </article>
 
           {secondaryProjects.map((project) => (
-            <article class="rounded-2xl border border-slate-200 bg-white p-6">
+            <article class="rounded-2xl border border-stone-200 bg-white p-6">
               <p class={eyebrowHeading}>Featured Project</p>
-              <h3 class="mt-2 text-lg font-semibold text-slate-900">
+              <h3 class="mt-2 text-lg font-semibold text-stone-900">
                 <a
                   href={`/projects/${project.id}/`}
-                  class="rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900"
+                  class="rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900"
                 >
                   {project.data.title}
                 </a>
               </h3>
-              <p class="mt-3 text-sm leading-relaxed text-slate-600">
+              <p class="mt-3 text-sm leading-relaxed text-stone-600">
                 {project.data.description}
               </p>
               <a
@@ -250,14 +271,14 @@ const personJsonLd = {
   </section>
 
   <!-- Short About -->
-  <section aria-labelledby="about-heading" class="mt-24">
+  <section aria-labelledby="about-heading" class="mt-24 sm:mt-32">
     <h2
       id="about-heading"
-      class="text-2xl font-semibold tracking-tight text-slate-900"
+      class="text-2xl font-semibold tracking-tight text-stone-900"
     >
       About
     </h2>
-    <p class="mt-4 max-w-2xl text-base leading-relaxed text-slate-600">
+    <p class="mt-4 max-w-2xl text-base leading-relaxed text-stone-600">
       My background is Technical Operations — production operations, incident
       investigation, monitoring and automation in environments where downtime
       and bad data both have real consequences. That grew into release ownership
@@ -274,15 +295,15 @@ const personJsonLd = {
   <!-- Contact CTA -->
   <section
     aria-labelledby="contact-heading"
-    class="mt-24 rounded-2xl border border-slate-200 bg-slate-50 p-10 sm:p-12"
+    class="mt-16 rounded-2xl border border-stone-200 bg-stone-100 p-10 sm:mt-20 sm:p-12"
   >
     <h2
       id="contact-heading"
-      class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl"
+      class="text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl"
     >
       Get in touch
     </h2>
-    <p class="mt-3 max-w-xl text-base leading-relaxed text-slate-600">
+    <p class="mt-3 max-w-xl text-base leading-relaxed text-stone-600">
       If something here is relevant to what you're working on, I'm easy to
       reach.
     </p>
