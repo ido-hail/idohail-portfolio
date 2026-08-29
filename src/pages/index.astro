@@ -17,21 +17,21 @@ const linkAccent =
 const eyebrowHeading =
   "text-sm font-semibold uppercase tracking-wide text-blue-600";
 
-const coreFocusItems = [
+const workAreas = [
   {
     title: "Production & Reliability",
     description:
-      "Owning how production actually behaves: monitoring and alerting, incident investigation, root-cause analysis, and getting releases ready to ship safely. The work that keeps systems dependable rather than merely deployed.",
+      "Keeping an eye on what production is actually doing — monitoring, alerting, digging into incidents, and making sure a release is genuinely ready before it goes out. It isn't the flashy part of engineering, but it's the part that keeps systems dependable.",
   },
   {
     title: "Automation & Data Systems",
     description:
-      "SQL and Python automation across production databases and pipelines — data-quality controls, validation, API and integration work, and the operational tooling that replaces manual routine.",
+      "SQL and Python across production databases and pipelines: data-quality checks, validation, API and integration work, and replacing manual routines that shouldn't need to be repeated.",
   },
   {
     title: "Cloud & Infrastructure",
     description:
-      "AWS, Docker, Kubernetes and Terraform applied to complete delivery lifecycles, with CI/CD, immutable image delivery and Prometheus/Grafana monitoring. Built hands-on in the projects below.",
+      "AWS, Docker, Kubernetes and Terraform applied end to end — provisioning, CI/CD, immutable delivery and monitoring. This is the side I've built hands-on through the projects on this site.",
   },
 ] as const;
 
@@ -39,19 +39,195 @@ const coreFocusItems = [
 // nothing here is rendered without a real measured outcome behind it.
 const impactItems = [
   {
+    label: "Production scale",
     value: "2M+",
     description: "Production environment supporting 2M+ users.",
   },
   {
+    label: "Data quality",
     value: ">30%",
     description:
       "Fewer production data incidents after building an automated SQL and Python data-quality framework.",
   },
   {
+    label: "Detection",
     value: "Real-time",
     description:
       "Detection of production issues moved from next-day discovery to immediate alerting.",
   },
+] as const;
+
+// Grouped so breadth is scannable by domain rather than presented as one
+// undifferentiated keyword list. Every group uses the same `sets` shape so
+// rendering stays a single code path; only Systems/Identity needs more than
+// one set, to keep professional work visibly separate from training.
+const skillMap = [
+  {
+    title: "Production & Reliability",
+    sets: [
+      {
+        label: null,
+        skills: [
+          "Production Operations",
+          "Incident Investigation",
+          "Root Cause Analysis",
+          "Release Readiness",
+          "Release Validation",
+          "QA & Validation Coordination",
+          "Production & Staging Operations",
+          "Operational Analysis",
+          "Defect Tracking (Jira)",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Data & Automation",
+    sets: [
+      {
+        label: null,
+        skills: [
+          "SQL",
+          "PostgreSQL",
+          "MongoDB",
+          "Snowflake",
+          "Redis",
+          "Python",
+          "JavaScript (scripting & jobs)",
+          "ETL / ELT",
+          "Prefect",
+          "Data Quality & Validation",
+          "Metabase",
+          "Retool",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Cloud & Infrastructure",
+    sets: [
+      {
+        label: null,
+        skills: [
+          "AWS",
+          "Terraform",
+          "Docker",
+          "Kubernetes",
+          "Kubernetes NetworkPolicy",
+          "Amazon EKS",
+          "Amazon ECR",
+          "Amazon S3",
+          "IAM",
+          "OIDC",
+          "VPC & Networking",
+          "Load Balancing (NLB)",
+          "Encrypted Storage (EBS)",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Observability & Delivery",
+    sets: [
+      {
+        label: null,
+        skills: [
+          "Monitoring",
+          "Alerting",
+          "Log Analysis",
+          "Axiom",
+          "Prometheus",
+          "Grafana",
+          "GitHub Actions",
+          "CI/CD",
+          "Immutable Delivery",
+          "Deployment Validation",
+          "Trivy",
+        ],
+      },
+    ],
+  },
+  {
+    title: "APIs & Integrations",
+    sets: [
+      {
+        label: null,
+        skills: [
+          "REST APIs",
+          "JSON",
+          "Postman",
+          "API Validation",
+          "Integration Validation",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Systems, Identity & Networking",
+    sets: [
+      {
+        label: "Professional",
+        skills: [
+          "JumpCloud",
+          "Identity Lifecycle",
+          "RBAC",
+          "Access Administration",
+        ],
+      },
+      {
+        label: "Foundations",
+        skills: [
+          "Linux Administration",
+          "Networking",
+          "System Administration",
+          "Firewalls",
+          "Cyber Security",
+          "SOC Fundamentals",
+        ],
+      },
+    ],
+  },
+  {
+    title: "Engineering Tooling & Web",
+    sets: [
+      {
+        label: null,
+        skills: [
+          "Git",
+          "Bash / Shell Scripting",
+          "Helm",
+          "Kustomize",
+          "kubectl",
+          "Astro",
+          "TypeScript",
+          "Tailwind CSS",
+          "Cloudflare Workers",
+        ],
+      },
+    ],
+  },
+] as const;
+
+// A curated visual subset of the Skill Map, not a second copy of it.
+// `logo` is null where no redistributable vendor asset is available; the
+// item then renders as its name alone rather than an improvised mark.
+const tools = [
+  { name: "Linux", logo: "/tools/linux.svg" },
+  { name: "PostgreSQL", logo: "/tools/postgresql.svg" },
+  { name: "MongoDB", logo: "/tools/mongodb.svg" },
+  { name: "Redis", logo: "/tools/redis.svg" },
+  { name: "Snowflake", logo: "/tools/snowflake.svg" },
+  { name: "Python", logo: "/tools/python.svg" },
+  { name: "Prefect", logo: "/tools/prefect.svg" },
+  { name: "Metabase", logo: "/tools/metabase.svg" },
+  { name: "AWS", logo: null },
+  { name: "Terraform", logo: "/tools/terraform.svg" },
+  { name: "Docker", logo: "/tools/docker.svg" },
+  { name: "Kubernetes", logo: "/tools/kubernetes.svg" },
+  { name: "GitHub Actions", logo: "/tools/githubactions.svg" },
+  { name: "Prometheus", logo: "/tools/prometheus.svg" },
+  { name: "Grafana", logo: "/tools/grafana.svg" },
+  { name: "Postman", logo: "/tools/postman.svg" },
 ] as const;
 
 // Selected Work degrades gracefully with the number of featured projects
@@ -109,18 +285,32 @@ const personJsonLd = {
         <p class="mt-3 text-xl font-semibold text-stone-700 sm:text-2xl">
           {siteConfig.positioning}
         </p>
+
+        <p class="mt-6 max-w-2xl text-lg font-medium text-stone-900 sm:text-xl">
+          I like making complicated systems easier to run.
+        </p>
         <p
-          class="mt-2 text-sm font-medium tracking-wide text-stone-500 uppercase"
+          class="mt-4 max-w-2xl text-base leading-relaxed text-stone-600 sm:text-lg"
+        >
+          My work usually sits somewhere between production, data and
+          infrastructure — figuring out why something behaves the way it does,
+          then turning that into better monitoring, automation, or one less
+          thing that can quietly go wrong.
+        </p>
+        <p
+          class="mt-4 max-w-2xl text-sm leading-relaxed text-stone-500 sm:text-base"
+        >
+          I've done that hands-on in production environments serving 2M+ users;
+          my cloud and infrastructure work is demonstrated through the projects
+          below.
+        </p>
+
+        <p
+          class="mt-6 text-sm font-medium tracking-wide text-stone-500 uppercase"
         >
           {siteConfig.focus}
         </p>
-        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-stone-600">
-          I work on production systems: operating them, improving their
-          reliability and visibility, and turning recurring operational problems
-          into automated controls. Most of that experience comes from production
-          environments serving more than 2M users; my cloud and infrastructure
-          work is demonstrated through the projects on this site.
-        </p>
+
         <div class="mt-8 flex flex-wrap items-center gap-4">
           <a href="/projects/" class={buttonPrimary}>View Projects</a>
           <a href="/experience/" class={buttonSecondary}>Experience</a>
@@ -151,19 +341,20 @@ const personJsonLd = {
     </div>
   </section>
 
-  <!-- Impact Snapshot -->
-  <section aria-labelledby="impact-heading" class="mt-16 sm:mt-20">
-    <h2 id="impact-heading" class={eyebrowHeading}>Impact Snapshot</h2>
-    <div
-      class="mt-6 grid grid-cols-1 divide-y divide-stone-200 sm:grid-cols-3 sm:divide-x sm:divide-y-0"
-    >
+  <!-- A few numbers -->
+  <section aria-labelledby="numbers-heading" class="mt-16 sm:mt-20">
+    <h2 id="numbers-heading" class={eyebrowHeading}>A few numbers</h2>
+    <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
       {
         impactItems.map((item) => (
-          <div class="py-4 first:pt-0 sm:px-8 sm:py-0 sm:first:pl-0">
-            <p class="text-3xl font-bold tracking-tight text-stone-900">
+          <div class="rounded-2xl border border-stone-200 bg-white p-6">
+            <p class="text-xs font-medium tracking-wide text-stone-500 uppercase">
+              {item.label}
+            </p>
+            <p class="mt-3 text-3xl font-bold tracking-tight text-stone-900">
               {item.value}
             </p>
-            <p class="mt-2 max-w-xs text-sm text-stone-600">
+            <p class="mt-2 text-sm leading-relaxed text-stone-600">
               {item.description}
             </p>
           </div>
@@ -172,12 +363,12 @@ const personJsonLd = {
     </div>
   </section>
 
-  <!-- Core Focus -->
-  <section aria-labelledby="core-focus-heading" class="mt-20 sm:mt-24">
-    <h2 id="core-focus-heading" class={eyebrowHeading}>Core Focus</h2>
+  <!-- What I work on -->
+  <section aria-labelledby="work-heading" class="mt-20 sm:mt-24">
+    <h2 id="work-heading" class={eyebrowHeading}>What I work on</h2>
     <div class="mt-6 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-3">
       {
-        coreFocusItems.map((item) => (
+        workAreas.map((item) => (
           <div class="border-t border-stone-200 pt-6">
             <h3 class="text-lg font-semibold text-stone-900">{item.title}</h3>
             <p class="mt-3 text-sm leading-relaxed text-stone-600">
@@ -270,26 +461,128 @@ const personJsonLd = {
     }
   </section>
 
-  <!-- Short About -->
+  <!-- Skill Map -->
+  <section aria-labelledby="skills-heading" class="mt-24 sm:mt-32">
+    <h2 id="skills-heading" class={eyebrowHeading}>Skill Map</h2>
+    <p class="mt-3 max-w-3xl text-base leading-relaxed text-stone-600">
+      Professional experience is concentrated in production operations, data,
+      automation and integrations; most of the deeper cloud, infrastructure and
+      engineering tooling shown here comes from hands-on projects.
+    </p>
+    <div class="mt-8 grid grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2">
+      {
+        skillMap.map((group) => (
+          <div class="border-t border-stone-200 pt-6">
+            <h3 class="text-base font-semibold text-stone-900">
+              {group.title}
+            </h3>
+            {group.sets.map((set) => (
+              <div class="mt-4 first:mt-3">
+                {set.label && (
+                  <p class="mb-2 text-xs font-medium tracking-wide text-stone-500 uppercase">
+                    {set.label}
+                  </p>
+                )}
+                <ul class="flex flex-wrap gap-2">
+                  {set.skills.map((skill) => (
+                    <li class="rounded-full border border-stone-200 bg-white px-3 py-1 text-xs font-medium text-stone-600">
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- A bit about me -->
   <section aria-labelledby="about-heading" class="mt-24 sm:mt-32">
     <h2
       id="about-heading"
       class="text-2xl font-semibold tracking-tight text-stone-900"
     >
-      About
+      A bit about me
     </h2>
     <p class="mt-4 max-w-2xl text-base leading-relaxed text-stone-600">
-      My background is Technical Operations — production operations, incident
-      investigation, monitoring and automation in environments where downtime
-      and bad data both have real consequences. That grew into release ownership
-      and leading a small technical team. More recently I've extended the same
-      operational thinking into hands-on cloud and infrastructure projects:
-      provisioning, delivery pipelines, and the controls that make them safe to
-      run.
+      I started out closer to the database than the infrastructure —
+      investigating production issues, checking that data looked the way it was
+      supposed to, and working out why a release behaved differently in
+      production than anywhere else. The more of that I did, the more I wanted
+      to fix the underlying thing rather than the symptom, which is roughly how
+      I ended up building monitoring and automation, and eventually the
+      infrastructure underneath. I've led a small technical team along the way,
+      without stepping away from the keyboard.
     </p>
     <a href="/about/" class={`mt-4 inline-block ${linkAccent}`}
       >Read more about me →</a
     >
+  </section>
+
+  <!-- Tools I work with -->
+  <section aria-labelledby="tools-heading" class="mt-20 sm:mt-24">
+    <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+      <h2 id="tools-heading" class={eyebrowHeading}>Tools I work with</h2>
+      {
+        /* The input is laid transparently over its own label rather than
+          visually hidden: a clipped input is skipped by Chrome's sequential
+          focus navigation, which would leave this control mouse-only. */
+      }
+      <span class="marquee-control">
+        <input type="checkbox" id="marquee-pause" class="marquee-checkbox" />
+        <label for="marquee-pause" class="marquee-label">
+          <span class="marquee-when-running">Pause</span>
+          <span class="marquee-when-paused">Resume</span>
+          <span class="sr-only"> the moving tools list</span>
+        </label>
+      </span>
+    </div>
+    <div class="marquee mt-6">
+      <div class="marquee-inner">
+        <ul class="marquee-group">
+          {
+            tools.map((tool) => (
+              <li class="marquee-item">
+                {tool.logo && (
+                  <img
+                    src={tool.logo}
+                    alt=""
+                    width="24"
+                    height="24"
+                    loading="lazy"
+                    decoding="async"
+                    class="tool-logo"
+                  />
+                )}
+                <span>{tool.name}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <ul class="marquee-group" aria-hidden="true">
+          {
+            tools.map((tool) => (
+              <li class="marquee-item">
+                {tool.logo && (
+                  <img
+                    src={tool.logo}
+                    alt=""
+                    width="24"
+                    height="24"
+                    loading="lazy"
+                    decoding="async"
+                    class="tool-logo"
+                  />
+                )}
+                <span>{tool.name}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
   </section>
 
   <!-- Contact CTA -->
@@ -333,3 +626,171 @@ const personJsonLd = {
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  /* Tools marquee — CSS only, no JavaScript and no carousel dependency.
+     Two identical tracks sit side by side and the pair is translated by
+     exactly half its width, so the loop repeats without a visible jump. */
+  .marquee {
+    overflow: hidden;
+    /* Softens both edges so items enter and leave rather than pop. */
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 4rem,
+      black calc(100% - 4rem),
+      transparent
+    );
+  }
+
+  .marquee-inner {
+    display: flex;
+    width: max-content;
+    animation: tools-scroll 55s linear infinite;
+  }
+
+  @keyframes tools-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .marquee-group {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+  }
+
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1.5rem;
+    white-space: nowrap;
+    font-size: 0.875rem;
+    color: var(--color-stone-500);
+  }
+
+  .tool-logo {
+    width: 20px;
+    height: 20px;
+    /* The source SVGs are never recolored on disk; this only softens how
+       they render, and hovering an item restores full strength. */
+    opacity: 0.5;
+    filter: grayscale(1);
+    transition: opacity 0.2s ease;
+  }
+
+  .marquee-item:hover .tool-logo {
+    opacity: 0.9;
+  }
+
+  @media (min-width: 640px) {
+    .tool-logo {
+      width: 26px;
+      height: 26px;
+    }
+  }
+
+  /* Pause control. Hover pauses too, but hover is never the only mechanism. */
+  /* The label is presentation only — the transparent input above it takes
+     every click. Without this, a click would toggle the input once directly
+     and once through the label's `for`, cancelling itself out. */
+  .marquee-label {
+    pointer-events: none;
+    border-radius: 0.375rem;
+    border: 1px solid var(--color-stone-300);
+    padding: 0.125rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-stone-600);
+  }
+
+  .marquee-control:hover .marquee-label {
+    border-color: var(--color-stone-900);
+    color: var(--color-stone-900);
+  }
+
+  .marquee-control {
+    position: relative;
+    display: inline-flex;
+  }
+
+  /* Transparent but genuinely laid out, so it stays in the tab order and
+     takes the click itself. */
+  .marquee-checkbox {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+    opacity: 0;
+  }
+
+  .marquee-when-paused {
+    display: none;
+  }
+
+  .marquee-control:has(.marquee-checkbox:checked) .marquee-when-running {
+    display: none;
+  }
+
+  .marquee-control:has(.marquee-checkbox:checked) .marquee-when-paused {
+    display: inline;
+  }
+
+  section:has(.marquee-checkbox:checked) .marquee-inner {
+    animation-play-state: paused;
+  }
+
+  .marquee:hover .marquee-inner {
+    animation-play-state: paused;
+  }
+
+  /* The input is transparent, so the visible focus indicator is carried by
+     the label sitting underneath it. */
+  .marquee-control:has(.marquee-checkbox:focus-visible) .marquee-label {
+    outline: 2px solid var(--color-stone-900);
+    outline-offset: 2px;
+  }
+
+  /* Reduced motion: become a genuinely static, fully visible layout rather
+     than a frozen strip that keeps most of the list clipped out of view. */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      overflow: visible;
+      mask-image: none;
+    }
+
+    .marquee-inner {
+      width: 100%;
+      animation: none;
+      transform: none;
+      flex-wrap: wrap;
+    }
+
+    .marquee-group {
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 0.25rem 0;
+    }
+
+    /* The duplicate track exists only to make the loop seamless. */
+    .marquee-group[aria-hidden="true"] {
+      display: none;
+    }
+
+    .marquee-item {
+      padding: 0 1.5rem 0 0;
+    }
+
+    /* Nothing is moving, so a pause control would be meaningless. */
+    .marquee-control {
+      display: none;
+    }
+  }
+</style>
