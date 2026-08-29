@@ -54,14 +54,14 @@ Contains, in order:
 
   The positioning is deliberately a professional domain rather than a single job title, and the focus ordering is intentional: production first, then reliability/automation, then cloud, then data/integrations. Data is significant technical depth but must not lead the profile, and cloud/DevOps capability is evidenced through projects rather than presented as professional tenure.
 
-* **Impact Snapshot**
+* **A few numbers**
 
-  * A small number of measurable, evidence-based career outcomes.
-  * Compact, evidence-oriented presentation rather than a resume-style bullet list.
+  * A small number of measurable, evidence-based career outcomes, each carrying a short micro-label so the figure is identifiable before its sentence is read.
+  * Compact, evidence-oriented presentation rather than a resume-style bullet list, and never dashboard-like.
   * Must not contain invented or unverified metrics.
   * Placed directly below the Hero, so the positioning claim is supported by evidence before the reader reaches the capability and project sections.
 
-* **Core Focus**
+* **What I work on**
 
   * Three concise capability areas, presented as capabilities rather than separate job personas:
 
@@ -69,7 +69,9 @@ Contains, in order:
     * Automation & Data Systems
     * Cloud & Infrastructure
 
-  * Leadership is a differentiator expressed through the Short About, About page and Experience entries — it must not become a fourth capability area.
+  * Written conversationally rather than as role definitions.
+  * The Cloud & Infrastructure area must keep its project-backed distinction explicit.
+  * Leadership is a differentiator expressed through the homepage About teaser, the About page and Experience entries — it must not become a fourth capability area.
 
 * **Selected Work**
 
@@ -79,14 +81,36 @@ Contains, in order:
   * Projects should emphasize problem/outcome before technology.
   * Cards are text-only; project diagrams and screenshots belong inside the individual case studies.
 
-* **Short About**
+* **Skill Map**
 
-  * Concise professional positioning.
+  * Exists because a deliberately targeted CV cannot show the full supported technical range. Its purpose is breadth without exaggeration.
+  * Seven evidence-based groups: Production & Reliability; Data & Automation; Cloud & Infrastructure; Observability & Delivery; APIs & Integrations; Systems, Identity & Networking; Engineering Tooling & Web.
+  * Compact chips grouped under named domains — never progress bars, percentages, stars, years-per-skill, or beginner/intermediate/expert labels.
+  * A single framing sentence establishes the evidence hierarchy: professional experience concentrated in production operations, data, automation and integrations; deeper cloud, infrastructure and engineering tooling from hands-on projects.
+  * Systems, Identity & Networking must keep professional identity/access work visually distinct from training foundations. That distinction is understated but unambiguous, and training is never presented as professional tenure.
+  * No group is named after a job title, and no `SRE` group exists.
+  * Group sizes follow the evidence, not visual symmetry.
+
+* **A bit about me**
+
+  * Short, human teaser that adds personality rather than restating Experience.
+  * Prose rather than a card, so it reads as a pause in the page.
   * Links to `/about/` for the full story.
+
+* **Tools I work with**
+
+  * A curated visual subset of the Skill Map, not a second copy of it.
+  * First-person framing. It must never read as "Trusted by" or otherwise imply vendor endorsement.
+  * Logo assets are local; no remote logo URLs at runtime and no icon package dependency. Where no redistributable vendor asset is available, the item renders as its name alone rather than an improvised mark.
+  * Motion is CSS-only — no carousel dependency and no JavaScript. A duplicated track makes the loop seamless, and the duplicate is hidden from assistive technology.
+  * The section must never introduce document-level horizontal scrolling.
+  * `prefers-reduced-motion: reduce` must produce a genuinely static, fully visible wrapped layout — not a frozen strip that leaves most items clipped out of view.
+  * Because the motion runs continuously, a keyboard-operable pause/resume control is required. Hover may also pause, but hover must never be the only mechanism.
 
 * **Contact / CTA**
 
-  * A distinct closing call-to-action (e.g. "Let's Connect"), not a duplicate of the Footer's link list.
+  * A distinct closing call-to-action (e.g. "Get in touch"), not a duplicate of the Footer's link list.
+  * Neutral and confident — no availability or job-search language.
 
 No contact form is required.
 
@@ -149,24 +173,21 @@ The portfolio website itself must appear as one project with a complete case stu
 
 #### `/about`
 
-The full professional story — the depth that would otherwise be crammed onto the homepage. Contains:
+The professional story, told as a narrative rather than as a second copy of the résumé. `/experience/` remains the formal record, so this page must not repeat role bullets, employment dates, employer chronology or metrics.
 
-* Professional story
-* Professional progression
-* Full capability groups (see "Skills taxonomy" below)
-* Working approach
-* Technical training
+It should explain why the progression makes sense, covering:
 
-**Skills taxonomy**
+* What Technical Operations means in plain terms
+* The move from investigating problems to preventing them
+* The kinds of problems the work centres on
+* A hands-on working style, including leadership that stayed technical
+* The cloud and infrastructure expansion, evidenced through projects
+* Systems, networking and security foundations, identified as training
+* A short personal closing section
 
-Skills and capabilities are organized around four durable, evidence-based groups:
+A brief personal section (e.g. "Outside the terminal") is permitted and encouraged, kept to a few sentences. It must avoid family, relationship, location and other sensitive detail, and must not stretch hobbies into professional analogies.
 
-* Production Operations & Reliability
-* Automation & Data Systems
-* Cloud & Infrastructure
-* Systems & Security Foundations
-
-Do not present these as a keyword wall or with skill-level progress bars.
+The full grouped capability inventory lives in the homepage Skill Map (§3.1) rather than being duplicated here.
 
 **Evidence accuracy**
 
@@ -284,7 +305,7 @@ The resume link must remain easy to find and work without JavaScript. Where the 
 
 * Minimal visual decoration.
 
-* No animation-heavy, "hacker terminal", parallax, or gimmicky interface.
+* No animation-heavy, "hacker terminal", parallax, or gimmicky interface. A single restrained, slow-moving tool strip is the one permitted motion (§3.1); it must honour `prefers-reduced-motion` with a static fully-visible layout and provide a keyboard-operable pause control.
 
 * Avoid visual choices whose primary purpose is demonstrating frontend complexity.
 
@@ -317,11 +338,13 @@ These are verification points, not hard-coded breakpoints.
 
 The homepage must not render as a repeated sequence of identical heading-divider-paragraph sections. Presentation should match each section's content type:
 
-* Hero — strong typography and whitespace.
-* Impact Snapshot — compact, evidence-oriented presentation.
-* Core Focus — a restrained three-column capability presentation.
+* Hero — strong typography and whitespace, with the human introduction reading before the capability line.
+* A few numbers — compact, evidence-oriented statistic tiles.
+* What I work on — a restrained three-column capability presentation.
 * Selected Work — project-oriented visual hierarchy, given real visual weight; may use a wider canvas than the surrounding prose sections.
-* Short About — short prose.
+* Skill Map — grouped chips across a responsive multi-column grid, scannable rather than dense.
+* A bit about me — short prose, deliberately not a card.
+* Tools I work with — a restrained moving logo strip, understated enough that it never becomes the visual focus of the page.
 * Contact CTA — a distinct closing block.
 
 Project-oriented sections may use a wider layout, but prose line length must remain readable, constrained independently of the outer container width.
@@ -404,6 +427,7 @@ Static assets may include:
 * Resume
 * Portrait image
 * Background texture
+* Tool logos
 * Project screenshots
 * Architecture diagrams
 * Favicons
