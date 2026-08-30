@@ -4,6 +4,17 @@
   "compatibility_date": "2026-08-24",
   "workers_dev": false,
   "preview_urls": true,
+  // Production hostname. The Custom Domain was attached once through the
+  // Cloudflare dashboard (SPEC §14.5 — the deployment workflow deliberately
+  // holds no DNS permissions), so this entry records that existing state
+  // rather than creating it. `versions upload` / `versions deploy` do not
+  // apply triggers, so the deployment pipeline leaves it untouched.
+  "routes": [
+    {
+      "pattern": "idohail.com",
+      "custom_domain": true,
+    },
+  ],
   "assets": {
     "directory": "./dist",
     "html_handling": "auto-trailing-slash",
