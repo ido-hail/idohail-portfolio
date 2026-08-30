@@ -63,8 +63,13 @@ const linkClass =
     )
   }
 
+  {
+    /* The container is wider than the reading measure so figures can break
+      out; every prose child is pinned back to max-w-2xl below, leaving the
+      line length unchanged from a text-only case study. */
+  }
   <div
-    class="case-study mt-12 max-w-2xl text-base leading-relaxed text-stone-700"
+    class="case-study mt-12 max-w-4xl text-base leading-relaxed text-stone-700"
   >
     <Content />
   </div>
@@ -114,5 +119,48 @@ const linkClass =
   .case-study :global(strong) {
     font-weight: 600;
     color: var(--color-stone-900);
+  }
+
+  /* Prose keeps the original reading measure even though the container is
+     wider — only figures use the extra width. */
+  .case-study :global(h2),
+  .case-study :global(h3),
+  .case-study :global(p),
+  .case-study :global(ul),
+  .case-study :global(ol) {
+    max-width: 42rem;
+  }
+
+  .case-study :global(figure) {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .case-study :global(figure img) {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-stone-200);
+  }
+
+  /* The diagrams are dense enough that their labels are small on a narrow
+     screen, so each figure links to the full-size local asset. */
+  .case-study :global(figure a) {
+    display: block;
+    text-decoration: none;
+    border-radius: 0.5rem;
+  }
+
+  .case-study :global(figure a:focus-visible) {
+    outline: 2px solid var(--color-stone-900);
+    outline-offset: 2px;
+  }
+
+  .case-study :global(figcaption) {
+    max-width: 42rem;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-stone-500);
   }
 </style>

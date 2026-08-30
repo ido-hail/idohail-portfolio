@@ -29,6 +29,13 @@ Terraform provisions an EKS Auto Mode cluster across two public subnets, along w
 
 Two Python scripts — `launch.py` and `terminate.py` — are the supported interface to all of it. That choice matters more than the individual services, because it is what makes the lifecycle repeatable rather than remembered.
 
+<figure>
+  <a href="/projects/namegen/architecture.svg">
+    <img src="/projects/namegen/architecture.svg" alt="Architecture diagram: internet traffic reaches two NameGen Pods through a public Network Load Balancer inside an EKS Auto Mode cluster; the Pods use an internal MongoDB StatefulSet backed by an encrypted EBS volume, while GitHub Actions pushes images to a private ECR repository using OIDC." width="1600" height="1050" loading="lazy" decoding="async" />
+  </a>
+  <figcaption>The environment Terraform provisions and the lifecycle scripts manage: EKS Auto Mode across two public subnets, two non-root application Pods behind a public NLB, an authenticated MongoDB StatefulSet on encrypted EBS, and delivery through GitHub Actions using short-lived OIDC credentials. Open the diagram for a full-size view.</figcaption>
+</figure>
+
 ## Key engineering decisions
 
 **Preview by default.** Running `launch.py` with no arguments changes nothing. It validates prerequisites, Git state, Terraform configuration, Kubernetes manifests, AWS identity and resource collisions, then produces a saved create-only plan. Mutating anything requires an explicit `--apply` and typing `APPLY` at the prompt. Apply also refuses to run unless `main` is clean and synchronized with the remote.
@@ -52,6 +59,13 @@ Teardown is treated the same way. `terminate.py` discovers the load balancer and
 ## Observability
 
 An internal `kube-prometheus-stack` deployment provides a four-panel Grafana dashboard covering Ready Pods, Pod restarts, and CPU and memory for both the application and the database. Grafana is not exposed publicly, and the admin credential is generated at runtime rather than committed. The dashboard is scoped to answering whether the environment is healthy during validation.
+
+<figure>
+  <a href="/projects/namegen/grafana-dashboard.webp">
+    <img src="/projects/namegen/grafana-dashboard.webp" alt="Grafana dashboard showing three ready Pods, zero Pod restarts, and CPU and memory usage time series for the two NameGen Pods and mongodb-0." width="925" height="720" loading="lazy" decoding="async" />
+  </a>
+  <figcaption>The four-panel dashboard during a validated run: three Ready Pods (two application replicas and MongoDB), zero restarts, and live CPU and memory series per Pod. Grafana is never exposed publicly — this was captured through a temporary local port-forward.</figcaption>
+</figure>
 
 ## Trade-offs
 

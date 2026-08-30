@@ -19,6 +19,13 @@ This project takes a supplied open-source Pac-Man application and builds a DevSe
 
 It shares infrastructure ground with NameGen — Terraform, EKS Auto Mode, ECR, OIDC, a Network Load Balancer, a MongoDB StatefulSet on encrypted EBS, Prometheus and Grafana — so this write-up does not repeat that lifecycle story. The question here is different: what is allowed to reach production, and what it is permitted to do once it arrives.
 
+<figure>
+  <a href="/projects/pacman/architecture.webp">
+    <img src="/projects/pacman/architecture.webp" alt="Architecture diagram: GitHub Actions builds, scans and deploys through an OIDC-assumed role into an EKS Auto Mode cluster; two non-root Pac-Man Pods sit behind a public Network Load Balancer, and a NetworkPolicy allows only those Pods to reach MongoDB on port 27017." width="1387" height="820" loading="lazy" decoding="async" />
+  </a>
+  <figcaption>The shared infrastructure shape, with the controls this project is actually about: MongoDB reachable only from Pods labelled as the application, non-root workloads, encrypted storage, and a delivery identity scoped to one repository and one namespace. Open the diagram for a full-size view.</figcaption>
+</figure>
+
 ## Delivery risk
 
 The supplied application carries legacy dependencies. That is a realistic starting condition, and it forces the pipeline to handle imperfect input rather than assuming a clean slate.
