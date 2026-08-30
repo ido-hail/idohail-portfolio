@@ -159,6 +159,17 @@ Project pages may contain:
 * GitHub repository
 * Live deployment where applicable
 
+**Visual evidence**
+
+A case study may carry a small number of figures. They are evidence, not decoration — there are no project galleries, and a figure that would not change what a reader understands does not belong.
+
+* Every figure must be factual and source-backed: either an artifact produced by the project itself, or a diagram that accurately reflects what the repository actually implements. Do not fabricate runtime output, dashboards, pipeline runs or scan results.
+* Assets are stored and served locally under `public/projects/<project>/`; never hotlink from the source repositories.
+* Any reused SVG must be checked for scripts, event handlers, `foreignObject`, remote references and embedded external resources before being committed, and served through `<img>` rather than inlined.
+* Each figure needs a meaningful caption explaining why the reader is looking at it, plus alt text describing what it shows. The two serve different purposes and should not be copies of each other.
+* Prose keeps its normal reading measure; figures may use a wider measure within the case-study container. Figures must never introduce horizontal scrolling.
+* Where a diagram's labels are too small to read comfortably on a narrow viewport, link the figure to the full-size local asset. Do not add a JavaScript lightbox.
+
 The portfolio website itself must appear as one project with a complete case study covering:
 
 * Architecture
