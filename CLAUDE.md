@@ -6,6 +6,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `SPEC.md` at the repository root is the source of truth for scope, architecture, requirements, and acceptance criteria. Read the relevant sections of `SPEC.md` before any architectural or scope-changing work.
 
+## Final Polish work
+
+`SPEC.md` remains the durable product and architecture specification. `docs/FINAL_POLISH_PLAN.md` is the operational source of truth for the approved remaining Final Polish work. Where the plan changes a requirement that `SPEC.md` has not yet caught up with, the plan governs until `SPEC.md` is updated in the same PR that implements that behavior.
+
+- Read `docs/FINAL_POLISH_PLAN.md` before doing any Final Polish work.
+- Respect its stable task IDs, review gates, per-PR authorization, and stop conditions.
+- The plan is never standing permission to execute the full sequence. Do not advance to another PR without explicit human authorization.
+
 ## Current stack
 
 - Astro 7, static output only
