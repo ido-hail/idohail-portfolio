@@ -282,42 +282,87 @@ const personJsonLd = {
         >
           {siteConfig.name}
         </h1>
+        {
+          /* Capability/domain line, not a job title — see SPEC §3.1 and
+            docs/FINAL_POLISH_PLAN.md §2. */
+        }
         <p class="mt-3 text-xl font-semibold text-stone-700 sm:text-2xl">
           {siteConfig.positioning}
         </p>
 
-        <p class="mt-6 max-w-2xl text-lg font-medium text-stone-900 sm:text-xl">
-          I like making complicated systems easier to run.
-        </p>
         <p
-          class="mt-4 max-w-2xl text-base leading-relaxed text-stone-600 sm:text-lg"
+          class="mt-6 max-w-2xl text-lg leading-relaxed text-stone-600 sm:text-xl"
         >
-          My work usually sits somewhere between production, data and
-          infrastructure — figuring out why something behaves the way it does,
-          then turning that into better monitoring, automation, or one less
-          thing that can quietly go wrong.
-        </p>
-        <p
-          class="mt-4 max-w-2xl text-sm leading-relaxed text-stone-500 sm:text-base"
-        >
-          I've done that hands-on in production environments serving 2M+ users;
-          my cloud and infrastructure work is demonstrated through the projects
-          below.
+          My background is in Technical Operations, working hands-on across
+          production systems, infrastructure and data. I investigate technical
+          problems, improve how systems run, and automate recurring operational
+          work.
         </p>
 
-        <p
-          class="mt-6 text-sm font-medium tracking-wide text-stone-500 uppercase"
-        >
-          {siteConfig.focus}
-        </p>
-
+        {
+          /* Resume CTA is conditional so Phase 4 (adding the resume asset)
+            needs no template change: Resume becomes primary once
+            `resumePath` is set, and Projects/Experience access shifts down
+            rather than disappearing. */
+        }
         <div class="mt-8 flex flex-wrap items-center gap-4">
-          <a href="/projects/" class={buttonPrimary}>View Projects</a>
-          <a href="/experience/" class={buttonSecondary}>Experience</a>
           {
-            siteConfig.resumePath && (
-              <a href={siteConfig.resumePath} class={linkAccent}>
-                Resume →
+            siteConfig.resumePath ? (
+              <>
+                <a href={siteConfig.resumePath} class={buttonPrimary}>
+                  Resume
+                </a>
+                <a href="/projects/" class={buttonSecondary}>
+                  View Projects
+                </a>
+                <a href="/experience/" class={linkAccent}>
+                  Experience
+                </a>
+              </>
+            ) : (
+              <>
+                <a href="/projects/" class={buttonPrimary}>
+                  View Projects
+                </a>
+                <a href="/experience/" class={buttonSecondary}>
+                  Experience
+                </a>
+              </>
+            )
+          }
+        </div>
+
+        {
+          /* Compact plain-text links, not icons — no aria-label plumbing
+            and no icon asset/dependency. Accessible names come directly
+            from the visible link text. */
+        }
+        <div
+          class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-stone-500"
+        >
+          {
+            siteConfig.linkedinUrl && (
+              <a
+                href={siteConfig.linkedinUrl}
+                class="rounded font-medium hover:text-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900"
+              >
+                LinkedIn
+              </a>
+            )
+          }
+          <a
+            href={siteConfig.githubUrl}
+            class="rounded font-medium hover:text-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900"
+          >
+            GitHub
+          </a>
+          {
+            siteConfig.email && (
+              <a
+                href={`mailto:${siteConfig.email}`}
+                class="rounded font-medium hover:text-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900"
+              >
+                Email
               </a>
             )
           }

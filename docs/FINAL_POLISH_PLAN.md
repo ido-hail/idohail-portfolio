@@ -25,31 +25,40 @@ control, not a change to the plan. It is updated by explicit human authorization
 
 **PR 0 is merged and production-verified.** ~~PR 0 only — tasks `P0-01`, `P0-02`, `P0-03`.~~
 
-**Logical PR 1 only** — tasks `P6-01`, `P6-02`, `P6-03`.
+**Logical PR 1 is merged and production-verified.** ~~Logical PR 1 only — tasks `P6-01`, `P6-02`, `P6-03`.~~
+
+**`P1-00` received explicit human selection** (capability line and value proposition locked; see §2/§4) and feeds this implementation as the completed gate.
+
+**Logical PR 2 only** — implementation tasks `P1-01`, `P1-02`, `P1-03`, `P1-12`.
 
 Allowed files, complete list:
 
 ```
-docs/FINAL_POLISH_PLAN.md   (tracked)
-README.md                   (tracked)
-docs/ARCHITECTURE.md        (tracked)
-docs/DEPLOYMENT.md          (tracked)
-.github/workflows/ci.yml    (tracked)
+docs/FINAL_POLISH_PLAN.md                        (tracked)
+src/config/site.ts                               (tracked)
+src/components/SiteHeader.astro                  (tracked)
+src/pages/index.astro                            (tracked)
+.claude/skills/portfolio-design-review/SKILL.md  (tracked)
+SPEC.md                                          (tracked)
+.agents/skills/portfolio-design-review/SKILL.md  (machine-local mirror, not tracked — see §7)
 ```
 
 If repository formatting or validation appears to require touching any other
 file, **stop and report** rather than expanding scope.
 
-### Forbidden while logical PR 1 is the authorized scope
+### Forbidden while logical PR 2 is the authorized scope
 
-- `SPEC.md`
-- `CLAUDE.md`, `.claude/**`
-- `src/**`, `public/**` — no rendered site file, no rendered site behaviour change
+- `README.md`, `docs/ARCHITECTURE.md`, `docs/DEPLOYMENT.md`
+- `src/pages/about/**`, `src/pages/experience/**`, `src/content/**`
+- `public/**`
 - `package.json`, `wrangler.jsonc`
+- `.github/workflows/**`
 - Cloudflare or GitHub settings
-- Starting `P1-00`
-- Starting any logical PR after PR 1
-- Merging logical PR 1
+- Implementing `P1-04` through `P1-10` (homepage-body Phase 1 tasks; logical PR 3)
+- Completing the rest of `P1-11` (full SPEC alignment; depends on `P1-04`–`P1-10`, so it stays `TODO` in this PR — only the Hero/navigation slice §9 assigns to PR 2 is done here)
+- Starting `P2-00` or any Phase 2 work
+- Starting any logical PR after PR 2
+- Merging logical PR 2
 
 ### Stop condition
 
@@ -546,7 +555,7 @@ the metrics into the Hero.
 - **Dependencies:** none
 - **Definition of Done:** approximately three directions proposed; each preserves Name, then capability/domain line, then short value proposition; none introduces a job title; none is a keyword wall; each emphasises problem solving and technical breadth; none carries metrics. **The gate stops for human selection.**
 - **Verification:** human selects one direction before `P1-03` begins.
-- **Status:** TODO
+- **Status:** DONE — human selected: capability line `Production & Reliability · DevOps & Infrastructure · Data & Automation`; value proposition anchoring Technical Operations as the professional background. Implemented in `P1-03`.
 
 #### P1-01 — Positioning in site config
 
@@ -556,7 +565,7 @@ the metrics into the Hero.
 - **Dependencies:** `P1-00`
 - **Definition of Done:** no single-role job title remains in config; capability line present; nav supports the new header model; doc comments describe actual behaviour.
 - **Verification:** `npm run verify`.
-- **Status:** TODO
+- **Status:** DONE
 
 #### P1-02 — Header wordmark becomes "Home"
 
@@ -566,7 +575,7 @@ the metrics into the Hero.
 - **Dependencies:** `P1-01`
 - **Definition of Done:** left-hand link reads `Home` and points at `/`; `aria-current="page"` is applied on the homepage; the conditional Resume nav entry still renders only when `resumePath` is set; keyboard navigation and focus visibility unchanged.
 - **Verification:** `npm run verify`; keyboard tab pass on Preview; confirm `aria-current` in the built HTML for `/`.
-- **Status:** TODO
+- **Status:** DONE
 
 #### P1-03 — Hero rebuild
 
@@ -576,7 +585,7 @@ the metrics into the Hero.
 - **Dependencies:** `P1-00` (human selection), `P1-01`
 - **Definition of Done:** no job title under the name; "I like making complicated systems easier to run." and "My work usually sits somewhere between…" are gone; the CTA row is conditional on `siteConfig.resumePath` so Phase 4 needs no template change; LinkedIn, GitHub and Email render as compact text links with accessible names; no metrics in the Hero.
 - **Verification:** `npm run verify`; Preview at 360 / 768 / 1440.
-- **Status:** TODO
+- **Status:** DONE — Preview verified at 360 / 768 / 1440 (real rendered viewports via CDP; `window.innerWidth` matched each target exactly; zero horizontal overflow at all three).
 
 #### P1-04 — Remove "A few numbers"
 
@@ -666,7 +675,7 @@ the metrics into the Hero.
 - **Dependencies:** `P1-01`
 - **Definition of Done:** the tracked skill describes the current positioning; where `.agents/` is present locally, its copy is mirrored and `diff -r .claude .agents` shows only the intentional `CLAUDE.md` / `AGENTS.md` reference differences.
 - **Verification:** `git diff --name-only` lists the `.claude/` skill only; where `.agents/` exists locally, `diff -r .claude .agents`; `npm run verify`.
-- **Status:** TODO
+- **Status:** DONE
 
 ---
 
