@@ -53,48 +53,41 @@ Contains, in order:
 
   The capability line is deliberately a set of professional domains rather than a single job title. Data is significant technical depth but must not dominate the profile, and DevOps/cloud/infrastructure capability is evidenced through projects rather than presented as professional tenure.
 
-* **A few numbers**
-
-  * A small number of measurable, evidence-based career outcomes, each carrying a short micro-label so the figure is identifiable before its sentence is read.
-  * Compact, evidence-oriented presentation rather than a resume-style bullet list, and never dashboard-like.
-  * Must not contain invented or unverified metrics.
-  * Placed directly below the Hero, so the positioning claim is supported by evidence before the reader reaches the capability and project sections.
-
-* **What I work on**
-
-  * Three concise capability areas, presented as capabilities rather than separate job personas:
-
-    * Production & Reliability
-    * Automation & Data Systems
-    * Cloud & Infrastructure
-
-  * Written conversationally rather than as role definitions.
-  * The Cloud & Infrastructure area must keep its project-backed distinction explicit.
-  * Leadership is a differentiator expressed through the homepage About teaser, the About page and Experience entries — it must not become a fourth capability area.
-
 * **Selected Work**
 
+  * Placed directly after the Hero — the first evidence section, before any capability-card section, so the reader reaches proof before a second round of claims.
   * Prominent, visually weighted featured-project presentation.
   * Intended layout: one prominent featured project plus one or more smaller secondary featured projects, degrading cleanly by the number of featured entries.
   * Driven by the Projects content collection's `Featured status` and ordering metadata (§4.1).
   * Projects should emphasize problem/outcome before technology.
   * Cards are text-only; project diagrams and screenshots belong inside the individual case studies.
+  * No introductory paragraph announcing or explaining how many projects are featured; the heading and cards speak for themselves.
+
+* **What I work on**
+
+  * Four concise capability groups, presented as capabilities rather than separate job personas:
+
+    * Production & Reliability
+    * DevOps, Cloud & Infrastructure
+    * Automation & Data Systems
+    * Integrations, Tooling & Ownership
+
+  * Written conversationally rather than as role definitions, and kept to one or two sentences each — a scan surface, not a role description.
+  * The DevOps, Cloud & Infrastructure area must keep its project-backed distinction explicit.
+  * No group is named after a job title.
+  * Responsive grid: one column by default, two columns at `sm`, four columns at `lg`.
 
 * **Skill Map**
 
   * Exists because a deliberately targeted CV cannot show the full supported technical range. Its purpose is breadth without exaggeration.
-  * Seven evidence-based groups: Production & Reliability; Data & Automation; Cloud & Infrastructure; Observability & Delivery; APIs & Integrations; Systems, Identity & Networking; Engineering Tooling & Web.
+  * A curated public presentation derived from the internal evidence inventory (`docs/FINAL_POLISH_PLAN.md` §5) — not a dump of it. Low-value implementation detail stays in the case studies and Experience entries rather than becoming a chip.
+  * Seven evidence-based families: Production Reliability & Operations; DevOps, Cloud & Infrastructure; Data Engineering & Platforms; Programming & Automation; APIs, Integrations & Internal Tooling; Systems, Identity & Networking; Security, QA & Compliance.
   * Compact chips grouped under named domains — never progress bars, percentages, stars, years-per-skill, or beginner/intermediate/expert labels.
-  * A single framing sentence establishes the evidence hierarchy: professional experience concentrated in production operations, data, automation and integrations; deeper cloud, infrastructure and engineering tooling from hands-on projects.
-  * Systems, Identity & Networking must keep professional identity/access work visually distinct from training foundations. That distinction is understated but unambiguous, and training is never presented as professional tenure.
-  * No group is named after a job title, and no `SRE` group exists.
-  * Group sizes follow the evidence, not visual symmetry.
-
-* **A bit about me**
-
-  * Short, human teaser that adds personality rather than restating Experience.
-  * Prose rather than a card, so it reads as a pause in the page.
-  * Links to `/about/` for the full story.
+  * No coursework/project/professional labels and no framing sentence establishing an evidence hierarchy; a skill is presented simply as a skill.
+  * No group is named after a job title, and no `SRE` group exists. `SRE Practices` may appear only as a chip inside Production Reliability & Operations — never as a group, a claimed role, or job tenure.
+  * `CCNA` appears as a bare keyword, never `CCNA Certified` and never qualified as coursework or fundamentals.
+  * Tableau does not appear; its exclusion is a deliberate positioning decision, not a gap in evidence (see `docs/FINAL_POLISH_PLAN.md` §5).
+  * Group sizes follow the evidence, not visual symmetry. Chip counts are checked against a visual-density review at representative widths so no family reads as a keyword wall.
 
 * **Tools I work with**
 
@@ -348,12 +341,10 @@ These are verification points, not hard-coded breakpoints.
 
 The homepage must not render as a repeated sequence of identical heading-divider-paragraph sections. Presentation should match each section's content type:
 
-* Hero — strong typography and whitespace, with the human introduction reading before the capability line.
-* A few numbers — compact, evidence-oriented statistic tiles.
-* What I work on — a restrained three-column capability presentation.
-* Selected Work — project-oriented visual hierarchy, given real visual weight; may use a wider canvas than the surrounding prose sections.
+* Hero — strong typography and whitespace: name, then the capability line, then the short value proposition.
+* Selected Work — the first evidence section after the Hero, given real visual weight; may use a wider canvas than the surrounding prose sections.
+* What I work on — a restrained capability presentation, one column by default, two at `sm`, four at `lg`.
 * Skill Map — grouped chips across a responsive multi-column grid, scannable rather than dense.
-* A bit about me — short prose, deliberately not a card.
 * Tools I work with — a restrained moving logo strip, understated enough that it never becomes the visual focus of the page.
 * Contact CTA — a distinct closing block.
 

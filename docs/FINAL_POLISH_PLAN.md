@@ -29,36 +29,36 @@ control, not a change to the plan. It is updated by explicit human authorization
 
 **`P1-00` received explicit human selection** (capability line and value proposition locked; see §2/§4) and feeds this implementation as the completed gate.
 
-**Logical PR 2 only** — implementation tasks `P1-01`, `P1-02`, `P1-03`, `P1-12`.
+**Logical PR 2 is merged and production-verified.** ~~Logical PR 2 only — implementation tasks `P1-01`, `P1-02`, `P1-03`, `P1-12`.~~
+
+**Logical PR 3 only** — implementation tasks `P1-04`, `P1-05`, `P1-06`, `P1-07`, `P1-08`, `P1-09`, `P1-10`, `P1-11`.
 
 Allowed files, complete list:
 
 ```
-docs/FINAL_POLISH_PLAN.md                        (tracked)
-src/config/site.ts                               (tracked)
-src/components/SiteHeader.astro                  (tracked)
-src/pages/index.astro                            (tracked)
-.claude/skills/portfolio-design-review/SKILL.md  (tracked)
-SPEC.md                                          (tracked)
-.agents/skills/portfolio-design-review/SKILL.md  (machine-local mirror, not tracked — see §7)
+docs/FINAL_POLISH_PLAN.md   (tracked)
+src/pages/index.astro       (tracked)
+SPEC.md                     (tracked)
+public/tools/**             (tracked, only if genuinely required for P1-09)
 ```
 
 If repository formatting or validation appears to require touching any other
 file, **stop and report** rather than expanding scope.
 
-### Forbidden while logical PR 2 is the authorized scope
+### Forbidden while logical PR 3 is the authorized scope
 
+- `src/config/site.ts`, `src/components/SiteHeader.astro`
+- `src/pages/about/**`, `src/pages/experience/**`, `src/content/**`, `src/layouts/**`
+- `.claude/**`
 - `README.md`, `docs/ARCHITECTURE.md`, `docs/DEPLOYMENT.md`
-- `src/pages/about/**`, `src/pages/experience/**`, `src/content/**`
-- `public/**`
-- `package.json`, `wrangler.jsonc`
-- `.github/workflows/**`
+- `package.json`, `wrangler.jsonc`, `.github/workflows/**`
+- `public/_headers`, `public/projects/**`
+- portrait assets, Resume assets
 - Cloudflare or GitHub settings
-- Implementing `P1-04` through `P1-10` (homepage-body Phase 1 tasks; logical PR 3)
-- Completing the rest of `P1-11` (full SPEC alignment; depends on `P1-04`–`P1-10`, so it stays `TODO` in this PR — only the Hero/navigation slice §9 assigns to PR 2 is done here)
+- Reopening `P1-00` positioning or changing the approved Hero wording
 - Starting `P2-00` or any Phase 2 work
-- Starting any logical PR after PR 2
-- Merging logical PR 2
+- Starting any logical PR after PR 3
+- Merging logical PR 3
 
 ### Stop condition
 
@@ -595,7 +595,7 @@ the metrics into the Hero.
 - **Dependencies:** `P1-03`
 - **Definition of Done:** section and data array removed; **the metrics do not reappear in the Hero or elsewhere on `/`**; `/experience/` still carries all three.
 - **Verification:** `npm run verify`; grep the built homepage for `2M+`, `30%` and `Real-time` and confirm absence.
-- **Status:** TODO
+- **Status:** DONE — confirmed absent from the built homepage; all three metrics confirmed still present on `/experience/` before removal.
 
 #### P1-05 — Remove "A bit about me"
 
@@ -605,7 +605,7 @@ the metrics into the Hero.
 - **Dependencies:** `P1-03`
 - **Definition of Done:** section removed; `/about/` remains reachable from nav and footer; no broken internal link.
 - **Verification:** `npm run verify`; CI link check passes.
-- **Status:** TODO
+- **Status:** DONE — About remains reachable via header nav and footer, both untouched.
 
 #### P1-06 — "What I Work On" broadened to four groups
 
@@ -615,7 +615,7 @@ the metrics into the Hero.
 - **Dependencies:** `P1-03`
 - **Definition of Done:** four groups matching §4; grid 1 / 2 / 4; no group named after a job title; copy is concise rather than role definitions.
 - **Verification:** `npm run verify`; Preview at 360 / 768 / 1440.
-- **Status:** TODO
+- **Status:** DONE — 4 cards confirmed via CDP at all three widths (1 col / 2 col / 4 col); no group named after a job title.
 
 #### P1-07 — Reorder: Selected Work to position 2
 
@@ -625,7 +625,7 @@ the metrics into the Hero.
 - **Dependencies:** `P1-06`
 - **Definition of Done:** order is Hero, Selected Work, What I Work On, Skill Map, Tools, Get in touch; the "Two projects where…" paragraph is gone; no paragraph announces how many projects exist; heading hierarchy remains one `h1` with `h2` sections.
 - **Verification:** `npm run verify`; heading-order check on Preview.
-- **Status:** TODO
+- **Status:** DONE — order confirmed via CDP against Preview (`h2` sequence: Selected Work, What I work on, Skill Map, Tools I work with, Get in touch); intro paragraph removed with no replacement; `h1` count remains 1.
 
 #### P1-08 — Skill Map rebuild
 
@@ -635,7 +635,7 @@ the metrics into the Hero.
 - **Dependencies:** `P1-07`
 - **Definition of Done:** seven families; no `Professional` or `Foundations` labels; no framing sentence; `CCNA` appears bare; `SRE Practices` appears only as a chip and never as a group name; Tableau absent; the `sets` code path is deleted; **the 360 / 768 / 1440 density review has been performed and any family reading as a keyword wall has been reduced**.
 - **Verification:** `npm run verify`; density review at all three widths on Preview, recorded in the PR description.
-- **Status:** TODO
+- **Status:** DONE — §6 draft implemented as the final list; density review performed via CDP screenshots at 360/768/1440 (real viewports, `scrollWidth === clientWidth` at all three); no family read as a keyword wall, so nothing was reduced.
 
 #### P1-09 — Tools marquee data sync
 
@@ -645,7 +645,7 @@ the metrics into the Hero.
 - **Dependencies:** `P1-08`
 - **Definition of Done:** list matches §4; dbt and Kafka present, with a redistributable local SVG or rendered name-only via `logo: null`; no remote logo URL; no improvised mark; no document-level horizontal scrolling; the reduced-motion fallback still produces a fully visible wrapped layout; the pause control is still keyboard-operable.
 - **Verification:** `npm run verify`; reduced-motion and keyboard pause tested on Preview.
-- **Status:** TODO
+- **Status:** DONE — dbt and Kafka use `logo: null` (no local SVG existed; none added). Verified via CDP: normal motion animates and the pause control (keyboard-focusable) pauses/resumes it; reduced motion sets `animation-name: none`, wraps to a static layout, shows all 18 tools with zero horizontal overflow, and hides the pause control and duplicate track.
 
 #### P1-10 — Homepage metadata and JSON-LD
 
@@ -655,7 +655,7 @@ the metrics into the Hero.
 - **Dependencies:** `P1-03`
 - **Definition of Done:** title and description carry no retired job title; the description is unique and accurate; JSON-LD remains valid and contains only facts present on the site.
 - **Verification:** `npm run verify`; validate JSON-LD from the built output.
-- **Status:** TODO
+- **Status:** DONE — title "Ido Hail | Production, DevOps & Data", description "Portfolio for Ido Hail: Technical Operations background across production, infrastructure and data, plus hands-on cloud and DevOps engineering projects." (no em dash, no retired title, no metrics). JSON-LD unchanged (name, url, sameAs only) — no alignment change was required, confirmed by inspection.
 
 #### P1-11 — SPEC alignment for Phase 1
 
@@ -665,7 +665,7 @@ the metrics into the Hero.
 - **Dependencies:** `P1-01` through `P1-10`
 - **Definition of Done:** every Phase 1 conflict listed in §11 is resolved; `SPEC.md` contains no requirement the site now contradicts.
 - **Verification:** read `SPEC.md` §3.1 and §3.2 against the built homepage.
-- **Status:** TODO
+- **Status:** DONE — §1, §3.1 (Selected Work, What I work on, Skill Map bullets rewritten; "A few numbers" and "A bit about me" bullets removed), and §6.2 all updated; no stale reference to either removed section, the old three-area model, or the old seven-family names remains anywhere in `SPEC.md`.
 
 #### P1-12 — Update the `portfolio-design-review` skill
 
