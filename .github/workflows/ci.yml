@@ -61,13 +61,9 @@ jobs:
           token: ""
 
       # External links: best effort. Network-enabled, so a flaky/slow
-      # third party (e.g. github.com) must not fail CI.
-      #
-      # TEMPORARY: idohail.com is excluded here only because the custom
-      # production domain is not live yet (SPEC §14.3) — canonical/OG
-      # self-links currently point at a domain nothing is deployed to.
-      # Remove this --exclude once the custom domain is attached so those
-      # self-links get checked too.
+      # third party (e.g. github.com) must not fail CI. The production
+      # custom domain is live, so the site's own canonical/OG self-links
+      # to idohail.com are checked like any other external link.
       - name: Check external links (best effort)
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         continue-on-error: true
@@ -75,7 +71,6 @@ jobs:
           args: >-
             --root-dir ./dist
             --no-progress
-            --exclude '^https://idohail\.com/'
             './dist/**/*.html'
           fail: true
           failIfEmpty: false
@@ -428,5 +423,5 @@ jobs:
             echo "- Version Preview URL (verification only): ${{ steps.wrangler_upload.outputs.preview_url }}"
             echo "- Status: promoted to 100%"
             echo ""
-            echo "_No production hostname/custom domain is attached yet — the Preview URL above is for verification only, not the GitHub environment URL._"
+            echo "_Production: https://idohail.com — the Preview URL above is for verification only, not the GitHub environment URL._"
           } >> "$GITHUB_STEP_SUMMARY"

@@ -7,9 +7,10 @@ security posture are part of the portfolio itself.
 
 ## Deployment Status
 
-Production custom domain: pending launch. The deployment pipeline,
-Worker versioning, and production promotion are implemented and
-running; the `idohail.com` domain is not yet attached to the Worker.
+Production is live at [idohail.com](https://idohail.com). The Custom
+Domain is attached, HTTP redirects to HTTPS, and `www` redirects to
+the apex domain. HSTS is not yet enabled; it is deferred until a
+deliberate, separately reviewed decision.
 
 ## Architecture
 
@@ -59,10 +60,9 @@ recovery procedures.
 A strict Content-Security-Policy and security headers are derived
 directly from the built site (`public/_headers`); `main` is protected
 by required status checks and a linear-history, PR-only merge policy;
-dependency updates and vulnerability alerts are automated. HSTS and
-the production custom domain are pending launch. See
-[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the full security
-model.
+dependency updates and vulnerability alerts are automated. HSTS is
+not yet enabled. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for
+the full security model.
 
 ## Repository Structure
 

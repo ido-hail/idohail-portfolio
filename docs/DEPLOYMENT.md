@@ -37,8 +37,8 @@ Cloudflare does not offer a token permission scoped to a single
 Worker — the token's effective reach is every Worker in the account,
 not just `idohail-portfolio`. The token carries no DNS permission;
 DNS and custom-domain attachment are separate, manual operations (see
-[Custom domain setup](#custom-domain-setup-pending)) and are not
-reachable from this deployment pipeline.
+[Custom domain setup](#custom-domain-setup)) and are not reachable
+from this deployment pipeline.
 
 ## Branch governance
 
@@ -91,8 +91,9 @@ other. Downloads the same `dist-${{ github.sha }}` artifact, then:
    structurally incapable of touching custom domains or DNS.
 
 The job summary always reports the commit, Worker name, version ID,
-deployment ID, and the version's Preview URL (useful for
-post-deployment verification even once a custom domain is attached).
+deployment ID, and the version's Preview URL — useful for
+post-deployment verification independent of the production custom
+domain.
 
 ## Build-once artifact model
 
@@ -149,25 +150,22 @@ and deployed as part of the same validated artifact both Preview and
 Production consume — there is no separate step or Cloudflare
 dashboard configuration for headers.
 
-## Custom domain setup (pending)
+## Custom domain setup
 
-Not yet performed. Attaching `idohail.com` to the `idohail-portfolio`
-Worker is a manual, one-time Cloudflare configuration step (Worker
-custom domain/route setup), done outside this CI/CD pipeline — the
-pipeline itself has no route or DNS capability by design (see
-[Cloudflare API token scope](#cloudflare-api-token-scope)).
-
-## Post-launch verification (pending)
-
-After the custom domain is attached, HTTPS should be verified
-end-to-end for the production hostname before relying on it, and the
-`--exclude '^https://idohail\.com/'` temporary exclusion in the
-external link check (`ci.yml`) should be removed so the site's own
-canonical/OG self-links get checked like any other external link.
+`idohail.com` is attached to the `idohail-portfolio` Worker as a
+Custom Domain. Attaching it was a manual, one-time Cloudflare
+configuration step (Worker custom domain/route setup), performed
+outside this CI/CD pipeline — the pipeline itself has no route or DNS
+capability by design (see
+[Cloudflare API token scope](#cloudflare-api-token-scope)). HTTP
+redirects to HTTPS, and `www.idohail.com` redirects to the apex
+domain.
 
 ## HSTS activation (pending)
 
-Deferred until [Post-launch verification](#post-launch-verification-pending)
-has confirmed the production hostname serves valid HTTPS. Enabling
-HSTS before that is verified risks locking out browsers from a
-domain that isn't reliably serving HTTPS yet.
+Not yet enabled. Enabling HSTS is a deliberate, separately reviewed
+decision — see the HSTS review task in
+[docs/FINAL_POLISH_PLAN.md](FINAL_POLISH_PLAN.md). Enabling it before
+that review risks locking out browsers if the production hostname (or
+a subdomain, if `includeSubDomains` were used) stops reliably serving
+valid HTTPS.
