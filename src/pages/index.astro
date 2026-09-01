@@ -17,193 +17,126 @@ const linkAccent =
 const eyebrowHeading =
   "text-sm font-semibold uppercase tracking-wide text-blue-600";
 
+// Four capability groups, broader than the three-area version this
+// replaces. Each description names concrete tools/practices rather than
+// restating the group title, and stays to one to two sentences — this is
+// a scan surface, not a role definition.
 const workAreas = [
   {
     title: "Production & Reliability",
     description:
-      "Keeping an eye on what production is actually doing — monitoring, alerting, digging into incidents, and making sure a release is genuinely ready before it goes out. It isn't the flashy part of engineering, but it's the part that keeps systems dependable.",
+      "Owning what's running in production: monitoring, incident response, root-cause work, and making sure a release is actually ready before it goes out.",
+  },
+  {
+    title: "DevOps, Cloud & Infrastructure",
+    description:
+      "AWS, Terraform, Docker and Kubernetes end to end, from provisioning through CI/CD to a working delivery pipeline. Built hands-on through the projects on this site.",
   },
   {
     title: "Automation & Data Systems",
     description:
-      "SQL and Python across production databases and pipelines: data-quality checks, validation, API and integration work, and replacing manual routines that shouldn't need to be repeated.",
+      "SQL and Python across production databases and pipelines: automation, data-quality checks, validation and database migrations.",
   },
   {
-    title: "Cloud & Infrastructure",
+    title: "Integrations, Tooling & Ownership",
     description:
-      "AWS, Docker, Kubernetes and Terraform applied end to end — provisioning, CI/CD, immutable delivery and monitoring. This is the side I've built hands-on through the projects on this site.",
+      "REST APIs, internal tooling and identity and access administration, plus the cross-functional work of taking a technical problem from ambiguous to resolved.",
   },
 ] as const;
 
-// Each item carries its own headline value; the section is evidence, so
-// nothing here is rendered without a real measured outcome behind it.
-const impactItems = [
-  {
-    label: "Production scale",
-    value: "2M+",
-    description: "Production environment supporting 2M+ users.",
-  },
-  {
-    label: "Data quality",
-    value: ">30%",
-    description:
-      "Fewer production data incidents after building an automated SQL and Python data-quality framework.",
-  },
-  {
-    label: "Detection",
-    value: "Real-time",
-    description:
-      "Detection of production issues moved from next-day discovery to immediate alerting.",
-  },
-] as const;
-
-// Grouped so breadth is scannable by domain rather than presented as one
-// undifferentiated keyword list. Every group uses the same `sets` shape so
-// rendering stays a single code path; only Systems/Identity needs more than
-// one set, to keep professional work visibly separate from training.
+// Curated public presentation of the evidence inventory in
+// docs/FINAL_POLISH_PLAN.md §5 — not a dump of it. Chips are chosen for
+// recruiter scanability; low-value implementation detail stays in the
+// case studies and Experience entries rather than becoming a chip. See
+// §6 for the curation rules and the density-review requirement this
+// list was checked against at 360/768/1440.
 const skillMap = [
   {
-    title: "Production & Reliability",
-    sets: [
-      {
-        label: null,
-        skills: [
-          "Production Operations",
-          "Incident Investigation",
-          "Root Cause Analysis",
-          "Release Readiness",
-          "Release Validation",
-          "QA & Validation Coordination",
-          "Production & Staging Operations",
-          "Operational Analysis",
-          "Defect Tracking (Jira)",
-        ],
-      },
+    title: "Production Reliability & Operations",
+    skills: [
+      "Production Operations",
+      "SRE Practices",
+      "Incident Response",
+      "Root Cause Analysis",
+      "Monitoring & Alerting",
+      "Observability",
+      "Release Management",
+      "Release Readiness",
+      "Prometheus",
+      "Grafana",
     ],
   },
   {
-    title: "Data & Automation",
-    sets: [
-      {
-        label: null,
-        skills: [
-          "SQL",
-          "PostgreSQL",
-          "MongoDB",
-          "Snowflake",
-          "Redis",
-          "Python",
-          "JavaScript (scripting & jobs)",
-          "ETL / ELT",
-          "Prefect",
-          "Data Quality & Validation",
-          "Metabase",
-          "Retool",
-        ],
-      },
+    title: "DevOps, Cloud & Infrastructure",
+    skills: [
+      "AWS",
+      "Terraform",
+      "Infrastructure as Code",
+      "Docker",
+      "Kubernetes",
+      "CI/CD",
+      "GitHub Actions",
+      "Immutable Delivery",
+      "Cloudflare Workers",
     ],
   },
   {
-    title: "Cloud & Infrastructure",
-    sets: [
-      {
-        label: null,
-        skills: [
-          "AWS",
-          "Terraform",
-          "Docker",
-          "Kubernetes",
-          "Kubernetes NetworkPolicy",
-          "Amazon EKS",
-          "Amazon ECR",
-          "Amazon S3",
-          "IAM",
-          "OIDC",
-          "VPC & Networking",
-          "Load Balancing (NLB)",
-          "Encrypted Storage (EBS)",
-        ],
-      },
+    title: "Data Engineering & Platforms",
+    skills: [
+      "SQL",
+      "PostgreSQL",
+      "MongoDB",
+      "Snowflake",
+      "Redis",
+      "ETL / ELT",
+      "Prefect",
+      "dbt",
+      "Kafka",
+      "Data Modeling",
+      "Data Quality",
+      "Database Migrations",
     ],
   },
   {
-    title: "Observability & Delivery",
-    sets: [
-      {
-        label: null,
-        skills: [
-          "Monitoring",
-          "Alerting",
-          "Log Analysis",
-          "Axiom",
-          "Prometheus",
-          "Grafana",
-          "GitHub Actions",
-          "CI/CD",
-          "Immutable Delivery",
-          "Deployment Validation",
-          "Trivy",
-        ],
-      },
-    ],
+    title: "Programming & Automation",
+    skills: ["Python", "JavaScript", "TypeScript", "Bash", "Git"],
   },
   {
-    title: "APIs & Integrations",
-    sets: [
-      {
-        label: null,
-        skills: [
-          "REST APIs",
-          "JSON",
-          "Postman",
-          "API Validation",
-          "Integration Validation",
-        ],
-      },
+    title: "APIs, Integrations & Internal Tooling",
+    skills: [
+      "REST APIs",
+      "API & Integration Validation",
+      "Postman",
+      "Retool",
+      "Metabase",
+      "Jira",
+      "Zendesk",
     ],
   },
   {
     title: "Systems, Identity & Networking",
-    sets: [
-      {
-        label: "Professional",
-        skills: [
-          "JumpCloud",
-          "Identity Lifecycle",
-          "RBAC",
-          "Access Administration",
-        ],
-      },
-      {
-        label: "Foundations",
-        skills: [
-          "Linux Administration",
-          "Networking",
-          "System Administration",
-          "Firewalls",
-          "Cyber Security",
-          "SOC Fundamentals",
-        ],
-      },
+    skills: [
+      "Linux",
+      "System Administration",
+      "Identity & Access Management",
+      "JumpCloud",
+      "Google Workspace Administration",
+      "RBAC",
+      "TCP/IP",
+      "DNS",
+      "CCNA",
     ],
   },
   {
-    title: "Engineering Tooling & Web",
-    sets: [
-      {
-        label: null,
-        skills: [
-          "Git",
-          "Bash / Shell Scripting",
-          "Helm",
-          "Kustomize",
-          "kubectl",
-          "Astro",
-          "TypeScript",
-          "Tailwind CSS",
-          "Cloudflare Workers",
-        ],
-      },
+    title: "Security, QA & Compliance",
+    skills: [
+      "DevSecOps",
+      "Vulnerability Scanning",
+      "Trivy",
+      "Container Hardening",
+      "QA & Test Coordination",
+      "Cyber Security",
+      "HIPAA / GDPR",
     ],
   },
 ] as const;
@@ -211,6 +144,8 @@ const skillMap = [
 // A curated visual subset of the Skill Map, not a second copy of it.
 // `logo` is null where no redistributable vendor asset is available; the
 // item then renders as its name alone rather than an improvised mark.
+// dbt and Kafka render name-only: no local SVG for either exists in
+// public/tools/, and none was added — see docs/FINAL_POLISH_PLAN.md §4.
 const tools = [
   { name: "Linux", logo: "/tools/linux.svg" },
   { name: "PostgreSQL", logo: "/tools/postgresql.svg" },
@@ -219,6 +154,8 @@ const tools = [
   { name: "Snowflake", logo: "/tools/snowflake.svg" },
   { name: "Python", logo: "/tools/python.svg" },
   { name: "Prefect", logo: "/tools/prefect.svg" },
+  { name: "dbt", logo: null },
+  { name: "Kafka", logo: null },
   { name: "Metabase", logo: "/tools/metabase.svg" },
   { name: "AWS", logo: null },
   { name: "Terraform", logo: "/tools/terraform.svg" },
@@ -268,8 +205,8 @@ const personJsonLd = {
 ---
 
 <BaseLayout
-  title={`${siteConfig.name} — ${siteConfig.positioning}`}
-  description="Technical Operations: production reliability, monitoring and automation in environments serving 2M+ users, plus hands-on cloud and infrastructure engineering projects."
+  title={`${siteConfig.name} | Production, DevOps & Data`}
+  description="Portfolio for Ido Hail: Technical Operations background across production, infrastructure and data, plus hands-on cloud and DevOps engineering projects."
   jsonLd={personJsonLd}
 >
   <!-- Hero -->
@@ -386,47 +323,8 @@ const personJsonLd = {
     </div>
   </section>
 
-  <!-- A few numbers -->
-  <section aria-labelledby="numbers-heading" class="mt-16 sm:mt-20">
-    <h2 id="numbers-heading" class={eyebrowHeading}>A few numbers</h2>
-    <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
-      {
-        impactItems.map((item) => (
-          <div class="rounded-2xl border border-stone-200 bg-white p-6">
-            <p class="text-xs font-medium tracking-wide text-stone-500 uppercase">
-              {item.label}
-            </p>
-            <p class="mt-3 text-3xl font-bold tracking-tight text-stone-900">
-              {item.value}
-            </p>
-            <p class="mt-2 text-sm leading-relaxed text-stone-600">
-              {item.description}
-            </p>
-          </div>
-        ))
-      }
-    </div>
-  </section>
-
-  <!-- What I work on -->
-  <section aria-labelledby="work-heading" class="mt-20 sm:mt-24">
-    <h2 id="work-heading" class={eyebrowHeading}>What I work on</h2>
-    <div class="mt-6 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-3">
-      {
-        workAreas.map((item) => (
-          <div class="border-t border-stone-200 pt-6">
-            <h3 class="text-lg font-semibold text-stone-900">{item.title}</h3>
-            <p class="mt-3 text-sm leading-relaxed text-stone-600">
-              {item.description}
-            </p>
-          </div>
-        ))
-      }
-    </div>
-  </section>
-
   <!-- Selected Work -->
-  <section aria-labelledby="selected-work-heading" class="mt-24 sm:mt-32">
+  <section aria-labelledby="selected-work-heading" class="mt-16 sm:mt-20">
     <div class="flex flex-wrap items-baseline justify-between gap-4">
       <h2
         id="selected-work-heading"
@@ -436,11 +334,6 @@ const personJsonLd = {
       </h2>
       <a href="/projects/" class={linkAccent}>View all projects →</a>
     </div>
-    <p class="mt-3 max-w-2xl text-base leading-relaxed text-stone-600">
-      Two projects where the engineering decisions are the point — how
-      infrastructure gets delivered safely, and what it costs to keep a system
-      simple.
-    </p>
 
     {
       !primaryProject ? (
@@ -506,14 +399,28 @@ const personJsonLd = {
     }
   </section>
 
+  <!-- What I work on -->
+  <section aria-labelledby="work-heading" class="mt-24 sm:mt-32">
+    <h2 id="work-heading" class={eyebrowHeading}>What I work on</h2>
+    <div
+      class="mt-6 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4"
+    >
+      {
+        workAreas.map((item) => (
+          <div class="border-t border-stone-200 pt-6">
+            <h3 class="text-lg font-semibold text-stone-900">{item.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-stone-600">
+              {item.description}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
   <!-- Skill Map -->
   <section aria-labelledby="skills-heading" class="mt-24 sm:mt-32">
     <h2 id="skills-heading" class={eyebrowHeading}>Skill Map</h2>
-    <p class="mt-3 max-w-3xl text-base leading-relaxed text-stone-600">
-      Professional experience is concentrated in production operations, data,
-      automation and integrations; most of the deeper cloud, infrastructure and
-      engineering tooling shown here comes from hands-on projects.
-    </p>
     <div class="mt-8 grid grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2">
       {
         skillMap.map((group) => (
@@ -521,49 +428,17 @@ const personJsonLd = {
             <h3 class="text-base font-semibold text-stone-900">
               {group.title}
             </h3>
-            {group.sets.map((set) => (
-              <div class="mt-4 first:mt-3">
-                {set.label && (
-                  <p class="mb-2 text-xs font-medium tracking-wide text-stone-500 uppercase">
-                    {set.label}
-                  </p>
-                )}
-                <ul class="flex flex-wrap gap-2">
-                  {set.skills.map((skill) => (
-                    <li class="rounded-full border border-stone-200 bg-white px-3 py-1 text-xs font-medium text-stone-600">
-                      {skill}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            <ul class="mt-4 flex flex-wrap gap-2">
+              {group.skills.map((skill) => (
+                <li class="rounded-full border border-stone-200 bg-white px-3 py-1 text-xs font-medium text-stone-600">
+                  {skill}
+                </li>
+              ))}
+            </ul>
           </div>
         ))
       }
     </div>
-  </section>
-
-  <!-- A bit about me -->
-  <section aria-labelledby="about-heading" class="mt-24 sm:mt-32">
-    <h2
-      id="about-heading"
-      class="text-2xl font-semibold tracking-tight text-stone-900"
-    >
-      A bit about me
-    </h2>
-    <p class="mt-4 max-w-2xl text-base leading-relaxed text-stone-600">
-      I started out closer to the database than the infrastructure —
-      investigating production issues, checking that data looked the way it was
-      supposed to, and working out why a release behaved differently in
-      production than anywhere else. The more of that I did, the more I wanted
-      to fix the underlying thing rather than the symptom, which is roughly how
-      I ended up building monitoring and automation, and eventually the
-      infrastructure underneath. I've led a small technical team along the way,
-      without stepping away from the keyboard.
-    </p>
-    <a href="/about/" class={`mt-4 inline-block ${linkAccent}`}
-      >Read more about me →</a
-    >
   </section>
 
   <!-- Tools I work with -->
