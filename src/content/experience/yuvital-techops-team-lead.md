@@ -13,14 +13,14 @@ tags:
   - "Team Leadership"
 ---
 
-Led technical operations for a production environment serving more than 2M users, while remaining hands-on with the systems, pipelines and databases behind it. Led a three-person technical team — one developer and two TechOps engineers — and owned monitoring, release readiness and the operational health of production day to day.
+Led technical operations for a production environment serving more than 2M users, while remaining hands-on with the systems, pipelines and databases behind it. Led a three-person technical team, one developer and two TechOps engineers, and owned monitoring, release readiness and the operational health of production day to day.
 
 ### Ownership
 
 - Designed and built monitoring and automated alerting across production services, pipelines and data flows.
 - Built an automated data-quality framework in SQL and Python, running across Prefect-orchestrated production pipelines supporting more than 100 production tables.
-- Owned release management and release readiness — coordinating validation, verifying backend and database behavior before release, and validating post-release behavior and defects.
-- Ran SQL and Postman-based validation as part of release verification, and coordinated QA and validation work across the team.
+- Owned release management and release readiness - coordinating validation, verifying backend and database behavior before release, and validating post-release behavior and defects.
+- Led QA and test planning across backend systems and data pipelines, covering functional, integration and regression testing, and ran the SQL and Postman-based validation behind release verification.
 - Administered identity and access through JumpCloud: user lifecycle, groups, permissions and RBAC, including onboarding and offboarding.
 - Built operational tooling and dashboards in Retool to make routine investigation faster for the whole team.
 - Directed the team's technical work and mentored engineers while continuing to take on production work myself.

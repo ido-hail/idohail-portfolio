@@ -13,11 +13,11 @@ tags:
   - "Defect Investigation"
 ---
 
-Hands-on technical operations across production and staging for a large-scale production environment — backend and database testing, investigation of production issues, validation of data flows and integrations, and the operational analysis that supported both.
+Hands-on technical operations across production and staging for a large-scale production environment: backend and database testing, investigation of production issues, validation of data flows and integrations, and the operational analysis that supported both.
 
 ### Ownership
 
-- Operated and validated production and staging systems as part of day-to-day technical operations.
+- Operated and validated production and staging systems as part of day-to-day technical operations, including data cleansing and debugging scheduled and background jobs.
 - Ran backend and database testing across production data systems including PostgreSQL, MongoDB, Snowflake and Redis.
 - Investigated production issues and defects through SQL and NoSQL queries, logs and API testing, tracking them in Jira and working directly with developers through to resolution.
 - Validated ETL runs and data flows, checking that data arrived complete and correct between systems.
