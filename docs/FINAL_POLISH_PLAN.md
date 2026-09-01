@@ -23,33 +23,33 @@ control, not a change to the plan. It is updated by explicit human authorization
 
 ### Currently authorized
 
-**PR 0 only** — tasks `P0-01`, `P0-02`, `P0-03`.
+**PR 0 is merged and production-verified.** ~~PR 0 only — tasks `P0-01`, `P0-02`, `P0-03`.~~
+
+**Logical PR 1 only** — tasks `P6-01`, `P6-02`, `P6-03`.
 
 Allowed files, complete list:
 
 ```
 docs/FINAL_POLISH_PLAN.md   (tracked)
-CLAUDE.md                   (tracked)
-AGENTS.md                   (machine-local mirror, not tracked — see §7)
+README.md                   (tracked)
+docs/ARCHITECTURE.md        (tracked)
+docs/DEPLOYMENT.md          (tracked)
+.github/workflows/ci.yml    (tracked)
 ```
-
-The tracked diff therefore contains `docs/FINAL_POLISH_PLAN.md` and `CLAUDE.md`
-only. `AGENTS.md` is updated in the working tree and does not appear in the PR.
 
 If repository formatting or validation appears to require touching any other
 file, **stop and report** rather than expanding scope.
 
-### Forbidden while PR 0 is the authorized scope
+### Forbidden while logical PR 1 is the authorized scope
 
 - `SPEC.md`
-- `README.md`, `docs/ARCHITECTURE.md`, `docs/DEPLOYMENT.md`
-- `.github/workflows/**`
+- `CLAUDE.md`, `.claude/**`
 - `src/**`, `public/**` — no rendered site file, no rendered site behaviour change
 - `package.json`, `wrangler.jsonc`
-- `.claude/skills/**`, `.agents/skills/**` — the `portfolio-design-review` skill is task `P1-12` and stays unchanged until Phase 1
 - Cloudflare or GitHub settings
-- Starting PR 1, or starting `P1-00`
-- Merging PR 0
+- Starting `P1-00`
+- Starting any logical PR after PR 1
+- Merging logical PR 1
 
 ### Stop condition
 
@@ -62,6 +62,9 @@ Do not advance to the next PR or phase.
 Every later PR requires a **separate** future authorization, granted only after
 the previous PR has been reviewed and production-verified. When authorization
 moves on, this section is updated in that PR to name the new authorized scope.
+**This document remains never-standing-permission for the full sequence** —
+each authorization above supersedes the previous one and covers exactly the
+tasks and files it names.
 
 ---
 
@@ -997,7 +1000,7 @@ HSTS outcome.
 - **Dependencies:** none
 - **Definition of Done:** the custom domain is described as live; HSTS status is stated accurately; no installation, build or clone instructions are introduced.
 - **Verification:** `npm run verify`; compare against a live `curl -I`.
-- **Status:** TODO
+- **Status:** DONE
 
 #### P6-02 — Documentation truth-up
 
@@ -1007,7 +1010,7 @@ HSTS outcome.
 - **Dependencies:** none
 - **Definition of Done:** `img-src 'self'` is documented, not `'none'`; the Experience schema table lists `startYear` and `endYear` as integers with `endYear` optional; the "Custom domain setup (pending)" section reflects that it was performed; post-launch verification is updated.
 - **Verification:** `npm run verify`; diff the documented schema against `src/content.config.ts` and the documented CSP against `public/_headers`.
-- **Status:** TODO
+- **Status:** DONE
 
 #### P6-03 — CI cleanup
 
@@ -1017,7 +1020,7 @@ HSTS outcome.
 - **Dependencies:** none
 - **Definition of Done:** the `TEMPORARY` `--exclude '^https://idohail\.com/'` is removed so the site's own canonical and OG self-links are checked; the production job summary no longer claims no custom domain is attached; the external link check remains `continue-on-error` and best-effort.
 - **Verification:** a CI run on the PR shows the external link check passing with the site's own links included.
-- **Status:** TODO
+- **Status:** DONE
 
 #### P6-04 — Analytics decision
 

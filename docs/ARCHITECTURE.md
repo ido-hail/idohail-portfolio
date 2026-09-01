@@ -128,17 +128,19 @@ what the build actually contains rather than a generic template:
 - `style-src 'self'` — all CSS is same-origin linked stylesheets
   (`inlineStylesheets: "never"`); there are no inline `style`
   attributes or `<style>` blocks.
-- `img-src 'none'`, `font-src 'none'` — the current build ships no
-  images and no custom fonts. These directives must be revisited in
-  the same change that introduces either.
+- `img-src 'self'` — the build ships same-origin images (portrait
+  placeholder, tool logos, project figures, background texture); no
+  remote image source is permitted.
+- `font-src 'none'` — the current build ships no custom fonts. This
+  directive must be revisited in the same change that introduces one.
 - `frame-ancestors 'none'` plus `X-Frame-Options: DENY` — the CSP
   directive is the primary anti-framing mechanism; the header is
   defense-in-depth for browsers that predate `frame-ancestors`.
 - `X-Robots-Tag: noindex` is scoped only to `*.workers.dev` preview
   hosts, not the site root, so it never affects production/custom
   domain indexing.
-- HSTS is intentionally not yet set — it is deferred until the
-  production custom domain is attached and verified over HTTPS (see
+- HSTS is intentionally not yet set — it is deferred until a
+  deliberate, separately reviewed enablement decision (see
   [DEPLOYMENT.md](DEPLOYMENT.md)).
 
 ## Dependency maintenance
@@ -175,17 +177,21 @@ against Zod schemas defined in `src/content.config.ts`.
 | ----------- | ------------------- | ---------------------------------------- |
 | `company`   | `string`            | required                                 |
 | `role`      | `string`            | required                                 |
-| `startDate` | `string`, `YYYY-MM` | required                                 |
-| `endDate`   | `string`, `YYYY-MM` | optional — omitted means current/ongoing |
+| `startYear` | `number` (int)      | required                                 |
+| `endYear`   | `number` (int)      | optional — omitted means current/ongoing |
 | `order`     | `number` (int, ≥ 0) | required — controls display order        |
 | `tags`      | `string[]`          | defaults to `[]`                         |
+
+Employment dates are published at year precision: the schema stores
+years as integers rather than a more precise value the site would
+immediately discard when rendering.
 
 ## Trade-offs
 
 - The site cannot handle contact forms, dynamic personalization, or
   any request-time logic without introducing a runtime Worker — this
   is a deliberate constraint, not an oversight.
-- `img-src 'none'`, `font-src 'none'`, and the absence of HSTS all
-  reflect the current build and deployment state; they are expected
-  to change as the site gains assets and a live custom domain, not
-  permanent policy.
+- `font-src 'none'` and the absence of HSTS reflect the current build
+  and deployment state; `font-src` is expected to change if the site
+  ever adds a custom font, and HSTS enablement is a deliberate,
+  separately reviewed decision rather than an oversight.
