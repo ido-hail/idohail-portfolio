@@ -2,6 +2,9 @@
 import { siteConfig } from "../config/site";
 
 const currentPath = Astro.url.pathname;
+// Root is never subject to trailingSlash: "always" (there is no "//" URL),
+// so the homepage path is always exactly "/".
+const isHome = currentPath === "/";
 
 const navLinkClass = (isActive: boolean) =>
   `rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900 ${
@@ -13,11 +16,16 @@ const navLinkClass = (isActive: boolean) =>
   <div
     class="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-x-8 sm:px-8 lg:px-12"
   >
+    {
+      /* Site wordmark, reading "Home" rather than the site name — this is
+        the sole Home link, deliberately not duplicated in `siteConfig.nav`. */
+    }
     <a
       href="/"
+      aria-current={isHome ? "page" : undefined}
       class="rounded text-lg font-semibold tracking-tight text-stone-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900"
     >
-      {siteConfig.name}
+      Home
     </a>
     <nav aria-label="Primary">
       <ul

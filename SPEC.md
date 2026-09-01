@@ -8,7 +8,7 @@
 
 ## 1. Goals
 
-* Present a single, credible engineering identity — **Technical Operations & Engineering**, spanning DevOps/cloud/platform work, Data Operations/Data Engineering, and technical leadership — to technical recruiters and hiring managers, rather than reading as three disconnected personas.
+* Present a single, credible engineering identity spanning **Production & Reliability**, **DevOps & Infrastructure**, and **Data & Automation** — grounded in hands-on Technical Operations experience, which is the professional background the site is built on rather than a standalone title — to technical recruiters and hiring managers, rather than reading as several disconnected personas.
 
 * Demonstrate — not just describe — good engineering practice. The repository, CI/CD pipeline, deployment model, security configuration, and documentation are themselves part of the portfolio.
 
@@ -45,14 +45,13 @@ Contains, in order:
 * **Hero**
 
   * Name
-  * Primary positioning: "Technical Operations"
-  * Supporting focus: "Production Systems · Reliability & Automation · Cloud Infrastructure · Data & Integrations"
-  * Short 1–2 sentence value proposition
-  * CTAs: View Projects, Experience, Resume (Resume CTA only when the resume asset is available)
+  * Capability/domain line: "Production & Reliability · DevOps & Infrastructure · Data & Automation" — deliberately not a job title.
+  * Short value proposition (maximum two short sentences) that anchors the profile in Technical Operations as the professional background the hands-on experience comes from, without presenting it as a standalone identity under the name.
+  * CTAs: View Projects (primary) and Experience (secondary) while no resume asset is configured; once `resumePath` is set, Resume becomes the primary CTA with View Projects and Experience remaining reachable. No dedicated `/resume/` route.
+  * Compact plain-text LinkedIn/GitHub/Email links in the Hero, visually distinct from the CTA row. No icons and no icon dependency; accessible names come from the visible link text.
   * A portrait image, presented as a 4:5 rounded frame alongside the text on wide viewports and after the CTAs on narrow ones. A neutral local placeholder is acceptable during development; the real portrait must be in place before public launch on the custom domain.
-  * No secondary GitHub/LinkedIn/Email link row in the Hero — those live in the Footer.
 
-  The positioning is deliberately a professional domain rather than a single job title, and the focus ordering is intentional: production first, then reliability/automation, then cloud, then data/integrations. Data is significant technical depth but must not lead the profile, and cloud/DevOps capability is evidenced through projects rather than presented as professional tenure.
+  The capability line is deliberately a set of professional domains rather than a single job title. Data is significant technical depth but must not dominate the profile, and DevOps/cloud/infrastructure capability is evidenced through projects rather than presented as professional tenure.
 
 * **A few numbers**
 
@@ -215,7 +214,7 @@ Persistent top-level navigation:
 * About
 * Resume
 
-`Home` is not a separate primary navigation item — the site name/logo links to `/`.
+`Home` is not a separate primary navigation item — the site wordmark link, reading "Home", links to `/` and is the sole home link. It is not duplicated as a `nav` list item, and it receives `aria-current="page"` when the current route is the homepage.
 
 `Resume` links directly to the resume PDF asset (§5); it is not a page route, and it is omitted from navigation while no resume asset is configured.
 

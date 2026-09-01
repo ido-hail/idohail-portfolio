@@ -11,11 +11,13 @@
  * reason and remain conditionally rendered, even though both now hold
  * real values.
  *
- * `nav` holds internal navigation only (Projects/Experience/About).
- * Resume is intentionally not a nav entry — it links directly to a PDF
- * asset rather than an internal route, and must not appear at all while
- * `resumePath` is null. Consumers render it as a separate, conditional
- * element alongside `nav` (see SiteHeader).
+ * `nav` holds internal navigation only (Projects/Experience/About). The
+ * site wordmark/"Home" link is not a `nav` entry — it is a separate,
+ * hard-coded element in SiteHeader so it never duplicates a `nav` item.
+ * Resume is intentionally not a nav entry either — it links directly to
+ * a PDF asset rather than an internal route, and must not appear at all
+ * while `resumePath` is null. Consumers render it as a separate,
+ * conditional element alongside `nav` (see SiteHeader).
  *
  * There is no `siteUrl` field here: the canonical production origin
  * lives in exactly one place, `astro.config.mjs`'s `site` value, read at
@@ -30,10 +32,12 @@ export interface NavItem {
 export interface SiteConfig {
   /** Display name of the site owner. */
   readonly name: string;
-  /** Primary professional positioning, shown large in the Hero. */
+  /**
+   * Capability/domain line shown directly under the name in the Hero.
+   * Deliberately not a job title — see SPEC §3.1 and
+   * docs/FINAL_POLISH_PLAN.md §2 for the positioning rationale.
+   */
   readonly positioning: string;
-  /** Supporting focus areas, shown as a secondary line under the positioning. */
-  readonly focus: string;
   readonly githubUrl: string;
   /** LinkedIn URL — nullable so consumers keep rendering it conditionally. */
   readonly linkedinUrl: string | null;
@@ -47,9 +51,8 @@ export interface SiteConfig {
 
 export const siteConfig: SiteConfig = {
   name: "Ido Hail",
-  positioning: "Technical Operations",
-  focus:
-    "Production Systems · Reliability & Automation · Cloud Infrastructure · Data & Integrations",
+  positioning:
+    "Production & Reliability · DevOps & Infrastructure · Data & Automation",
   githubUrl: "https://github.com/ido-hail",
   linkedinUrl: "https://www.linkedin.com/in/ido-hail/",
   email: "ido16h@gmail.com",

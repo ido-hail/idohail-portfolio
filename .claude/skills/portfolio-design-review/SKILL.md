@@ -10,15 +10,16 @@ frontend showcase.
 
 ## Primary goals
 
-The site should communicate one coherent professional identity:
+The site should communicate one coherent professional identity, not
+several disconnected personas.
 
-Technical Operations & Engineering
+Technical Operations is the professional background anchor — the
+environment the hands-on experience actually comes from — not a
+standalone identity shown under the name.
 
-Supporting areas:
+The Hero capability/domain line is:
 
-- DevOps / Cloud / Platform
-- Data Systems / DataOps / Automation
-- Technical Leadership
+Production & Reliability · DevOps & Infrastructure · Data & Automation
 
 The design must feel like a professional engineering portfolio rather
 than a web-based resume.
