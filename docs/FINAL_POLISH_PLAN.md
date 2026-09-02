@@ -37,40 +37,55 @@ control, not a change to the plan. It is updated by explicit human authorization
 
 **Logical PR 4 is merged and production-verified.** ~~Logical PR 4 only — tasks `P2-00` through `P2-08`.~~ **Phase 2 is complete.**
 
-**Logical PR 5 only** — tasks `P3-01`, `P3-02`, and **only** the §4.1 project-year slice of `P3-08`.
+**Logical PR 5 is merged and production-verified.** ~~Logical PR 5 only — tasks `P3-01`, `P3-02`, and only the §4.1 project-year slice of `P3-08`.~~ `P3-01` and `P3-02` are complete, and the §4.1 project-year slice of `P3-08` is complete.
 
-`P3-08` is **not** completed by this PR: its editorial-rules portion depends on `P3-06` and `P3-07` and belongs to logical PR 6.
+**Logical PR 6 only** — tasks `P3-03`, `P3-04`, `P3-05`, `P3-06`, `P3-07`, and the remaining editorial-rules portion of `P3-08`.
+
+Logical PR 6 completes Phase 3 once it is merged and production-verified.
+Phase 4 is not authorized and must not be started.
 
 Allowed files, complete list:
 
 ```
-docs/FINAL_POLISH_PLAN.md                  (tracked)
-SPEC.md                                    (tracked)
-src/content.config.ts                      (tracked)
-src/content/projects/namegen.md            (tracked)
-src/content/projects/pacman.md             (tracked)
-src/content/projects/idohail-portfolio.md  (tracked)
-src/pages/projects/index.astro             (tracked)
-src/pages/projects/[slug].astro            (tracked)
+docs/FINAL_POLISH_PLAN.md                     (tracked)
+SPEC.md                                       (tracked)
+src/content/projects/namegen.md               (tracked)
+src/content/projects/pacman.md                (tracked)
+src/content/projects/idohail-portfolio.md     (tracked)
+src/pages/projects/index.astro                (tracked)
+src/pages/projects/[slug].astro               (tracked)
+src/pages/experience/index.astro              (tracked)
+src/pages/index.astro                         (tracked)
+src/pages/about/index.astro                   (tracked)
+src/content/experience/*.md                   (tracked)
+src/components/SiteHeader.astro               (tracked)
+src/components/SiteFooter.astro               (tracked)
+src/layouts/BaseLayout.astro                  (tracked)
 ```
+
+Permission to edit a file is not a requirement to edit it. Phase 1 and Phase 2
+surfaces are edited only where there is a published em dash, a clear `P3-07`
+violation, or an objectively repetitive sentence that can be improved without
+changing factual meaning.
 
 If repository formatting or validation appears to require touching any other
 file, **stop and report** rather than expanding scope.
 
-### Forbidden while logical PR 5 is the authorized scope
+### Forbidden while logical PR 6 is the authorized scope
 
-- `src/lib/projects.ts`
-- `src/pages/index.astro`, `src/pages/about/**`, `src/pages/experience/**`
-- `src/content/experience/**`
-- `src/components/**`, `src/layouts/**`, `src/config/**`
+- `src/config/site.ts`, `src/content.config.ts`, `src/lib/**`, `src/styles/**`
 - `.claude/**`, `public/**`
 - `README.md`, `docs/ARCHITECTURE.md`, `docs/DEPLOYMENT.md`
-- `package.json`, `wrangler.jsonc`, `.github/workflows/**`
+- `package.json`, `wrangler.jsonc`, `astro.config.*`, `.github/workflows/**`
 - Cloudflare or GitHub settings
-- Starting `P3-03`, `P3-04`, `P3-05` (case-study editorial), `P3-06` (sitewide em-dash pass) or `P3-07` (voice pass)
-- Completing the editorial-rules portion of `P3-08`
-- Rewriting project titles, descriptions, tags, ordering or case-study bodies
-- Merging logical PR 5
+- Reopening homepage positioning, About positioning, the Skill Map, the tools
+  marquee or the Experience evidence model
+- Changing the locked Hero capability line or value proposition (§2, §4)
+- Changing employment year data, Experience metrics or their bindings
+- Adding, removing or replacing any project figure
+- Introducing, strengthening or removing a factual claim while rewording
+- Starting any Phase 4 task
+- Merging logical PR 6
 
 ### Stop condition
 
@@ -822,7 +837,7 @@ About rework.
 - **Dependencies:** `P3-01`
 - **Definition of Done:** architecture, key decisions, reliability and validation, observability, trade-offs and outcome all retained; both figures render with working full-size links, meaningful captions and distinct alt text; no reduction to a shallow card.
 - **Verification:** `npm run verify`; visual check of both figures on Preview at 360 and 1440.
-- **Status:** TODO
+- **Status:** DONE - repetition and self-commentary removed; architecture, key decisions, reliability and validation, observability, trade-offs and outcome retained; both figures, their links, alt text and captions unchanged apart from removing one em dash from the Grafana caption; rendered prose 794 to 716 words; figure captions 86 words unchanged.
 
 #### P3-04 — Pac-Man case study tightening
 
@@ -832,7 +847,7 @@ About rework.
 - **Dependencies:** `P3-01`
 - **Definition of Done:** security gates, workload hardening, network protection, pipeline controls, validation and trade-offs retained; the figure renders correctly; the deliberate non-repetition of NameGen's lifecycle story is preserved.
 - **Verification:** `npm run verify`; visual check on Preview.
-- **Status:** TODO
+- **Status:** DONE - the two-sentence `Delivery risk` section folded into `Security gates` with its fact intact; restated NetworkPolicy sentence collapsed; gates, hardening, network protection, pipeline controls, validation and trade-offs retained; the single figure unchanged; the deliberate non-repetition of NameGen's lifecycle preserved; rendered prose 612 to 576 words; figure caption 43 words unchanged.
 
 #### P3-05 — Portfolio case study tightening
 
@@ -842,7 +857,7 @@ About rework.
 - **Dependencies:** `P3-01`
 - **Definition of Done:** static architecture, content architecture, deployment model, CI/CD governance, security model and trade-offs retained; still text-only; statements still match the repository, including any Phase 6 corrections already merged.
 - **Verification:** `npm run verify`; cross-check claims against `ci.yml`, `wrangler.jsonc` and `public/_headers`.
-- **Status:** TODO
+- **Status:** DONE - forward-reference sentence about linked stylesheets removed as redundant with the security section; stale HSTS rationale corrected against `public/_headers` and the deferred `P6-08` decision; all claims re-checked against `ci.yml`, `wrangler.jsonc`, `public/_headers`, `astro.config.mjs` and `src/content.config.ts`; still text-only; rendered prose 974 to 905 words.
 
 #### P3-06 — Sitewide em-dash elimination
 
@@ -852,7 +867,7 @@ About rework.
 - **Dependencies:** `P3-02` through `P3-05`
 - **Definition of Done:** no em dash in any rendered output; `formatYearRange()` emits `2023 - 2024`; both `<title>` templates use a non-em-dash separator; the NameGen project title no longer contains one.
 - **Verification:** `npm run verify`; `grep -r "—" dist/` returns nothing.
-- **Status:** TODO
+- **Status:** DONE - em dash removed from both project titles, all three descriptions, all case-study bodies and one figure caption; both `<title>` templates and the Experience `<title>` now use `|`; `formatYearRange()` emits `2023 - 2024`; `grep -r "—" dist/` returns no matches.
 
 #### P3-07 — AI-tell voice pass
 
@@ -862,7 +877,7 @@ About rework.
 - **Dependencies:** `P3-06`
 - **Definition of Done:** the §3 patterns are removed; the voice matches the §3 target; no factual claim changed while rewording.
 - **Verification:** `npm run verify`; read every route end to end.
-- **Status:** TODO
+- **Status:** DONE - the §3 patterns were removed from the three case studies; homepage, About, Experience content, Projects index, header and footer were read end to end and left unchanged, having no published em dash and no §3 violation; no factual claim changed while rewording.
 
 #### P3-08 — SPEC alignment for Phase 3
 
@@ -872,7 +887,7 @@ About rework.
 - **Dependencies:** `P3-01`, `P3-06`, `P3-07`
 - **Definition of Done:** §4.1 no longer lists project year metadata; the editorial rules are stated as durable requirements, not as a one-off cleanup.
 - **Verification:** read `SPEC.md` against `src/content.config.ts` and the built output.
-- **Status:** TODO - §4.1 project-year schema alignment completed in logical PR 5; editorial-rules completion remains dependent on `P3-06` and `P3-07`.
+- **Status:** DONE - §4.1 project-year schema alignment completed in logical PR 5; new `SPEC.md` §20 states the editorial rules as durable requirements covering punctuation, voice, factual preservation and case-study depth.
 
 ---
 

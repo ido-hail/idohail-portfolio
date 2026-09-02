@@ -1198,3 +1198,44 @@ When implementation choices are ambiguous, prefer the solution that is:
 Do not add a technology solely because it would look impressive on a technology list.
 
 Every meaningful dependency or infrastructure component should have a clear reason to exist.
+
+---
+
+## 20. Editorial Requirements
+
+These rules apply to all published copy: rendered page text, content Markdown, project titles and descriptions, page `<title>` values, meta and social descriptions, `alt` text and figure captions. They do not apply to source-code comments, which are not published.
+
+### 20.1 Punctuation
+
+The em dash (`—`) must not appear in published copy. Use ordinary punctuation or a standard hyphen instead.
+
+Date ranges are written with a spaced standard hyphen: `2023 - 2024`.
+
+A production build must contain no em dash. `grep -r "—" dist/` returning no matches is the authoritative check.
+
+### 20.2 Voice
+
+Published copy is written to read as a person wrote it: concise, factual, technical, specific and confident. It is not marketing copy.
+
+The following are not acceptable in published copy:
+
+* Vague abstractions in place of concrete detail.
+* Repetitive rhetorical contrasts, including repeated "this is not X, it is Y" constructions.
+* Generic motivational or promotional language.
+* Self-conscious commentary about the portfolio or about the writing itself.
+* Over-explaining an engineering decision whose reason is already stated.
+* Repeating an explanation that a nearby heading, title or description already carries.
+
+### 20.3 Factual preservation
+
+Editorial work may change wording only. It must not introduce a new factual claim, strengthen an existing one, add or remove a tool, metric, outcome or trade-off, or alter stated ownership of work that originates elsewhere.
+
+Where a project is built on software authored by someone else, the published copy must state that boundary explicitly and keep it stated after any rewrite.
+
+Where published prose disagrees with the repository, the prose is corrected to match the repository.
+
+### 20.4 Case-study depth
+
+Project case studies are the site's primary technical evidence. Editorial tightening targets repetition and filler, never depth: architecture decisions, trade-offs, validation results and ownership boundaries are retained.
+
+A case study must not be reduced to a summary card, and word count is not a target in its own right.
