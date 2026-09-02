@@ -31,34 +31,37 @@ control, not a change to the plan. It is updated by explicit human authorization
 
 **Logical PR 2 is merged and production-verified.** ~~Logical PR 2 only — implementation tasks `P1-01`, `P1-02`, `P1-03`, `P1-12`.~~
 
-**Logical PR 3 only** — implementation tasks `P1-04`, `P1-05`, `P1-06`, `P1-07`, `P1-08`, `P1-09`, `P1-10`, `P1-11`.
+**Logical PR 3 is merged and production-verified.** ~~Logical PR 3 only — implementation tasks `P1-04` through `P1-11`.~~ **Phase 1 is complete.**
+
+**`P2-00` evidence preflight received explicit human approval** after a complete recursive audit of the historical CV corpus. Its factual envelope, locked bindings and human-attested facts constrain this implementation.
+
+**Logical PR 4 only** — tasks `P2-00` through `P2-08`.
 
 Allowed files, complete list:
 
 ```
-docs/FINAL_POLISH_PLAN.md   (tracked)
-src/pages/index.astro       (tracked)
-SPEC.md                     (tracked)
-public/tools/**             (tracked, only if genuinely required for P1-09)
+docs/FINAL_POLISH_PLAN.md                        (tracked)
+src/pages/about/index.astro                      (tracked)
+src/content/experience/yuvital-techops-engineer.md   (tracked)
+src/content/experience/yuvital-techops-team-lead.md  (tracked)
+SPEC.md                                          (tracked)
 ```
 
 If repository formatting or validation appears to require touching any other
 file, **stop and report** rather than expanding scope.
 
-### Forbidden while logical PR 3 is the authorized scope
+### Forbidden while logical PR 4 is the authorized scope
 
-- `src/config/site.ts`, `src/components/SiteHeader.astro`
-- `src/pages/about/**`, `src/pages/experience/**`, `src/content/**`, `src/layouts/**`
-- `.claude/**`
+- `src/pages/index.astro`, `src/config/site.ts`, `src/components/SiteHeader.astro`
+- `src/content/projects/**`, `src/pages/projects/**`
+- `.claude/**`, `public/**`
 - `README.md`, `docs/ARCHITECTURE.md`, `docs/DEPLOYMENT.md`
 - `package.json`, `wrangler.jsonc`, `.github/workflows/**`
-- `public/_headers`, `public/projects/**`
-- portrait assets, Resume assets
 - Cloudflare or GitHub settings
-- Reopening `P1-00` positioning or changing the approved Hero wording
-- Starting `P2-00` or any Phase 2 work
-- Starting any logical PR after PR 3
-- Merging logical PR 3
+- Reopening the `P2-00` evidence audit unless implementation reveals a genuine contradiction
+- Re-adding Tableau to the Skill Map
+- Starting Phase 3 (`P3-*`) or any later work
+- Merging logical PR 4
 
 ### Stop condition
 
@@ -692,7 +695,7 @@ any Resume claim that cannot yet be checked; inventing detail to fill a CV gap.
 - **Dependencies:** consolidated historical CV evidence supplied by Ido
 - **Definition of Done:** a reconciled evidence record exists, noting useful factual experience that appears in tailored CV variants but not yet on the site. **If the historical CV sources are not available: do not infer, do not reconstruct, do not fill gaps from context.** Mark this task `BLOCKED`, request the consolidated evidence, and do not begin the rewrite.
 - **Verification:** human confirms the evidence record is complete before `P2-01` starts.
-- **Status:** BLOCKED — awaiting consolidated historical CV evidence
+- **Status:** DONE - human-approved after a complete recursive audit of the historical CV corpus (29 unique CVs). Locked bindings, human-attested facts and omissions recorded in the PR.
 
 #### P2-01 — About rewrite
 
@@ -702,7 +705,7 @@ any Resume claim that cannot yet be checked; inventing detail to fill a CV gap.
 - **Dependencies:** `P2-00`
 - **Definition of Done:** communicates build, operate, investigate, lead, monitor, analyze, automate, coordinate across teams, understand a system deeply, break down ambiguous problems, learn quickly, drive toward a solution, and perform under pressure; "I work in Technical Operations, which is broad enough as a title…" and "Boring is the goal. Boring means it works." are gone; materially shorter than the current page.
 - **Verification:** `npm run verify`; read against §2.
-- **Status:** TODO
+- **Status:** DONE - About rewritten and compressed from ~488 to ~338 rendered words; retired phrasings, current-job wording and repetition removed.
 
 #### P2-02 — About: Professional Background section
 
@@ -712,7 +715,7 @@ any Resume claim that cannot yet be checked; inventing detail to fill a CV gap.
 - **Dependencies:** `P2-01`
 - **Definition of Done:** progression is clear; breadth is summarised from §5; **one or two concise proof points are permitted where they substantiate the narrative naturally, and are not required**; detailed role bullets remain only on `/experience/`.
 - **Verification:** `npm run verify`; compare side by side with `/experience/` to confirm no bullet-level duplication.
-- **Status:** TODO
+- **Status:** DONE - Professional background section added with the locked progression and a link to /experience/; no role bullets, no metrics.
 
 #### P2-03 — About: working style
 
@@ -722,7 +725,7 @@ any Resume claim that cannot yet be checked; inventing detail to fill a CV gap.
 - **Dependencies:** `P2-01`
 - **Definition of Done:** **`former combat commander` appears exactly once, naturally, inside a sentence** — never as a heading, badge, separate marketing claim or exaggerated leadership section.
 - **Verification:** `npm run verify`; grep the built page for the phrase and confirm a single in-sentence occurrence.
-- **Status:** TODO
+- **Status:** DONE - working style covers curiosity, ownership, cross-functional work and mentoring; "former combat commander" appears exactly once, in-sentence (verified in the built page).
 
 #### P2-04 — About: cloud, projects and systems foundations
 
@@ -732,7 +735,7 @@ any Resume claim that cannot yet be checked; inventing detail to fill a CV gap.
 - **Dependencies:** `P2-01`
 - **Definition of Done:** no public "training" or "foundations" categorisation of skills; no fabricated professional tenure; projects remain the demonstration route for cloud and infrastructure work.
 - **Verification:** `npm run verify`; read against the §2 skills policy.
-- **Status:** TODO
+- **Status:** DONE - cloud/infrastructure stays project-evidenced; 2026 DevSecOps program and See Security College named as study, never as certification; no Training/Foundations category.
 
 #### P2-05 — About: "Outside the terminal"
 
@@ -742,7 +745,7 @@ any Resume claim that cannot yet be checked; inventing detail to fill a CV gap.
 - **Dependencies:** `P2-01`
 - **Definition of Done:** two to three sentences; no sensitive personal detail.
 - **Verification:** `npm run verify`.
-- **Status:** TODO
+- **Status:** DONE - personal closing trimmed to two sentences; volunteering omitted by decision.
 
 #### P2-06 — Experience editorial pass
 
@@ -752,7 +755,7 @@ any Resume claim that cannot yet be checked; inventing detail to fill a CV gap.
 - **Dependencies:** `P2-00`
 - **Definition of Done:** every measurable outcome retained; this page remains the home of the three headline metrics; terminology consistent with §2; no claim exceeds the evidence pool.
 - **Verification:** `npm run verify`; diff old against new and confirm no evidence was dropped.
-- **Status:** TODO
+- **Status:** DONE - QA and test planning added to the Team Lead entry (single consolidated bullet); data cleansing and scheduled/background-job debugging added to the Engineer entry; all four metrics and their bindings preserved.
 
 #### P2-07 — About metadata
 
@@ -762,7 +765,7 @@ any Resume claim that cannot yet be checked; inventing detail to fill a CV gap.
 - **Dependencies:** `P2-01`
 - **Definition of Done:** no retired job title; the description is unique and accurate.
 - **Verification:** `npm run verify`.
-- **Status:** TODO
+- **Status:** DONE - About title "About Ido Hail | Production & Reliability"; description distinct from the homepage; no em dash, no metrics, no standalone job title.
 
 #### P2-08 — SPEC alignment for Phase 2
 
@@ -772,7 +775,7 @@ any Resume claim that cannot yet be checked; inventing detail to fill a CV gap.
 - **Dependencies:** `P2-01` through `P2-07`
 - **Definition of Done:** the SPEC `/about` requirements match the implemented page.
 - **Verification:** read `SPEC.md` §3.1 against the built page.
-- **Status:** TODO
+- **Status:** DONE - SPEC §3.1 /about rewritten: Professional Background added, the "What Technical Operations means in plain terms" requirement and the public training/foundations framing removed.
 
 ---
 

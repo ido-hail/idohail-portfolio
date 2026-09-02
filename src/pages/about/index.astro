@@ -7,11 +7,19 @@ const sectionHeading =
   "text-2xl font-semibold tracking-tight text-stone-900 sm:text-3xl";
 const linkAccent =
   "rounded font-medium text-blue-600 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900";
+
+// Employment progression, shown as a compact record rather than repeating
+// the role bullets that live on /experience/. Years are locked at year
+// precision to match the Experience content collection.
+const roles = [
+  { title: "TechOps Engineer · YuviTal", years: "2023 - 2024" },
+  { title: "TechOps Team Lead · YuviTal", years: "2024 - 2026" },
+] as const;
 ---
 
 <BaseLayout
-  title={`About — ${siteConfig.name}`}
-  description="Technical Operations background across production reliability, automation, data systems and cloud infrastructure — plus how I work and what I've been building."
+  title={`About ${siteConfig.name} | Production & Reliability`}
+  description="About Ido Hail: Technical Operations experience across production systems, data and reliability, plus hands-on infrastructure and DevOps projects."
 >
   <h1 class="text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl">
     About
@@ -19,54 +27,50 @@ const linkAccent =
 
   <div class="mt-6 space-y-4">
     <p class={prose}>
-      I work in Technical Operations, which is broad enough as a title that it's
-      worth saying what it means to me.
+      My background is in Technical Operations: running production systems and
+      staying close to what they are actually doing.
     </p>
     <p class={prose}>
-      Most of my work lives between software and the reality of running it:
-      production systems, data, integrations, releases, and the little things
-      that only become obvious once real users are involved.
+      Much of that work starts as investigation. Reading the logs, querying the
+      database, following data through a system until its behavior makes sense,
+      then turning what I find into the monitoring, automation and validation
+      that stop the same question coming back.
     </p>
   </div>
 
-  <section aria-labelledby="prevention-heading" class="mt-16">
-    <h2 id="prevention-heading" class={sectionHeading}>
-      From finding problems to preventing them
+  <section aria-labelledby="background-heading" class="mt-16">
+    <h2 id="background-heading" class={sectionHeading}>
+      Professional background
     </h2>
-    <div class="mt-6 space-y-4">
-      <p class={prose}>
-        A lot of my early work was investigation — backend and database checks,
-        release validation, ETL and API flows, and production issues that
-        behaved differently outside staging. That meant plenty of SQL, logs, and
-        following data through systems until the picture made sense.
-      </p>
-      <p class={prose}>
-        Over time, the interesting question became less "what broke this time?"
-        and more "why can this happen at all?" So I started building the things
-        that made recurring investigation unnecessary: automated data-quality
-        checks, monitoring that surfaced issues immediately, and validation
-        before releases rather than after them.
-      </p>
-      <p class={prose}>
-        That shift from finding problems to preventing them has become a
-        recurring theme in how I work.
-      </p>
-    </div>
-  </section>
 
-  <section aria-labelledby="work-i-like-heading" class="mt-16">
-    <h2 id="work-i-like-heading" class={sectionHeading}>The work I like</h2>
+    <ul class="mt-6 max-w-2xl space-y-3">
+      {
+        roles.map((role) => (
+          <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-t border-stone-200 pt-3">
+            <span class="font-medium text-stone-900">{role.title}</span>
+            <span class="text-sm text-stone-500">{role.years}</span>
+          </li>
+        ))
+      }
+    </ul>
+
     <div class="mt-6 space-y-4">
       <p class={prose}>
-        I like systems that are a little messier than the architecture diagram
-        suggests — which is most real systems.
+        I joined YuviTal as a TechOps Engineer, working hands-on across
+        production and staging: backend and database testing, investigating
+        production issues, and validating the data flows and integrations behind
+        them.
       </p>
       <p class={prose}>
-        The work I enjoy most usually starts with something manual, fragile,
-        noisy, or dependent on one person remembering the right steps, and ends
-        with something automated, observable and easier for everyone to trust.
+        Moving into the Team Lead role added ownership without moving me away
+        from the systems. I led a three-person team, one developer and two
+        TechOps engineers, and stayed directly involved in monitoring, release
+        readiness, data-quality automation, access administration and internal
+        tooling. The detailed record is on the <a
+          href="/experience/"
+          class={linkAccent}>experience</a
+        > page.
       </p>
-      <p class={prose}>Boring is the goal. Boring means it works.</p>
     </div>
   </section>
 
@@ -74,48 +78,31 @@ const linkAccent =
     <h2 id="how-i-work-heading" class={sectionHeading}>How I work</h2>
     <div class="mt-6 space-y-4">
       <p class={prose}>
-        I'm hands-on by default. I like getting close to the evidence — querying
-        the database, checking the API, reading the logs, reproducing the
-        behavior — before deciding what the fix should be.
-      </p>
-      <p class={prose}>
-        I also like working across boundaries. Technical Operations naturally
-        sits between engineering, product, business, vendors and clients, and
-        I've spent a lot of time turning technical constraints into something
-        useful for people who don't live in them every day.
-      </p>
-      <p class={prose}>
-        Later, when I led a small technical team, I kept the same approach.
-        Leadership added ownership, coordination and mentoring, but I stayed
-        involved in releases, incidents, monitoring, validation and automation
-        rather than moving away from the technical work.
+        I am hands-on by default and work from the evidence before deciding what
+        the fix should be. I am curious, comfortable owning a problem nobody has
+        pinned down yet, and used to translating technical constraints for the
+        engineering, product, business, vendor and client stakeholders who do
+        not live in them every day. I have mentored teammates while staying
+        hands-on. I am also a former combat commander, an experience that taught
+        me to stay composed under pressure.
       </p>
     </div>
   </section>
 
   <section aria-labelledby="cloud-heading" class="mt-16">
     <h2 id="cloud-heading" class={sectionHeading}>
-      Cloud, infrastructure and what's underneath
+      Cloud, infrastructure and what is underneath
     </h2>
     <div class="mt-6 space-y-4">
       <p class={prose}>
-        More recently I've been deliberately expanding the infrastructure side
-        of that same mindset through hands-on projects: AWS with Terraform,
-        Kubernetes, containers, CI/CD, observability, identity and security
-        controls, and full create-to-destroy lifecycle automation.
-      </p>
-      <p class={prose}>
-        The <a href="/projects/" class={linkAccent}>projects</a> on this site are
-        where that work is demonstrated.
-      </p>
-      <p class={prose}>
-        Underneath it all is a broader systems foundation from training in
-        Linux, networking, systems administration, firewalls and cyber security
-        including SOC fundamentals.
-      </p>
-      <p class={prose}>
-        I don't treat that as a separate professional identity — it's the
-        background that helps when a problem sits one layer lower than expected.
+        More recently, I have been building the cloud and infrastructure side
+        through hands-on projects: AWS with Terraform, Kubernetes and
+        containers, CI/CD and observability. The <a
+          href="/projects/"
+          class={linkAccent}>projects</a
+        > on this site are where that work is demonstrated, and a 2026 DevSecOps program
+        and earlier study at See Security College cover the same ground more formally.
+        It all helps when a problem turns out to sit a layer lower than expected.
       </p>
     </div>
   </section>
@@ -124,12 +111,8 @@ const linkAccent =
     <h2 id="outside-heading" class={sectionHeading}>Outside the terminal</h2>
     <div class="mt-6 space-y-4">
       <p class={prose}>
-        Outside work, I spend a fair amount of time in the gym and underwater
-        when I get the chance — scuba diving is one of the things I enjoy most.
-      </p>
-      <p class={prose}>
-        I also have a habit of turning random ideas into small technical
-        projects, so the terminal never stays completely closed.
+        Outside work I spend time in the gym and, when I get the chance,
+        underwater. Scuba diving is the one I would keep if I had to pick.
       </p>
     </div>
   </section>

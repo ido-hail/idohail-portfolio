@@ -176,17 +176,15 @@ The portfolio website itself must appear as one project with a complete case stu
 
 #### `/about`
 
-The professional story, told as a narrative rather than as a second copy of the résumé. `/experience/` remains the formal record, so this page must not repeat role bullets, employment dates, employer chronology or metrics.
+The professional story, told as a narrative rather than as a second copy of the résumé. `/experience/` remains the formal record, so this page must not repeat role bullets or restate the measured outcomes; those live on `/experience/`. Deliberately kept short.
 
-It should explain why the progression makes sense, covering:
+Contains, in order:
 
-* What Technical Operations means in plain terms
-* The move from investigating problems to preventing them
-* The kinds of problems the work centres on
-* A hands-on working style, including leadership that stayed technical
-* The cloud and infrastructure expansion, evidenced through projects
-* Systems, networking and security foundations, identified as training
-* A short personal closing section
+* **Opening** - Technical Operations as the professional background, and the investigation-led working pattern that runs through the work. Two short paragraphs.
+* **Professional background** - the employment progression shown compactly (`TechOps Engineer · YuviTal, 2023 - 2024`; `TechOps Team Lead · YuviTal, 2024 - 2026`), plus a short summary of the move from hands-on engineering into hands-on team leadership and the breadth that came with it. Employment dates and chronology are permitted here specifically, because progression is the point of the section; role bullets are not. Ends with a link to `/experience/`.
+* **How I work** - hands-on working style, curiosity, cross-functional work, ownership of ambiguous problems, mentoring, and composure under pressure. Military service may be referenced once, naturally inside a sentence, and never as a heading, badge or standalone leadership claim.
+* **Cloud, infrastructure and what is underneath** - the cloud and infrastructure expansion, evidenced primarily through the projects, with study and program work mentioned briefly as supporting context.
+* **Outside the terminal** - a short personal closing.
 
 A brief personal section (e.g. "Outside the terminal") is permitted and encouraged, kept to a few sentences. It must avoid family, relationship, location and other sensitive detail, and must not stretch hobbies into professional analogies.
 
@@ -194,9 +192,9 @@ The full grouped capability inventory lives in the homepage Skill Map (§3.1) ra
 
 **Evidence accuracy**
 
-The site's structure already separates evidence: Experience is professional work, Projects are hands-on engineering projects, and training is training. Do not attach repetitive source disclaimers to every group; clarify the source only where ambiguity would otherwise overclaim.
+The site's structure already separates evidence: Experience is professional work, Projects are hands-on engineering projects, and study is study. There is no public "training" or "foundations" categorisation of skills (§3.1); where a program is mentioned on `/about/`, it is named plainly as context rather than used to grade a capability.
 
-Completed coursework must not be presented as formal certification. Items such as the CCNA or MCSA curricula are training programs, not earned certifications, and there is no Certifications section.
+Completed coursework must not be presented as formal certification. Items such as the CCNA or MCSA curricula, the See Security College program and the 2026 DevSecOps program are programs of study, not earned certifications, and there is no Certifications section. Cloud and DevOps capability must never be presented as professional tenure that was not held.
 
 ### 3.2 Navigation
 
