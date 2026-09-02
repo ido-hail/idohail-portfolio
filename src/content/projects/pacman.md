@@ -1,7 +1,6 @@
 ---
 title: "Pac-Man — DevSecOps Delivery Pipeline"
 description: "A delivery pipeline built around real release gates: blocking vulnerability scanning, hardened non-root workloads, and a Kubernetes NetworkPolicy restricting database access to the application itself. Where NameGen covers how infrastructure is delivered safely, this covers what is allowed to reach production and what it can do once there."
-year: 2026
 tags:
   - "DevSecOps"
   - "Trivy"

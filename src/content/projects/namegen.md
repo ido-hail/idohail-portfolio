@@ -1,7 +1,6 @@
 ---
 title: "NameGen — AWS Delivery & Operations Lifecycle"
 description: "A complete AWS delivery and operations lifecycle for a containerized application: Terraform-provisioned EKS, immutable image delivery, monitoring, persistence validation and an audited teardown — built so every infrastructure change is explicit rather than accidental."
-year: 2026
 tags:
   - "AWS"
   - "Terraform"
