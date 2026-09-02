@@ -20,12 +20,12 @@ const rendered = await Promise.all(
 );
 
 function formatYearRange(start: number, end: number | undefined) {
-  return `${start} — ${end ?? "Present"}`;
+  return `${start} - ${end ?? "Present"}`;
 }
 ---
 
 <BaseLayout
-  title={`Experience — ${siteConfig.name}`}
+  title={`Experience | ${siteConfig.name}`}
   description="Technical operations experience at YuviTal: production ownership, monitoring and automation, data-quality engineering, and leading a small technical team."
 >
   <h1 class="text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl">
