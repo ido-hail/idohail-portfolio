@@ -31,10 +31,8 @@ const projectsGridClass =
   </h1>
 
   <p class="mt-5 max-w-2xl text-base leading-relaxed text-stone-600">
-    Three projects, each answering a different question. Two are infrastructure
-    projects built around existing open-source applications — the applications
-    are the payload, the engineering is everything around them. The third is
-    this site.
+    Hands-on engineering projects across infrastructure, delivery, security and
+    operations.
   </p>
 
   {
@@ -46,10 +44,7 @@ const projectsGridClass =
       <div class={projectsGridClass}>
         {projects.map((project) => (
           <article class="rounded-2xl border border-stone-200 bg-white p-6">
-            <p class="text-sm font-semibold tracking-wide text-blue-600 uppercase">
-              {project.data.year}
-            </p>
-            <h2 class="mt-2 text-lg font-semibold text-stone-900">
+            <h2 class="text-lg font-semibold text-stone-900">
               <a
                 href={`/projects/${project.id}/`}
                 class="rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900"

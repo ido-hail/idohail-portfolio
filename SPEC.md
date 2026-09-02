@@ -235,12 +235,13 @@ Typical project metadata may include:
 
 * Title
 * Description
-* Date/year
 * Technology tags
 * GitHub URL
 * Live URL
 * Featured status
 * Ordering metadata
+
+The project collection deliberately carries no date or year field. Projects are presented by curated ordering rather than chronologically, and project years are not rendered on `/projects/` or on the individual case studies, so the schema holds only fields the site actually consumes (§4.2).
 
 `Featured status` and ordering metadata are what will drive the homepage's Selected Work section (§3.1) once this collection exists.
 

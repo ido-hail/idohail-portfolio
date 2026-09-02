@@ -33,35 +33,44 @@ control, not a change to the plan. It is updated by explicit human authorization
 
 **Logical PR 3 is merged and production-verified.** ~~Logical PR 3 only — implementation tasks `P1-04` through `P1-11`.~~ **Phase 1 is complete.**
 
-**`P2-00` evidence preflight received explicit human approval** after a complete recursive audit of the historical CV corpus. Its factual envelope, locked bindings and human-attested facts constrain this implementation.
+**`P2-00` evidence preflight received explicit human approval** after a complete recursive audit of the historical CV corpus. Its factual envelope, locked bindings and human-attested facts constrain Phase 2 and everything after it.
 
-**Logical PR 4 only** — tasks `P2-00` through `P2-08`.
+**Logical PR 4 is merged and production-verified.** ~~Logical PR 4 only — tasks `P2-00` through `P2-08`.~~ **Phase 2 is complete.**
+
+**Logical PR 5 only** — tasks `P3-01`, `P3-02`, and **only** the §4.1 project-year slice of `P3-08`.
+
+`P3-08` is **not** completed by this PR: its editorial-rules portion depends on `P3-06` and `P3-07` and belongs to logical PR 6.
 
 Allowed files, complete list:
 
 ```
-docs/FINAL_POLISH_PLAN.md                        (tracked)
-src/pages/about/index.astro                      (tracked)
-src/content/experience/yuvital-techops-engineer.md   (tracked)
-src/content/experience/yuvital-techops-team-lead.md  (tracked)
-SPEC.md                                          (tracked)
+docs/FINAL_POLISH_PLAN.md                  (tracked)
+SPEC.md                                    (tracked)
+src/content.config.ts                      (tracked)
+src/content/projects/namegen.md            (tracked)
+src/content/projects/pacman.md             (tracked)
+src/content/projects/idohail-portfolio.md  (tracked)
+src/pages/projects/index.astro             (tracked)
+src/pages/projects/[slug].astro            (tracked)
 ```
 
 If repository formatting or validation appears to require touching any other
 file, **stop and report** rather than expanding scope.
 
-### Forbidden while logical PR 4 is the authorized scope
+### Forbidden while logical PR 5 is the authorized scope
 
-- `src/pages/index.astro`, `src/config/site.ts`, `src/components/SiteHeader.astro`
-- `src/content/projects/**`, `src/pages/projects/**`
+- `src/lib/projects.ts`
+- `src/pages/index.astro`, `src/pages/about/**`, `src/pages/experience/**`
+- `src/content/experience/**`
+- `src/components/**`, `src/layouts/**`, `src/config/**`
 - `.claude/**`, `public/**`
 - `README.md`, `docs/ARCHITECTURE.md`, `docs/DEPLOYMENT.md`
 - `package.json`, `wrangler.jsonc`, `.github/workflows/**`
 - Cloudflare or GitHub settings
-- Reopening the `P2-00` evidence audit unless implementation reveals a genuine contradiction
-- Re-adding Tableau to the Skill Map
-- Starting Phase 3 (`P3-*`) or any later work
-- Merging logical PR 4
+- Starting `P3-03`, `P3-04`, `P3-05` (case-study editorial), `P3-06` (sitewide em-dash pass) or `P3-07` (voice pass)
+- Completing the editorial-rules portion of `P3-08`
+- Rewriting project titles, descriptions, tags, ordering or case-study bodies
+- Merging logical PR 5
 
 ### Stop condition
 
@@ -793,7 +802,7 @@ About rework.
 - **Dependencies:** none within the phase
 - **Definition of Done:** `year` removed from schema, content and templates **in the same commit**; no year renders anywhere; `astro check` passes. `SPEC.md` §4.2 requires schemas to hold only fields the application consumes, so the field is removed rather than orphaned in frontmatter.
 - **Verification:** `npm run verify`; grep the built output for the year values and confirm absence.
-- **Status:** TODO
+- **Status:** DONE - `year` removed from the projects schema, all three frontmatter blocks and both templates in one change; no replacement chronology field added; `astro check` passes.
 
 #### P3-02 — Projects index editorial
 
@@ -803,7 +812,7 @@ About rework.
 - **Dependencies:** `P3-01`
 - **Definition of Done:** intro reduced to roughly one line; no paragraph explaining how many projects exist; cards scannable; GitHub, Live and Case study links intact.
 - **Verification:** `npm run verify`; CI link check passes.
-- **Status:** TODO
+- **Status:** DONE - index intro replaced with a single sentence carrying no project count; cards, tags, links, ordering and grid logic unchanged.
 
 #### P3-03 — NameGen case study tightening
 
@@ -863,7 +872,7 @@ About rework.
 - **Dependencies:** `P3-01`, `P3-06`, `P3-07`
 - **Definition of Done:** §4.1 no longer lists project year metadata; the editorial rules are stated as durable requirements, not as a one-off cleanup.
 - **Verification:** read `SPEC.md` against `src/content.config.ts` and the built output.
-- **Status:** TODO
+- **Status:** TODO - §4.1 project-year schema alignment completed in logical PR 5; editorial-rules completion remains dependent on `P3-06` and `P3-07`.
 
 ---
 

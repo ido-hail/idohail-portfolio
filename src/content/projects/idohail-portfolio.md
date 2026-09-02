@@ -1,7 +1,6 @@
 ---
 title: "This Portfolio Website"
 description: "The site you're reading. A static Astro build on Cloudflare Workers with a build-once artifact model, PR-gated deployment, branch governance, and a Content-Security-Policy derived from what the site actually contains."
-year: 2026
 tags:
   - "Astro"
   - "TypeScript"

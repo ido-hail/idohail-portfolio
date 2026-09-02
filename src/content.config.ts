@@ -7,7 +7,8 @@ const projects = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    year: z.number().int(),
+    // Deliberately no chronology field. Projects are presented by curated
+    // `order`, not by date, so the schema holds only what the site renders.
     tags: z.array(z.string()).default([]),
     githubUrl: z.url().optional(),
     liveUrl: z.url().optional(),
