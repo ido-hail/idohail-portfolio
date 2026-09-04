@@ -167,14 +167,14 @@ const tools = [
   { name: "Postman", logo: "/tools/postman.svg" },
 ] as const;
 
-// Selected Work degrades gracefully with the number of featured projects
+// Featured Projects degrades gracefully with the number of featured projects
 // actually available: 1 -> a single full-width card, 2 -> primary +
 // one secondary side by side, 3 -> the full primary + two-stacked layout.
 const featuredProjects = await getFeaturedProjects(3);
 const [primaryProject, ...secondaryProjects] = featuredProjects;
 const featuredCount = featuredProjects.length;
 
-const selectedWorkGridClass =
+const featuredGridClass =
   featuredCount <= 1
     ? "mt-8"
     : featuredCount === 2
@@ -206,7 +206,7 @@ const personJsonLd = {
 
 <BaseLayout
   title={`${siteConfig.name} | Production, DevOps & Data`}
-  description="Portfolio for Ido Hail: Technical Operations background across production, infrastructure and data, plus hands-on cloud and DevOps engineering projects."
+  description="Hands-on experience across production systems, infrastructure and data: Technical Operations, monitoring, release readiness, automation and implementation."
   jsonLd={personJsonLd}
 >
   <!-- Hero -->
@@ -230,10 +230,9 @@ const personJsonLd = {
         <p
           class="mt-6 max-w-2xl text-lg leading-relaxed text-stone-600 sm:text-xl"
         >
-          My background is in Technical Operations, working hands-on across
-          production systems, infrastructure and data. I investigate technical
-          problems, improve how systems run, and automate recurring operational
-          work.
+          Hands-on experience across production systems, infrastructure and
+          data: Technical Operations, monitoring, release readiness, automation
+          and implementation.
         </p>
 
         {
@@ -275,7 +274,7 @@ const personJsonLd = {
             from the visible link text. */
         }
         <div
-          class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-stone-500"
+          class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-stone-600"
         >
           {
             siteConfig.linkedinUrl && (
@@ -323,14 +322,14 @@ const personJsonLd = {
     </div>
   </section>
 
-  <!-- Selected Work -->
-  <section aria-labelledby="selected-work-heading" class="mt-16 sm:mt-20">
+  <!-- Featured Projects -->
+  <section aria-labelledby="featured-projects-heading" class="mt-16 sm:mt-20">
     <div class="flex flex-wrap items-baseline justify-between gap-4">
       <h2
-        id="selected-work-heading"
+        id="featured-projects-heading"
         class="text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl"
       >
-        Selected Work
+        Featured Projects
       </h2>
       <a href="/projects/" class={linkAccent}>View all projects →</a>
     </div>
@@ -341,10 +340,9 @@ const personJsonLd = {
           No featured projects are currently available.
         </p>
       ) : (
-        <div class={selectedWorkGridClass}>
+        <div class={featuredGridClass}>
           <article class={primaryCardClass}>
-            <p class={eyebrowHeading}>Featured Project</p>
-            <h3 class="mt-2 text-xl font-semibold text-stone-900">
+            <h3 class="text-xl font-semibold text-stone-900">
               <a
                 href={`/projects/${primaryProject.id}/`}
                 class="rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900"
@@ -374,8 +372,7 @@ const personJsonLd = {
 
           {secondaryProjects.map((project) => (
             <article class="rounded-2xl border border-stone-200 bg-white p-6">
-              <p class={eyebrowHeading}>Featured Project</p>
-              <h3 class="mt-2 text-lg font-semibold text-stone-900">
+              <h3 class="text-lg font-semibold text-stone-900">
                 <a
                   href={`/projects/${project.id}/`}
                   class="rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900"

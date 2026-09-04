@@ -1,10 +1,11 @@
 ---
-title: "NameGen: AWS Delivery & Operations Lifecycle"
-description: "Terraform-provisioned EKS with immutable image delivery, monitoring and a scripted teardown that verifies itself, built so nothing changes in AWS without an explicit instruction."
+title: "NameGen: AWS & Kubernetes Delivery Lifecycle"
+description: "An AWS delivery lifecycle built around an existing open-source application: Terraform-provisioned EKS, OIDC-authenticated CI/CD, immutable image delivery, monitoring, and validated teardown."
 tags:
   - "AWS"
   - "Terraform"
   - "Kubernetes"
+  - "CI/CD"
   - "GitHub Actions"
   - "Prometheus"
 githubUrl: "https://github.com/ido-hail/namegen-final-devops-project"
