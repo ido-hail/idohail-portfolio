@@ -1257,7 +1257,7 @@ below reopens them.
 - **Scope:** sliced per PR, matching the `P3-08` precedent. PR 10 slice — §3.1 Hero value proposition, §3.1 and §6.2 "Selected Work", §3.1 per-card label, §4.1 cross-reference. PR 11 slice — §3.1 `/about` Opening, `How I work`, the section order, the "personal section is permitted and encouraged" paragraph, the `/experience/` link requirement, and the evidence-accuracy paragraph that discourages a structured training section.
 - **Files:** `SPEC.md`
 - **Dependencies:** the task whose behaviour it records, in the same PR
-- **Definition of Done:** no `SPEC.md` statement contradicts the built site after each slice; no stale "Selected Work" or "Outside the terminal" reference remains once its slice lands.
+- **Definition of Done:** no `SPEC.md` statement contradicts the built site after each slice; no stale current-spec or active-plan reference to "Selected Work" or "Outside the terminal" remains once its slice lands. Historical task and PR records keep their original wording and are never rewritten.
 - **Verification:** read each amended section against the built site.
 - **Status:** IN PROGRESS - PR 10 slice DONE (`SPEC.md` §3.1 Hero value proposition rewritten to the one-sentence breadth-first requirement; §3.1 and §6.2 "Selected Work" renamed to "Featured Projects"; §3.1 per-card label prohibition added; §4.1 cross-reference updated). PR 11 slice remains.
 
