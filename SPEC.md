@@ -46,14 +46,14 @@ Contains, in order:
 
   * Name
   * Capability/domain line: "Production & Reliability · DevOps & Infrastructure · Data & Automation" — deliberately not a job title.
-  * Short value proposition (maximum two short sentences) that anchors the profile in Technical Operations as the professional background the hands-on experience comes from, without presenting it as a standalone identity under the name.
+  * Short value proposition: a single sentence that leads with hands-on breadth across production systems, infrastructure and data, and names Technical Operations as one capability within that breadth rather than as the identity under the name. It must not narrate how the work is done.
   * CTAs: View Projects (primary) and Experience (secondary) while no resume asset is configured; once `resumePath` is set, Resume becomes the primary CTA with View Projects and Experience remaining reachable. No dedicated `/resume/` route.
   * Compact plain-text LinkedIn/GitHub/Email links in the Hero, visually distinct from the CTA row. No icons and no icon dependency; accessible names come from the visible link text.
   * A portrait image, presented as a 4:5 rounded frame alongside the text on wide viewports and after the CTAs on narrow ones. A neutral local placeholder is acceptable during development; the real portrait must be in place before public launch on the custom domain.
 
   The capability line is deliberately a set of professional domains rather than a single job title. Data is significant technical depth but must not dominate the profile, and DevOps/cloud/infrastructure capability is evidenced through projects rather than presented as professional tenure.
 
-* **Selected Work**
+* **Featured Projects**
 
   * Placed directly after the Hero — the first evidence section, before any capability-card section, so the reader reaches proof before a second round of claims.
   * Prominent, visually weighted featured-project presentation.
@@ -61,7 +61,7 @@ Contains, in order:
   * Driven by the Projects content collection's `Featured status` and ordering metadata (§4.1).
   * Projects should emphasize problem/outcome before technology.
   * Cards are text-only; project diagrams and screenshots belong inside the individual case studies.
-  * No introductory paragraph announcing or explaining how many projects are featured; the heading and cards speak for themselves.
+  * No introductory paragraph announcing or explaining how many projects are featured, and no per-card label restating that a card is featured; the heading and cards speak for themselves.
 
 * **What I work on**
 
@@ -243,7 +243,7 @@ Typical project metadata may include:
 
 The project collection deliberately carries no date or year field. Projects are presented by curated ordering rather than chronologically, and project years are not rendered on `/projects/` or on the individual case studies, so the schema holds only fields the site actually consumes (§4.2).
 
-`Featured status` and ordering metadata are what will drive the homepage's Selected Work section (§3.1) once this collection exists.
+`Featured status` and ordering metadata are what will drive the homepage's Featured Projects section (§3.1) once this collection exists.
 
 The file name / entry ID should be used as the route identifier unless a separate custom slug provides a concrete benefit.
 
@@ -341,7 +341,7 @@ These are verification points, not hard-coded breakpoints.
 The homepage must not render as a repeated sequence of identical heading-divider-paragraph sections. Presentation should match each section's content type:
 
 * Hero — strong typography and whitespace: name, then the capability line, then the short value proposition.
-* Selected Work — the first evidence section after the Hero, given real visual weight; may use a wider canvas than the surrounding prose sections.
+* Featured Projects — the first evidence section after the Hero, given real visual weight; may use a wider canvas than the surrounding prose sections.
 * What I work on — a restrained capability presentation, one column by default, two at `sm`, four at `lg`.
 * Skill Map — grouped chips across a responsive multi-column grid, scannable rather than dense.
 * Tools I work with — a restrained moving logo strip, understated enough that it never becomes the visual focus of the page.

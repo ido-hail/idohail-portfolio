@@ -39,53 +39,54 @@ control, not a change to the plan. It is updated by explicit human authorization
 
 **Logical PR 5 is merged and production-verified.** ~~Logical PR 5 only — tasks `P3-01`, `P3-02`, and only the §4.1 project-year slice of `P3-08`.~~ `P3-01` and `P3-02` are complete, and the §4.1 project-year slice of `P3-08` is complete.
 
-**Logical PR 6 only** — tasks `P3-03`, `P3-04`, `P3-05`, `P3-06`, `P3-07`, and the remaining editorial-rules portion of `P3-08`.
+**Logical PR 6 is merged and production-verified.** ~~Logical PR 6 only — tasks `P3-03`, `P3-04`, `P3-05`, `P3-06`, `P3-07`, and the remaining editorial-rules portion of `P3-08`.~~ **Phase 3 is complete.**
 
-Logical PR 6 completes Phase 3 once it is merged and production-verified.
-Phase 4 is not authorized and must not be started.
+**The Positioning Refresh round was approved** against baseline `ae92ffe` after a read-only
+preflight covering the repository, production, the historical CV corpus and a job-market
+scan. Its decisions are locked in §2, §3 and the Phase 7 tasks in §8. There are no
+outstanding copy decisions.
+
+**Logical PR 10 only** — tasks `P7-01`, `P7-02`, `P7-03`, `P7-04`, the homepage slice of
+`P7-05`, and the homepage slice of `P7-10`.
+
+Phases 4, 5 and 6 are not authorized. Phase 7 beyond PR 10 is not authorized.
 
 Allowed files, complete list:
 
 ```
 docs/FINAL_POLISH_PLAN.md                     (tracked)
 SPEC.md                                       (tracked)
-src/content/projects/namegen.md               (tracked)
-src/content/projects/pacman.md                (tracked)
-src/content/projects/idohail-portfolio.md     (tracked)
-src/pages/projects/index.astro                (tracked)
-src/pages/projects/[slug].astro               (tracked)
-src/pages/experience/index.astro              (tracked)
 src/pages/index.astro                         (tracked)
-src/pages/about/index.astro                   (tracked)
-src/content/experience/*.md                   (tracked)
-src/components/SiteHeader.astro               (tracked)
-src/components/SiteFooter.astro               (tracked)
-src/layouts/BaseLayout.astro                  (tracked)
+src/content/projects/namegen.md               (tracked)
+src/content/projects/idohail-portfolio.md     (tracked)
 ```
 
-Permission to edit a file is not a requirement to edit it. Phase 1 and Phase 2
-surfaces are edited only where there is a published em dash, a clear `P3-07`
-violation, or an objectively repetitive sentence that can be improved without
-changing factual meaning.
+Permission to edit a file is not a requirement to edit it.
 
 If repository formatting or validation appears to require touching any other
 file, **stop and report** rather than expanding scope.
 
-### Forbidden while logical PR 6 is the authorized scope
+### Forbidden while logical PR 10 is the authorized scope
 
 - `src/config/site.ts`, `src/content.config.ts`, `src/lib/**`, `src/styles/**`
+- `src/pages/about/index.astro`, `src/pages/experience/index.astro`,
+  `src/pages/projects/**`, `src/content/experience/**`,
+  `src/content/projects/pacman.md`
+- `src/components/**`, `src/layouts/**`
 - `.claude/**`, `public/**`
 - `README.md`, `docs/ARCHITECTURE.md`, `docs/DEPLOYMENT.md`
 - `package.json`, `wrangler.jsonc`, `astro.config.*`, `.github/workflows/**`
 - Cloudflare or GitHub settings
-- Reopening homepage positioning, About positioning, the Skill Map, the tools
-  marquee or the Experience evidence model
-- Changing the locked Hero capability line or value proposition (§2, §4)
+- Changing the locked Hero capability line (§2, §4)
+- Reopening the homepage section order, the Skill Map, the tools marquee, About
+  positioning or the Experience evidence model
 - Changing employment year data, Experience metrics or their bindings
+- Editing any project case-study body, or `pacman.md` in any form
+- Changing any project's `featured` or `order` value
 - Adding, removing or replacing any project figure
 - Introducing, strengthening or removing a factual claim while rewording
-- Starting any Phase 4 task
-- Merging logical PR 6
+- Starting any Phase 4, 5 or 6 task, or any Phase 7 task outside PR 10
+- Merging logical PR 10
 
 ### Stop condition
 
@@ -222,6 +223,15 @@ evidence.
 
 ## 3. Global editorial rules
 
+### Minimal factual copy
+
+Public copy must use the minimum text required to communicate factual scope,
+evidence or context. Prefer concrete technical facts over narrative,
+personality, marketing language or explanatory transitions. When two versions
+are factually equivalent, use the shorter version.
+
+This applies to every public surface, including the Resume.
+
 ### No em dash in published copy
 
 The em dash character (`—`) must not appear anywhere in published site copy. Use
@@ -268,18 +278,18 @@ Home        Projects   Experience   About   [Resume]
 
 ### Homepage section order
 
-| #   | Section           | Note                                                                                                              |
-| --- | ----------------- | ----------------------------------------------------------------------------------------------------------------- |
-| 1   | Hero              | Name, capability line, value proposition, conditional Resume CTA plus compact LinkedIn / GitHub / Email, portrait |
-| 2   | **Selected Work** | First evidence section. No paragraph announcing how many projects exist.                                          |
-| 3   | What I Work On    | Four capability groups                                                                                            |
-| 4   | Skill Map         | Curated public presentation                                                                                       |
-| 5   | Tools I work with | Curated subset, existing marquee mechanism                                                                        |
-| 6   | Get in touch      | Closing CTA                                                                                                       |
+| #   | Section               | Note                                                                                                                                                        |
+| --- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Hero                  | Name, capability line, value proposition, conditional Resume CTA plus compact LinkedIn / GitHub / Email, portrait                                           |
+| 2   | **Featured Projects** | First evidence section. No paragraph announcing how many projects exist, and no per-card "Featured Project" label. Renamed from "Selected Work" by `P7-02`. |
+| 3   | What I Work On        | Four capability groups                                                                                                                                      |
+| 4   | Skill Map             | Curated public presentation                                                                                                                                 |
+| 5   | Tools I work with     | Curated subset, existing marquee mechanism                                                                                                                  |
+| 6   | Get in touch          | Closing CTA                                                                                                                                                 |
 
 Removed entirely: **"A few numbers"** and **"A bit about me"**.
 
-**Rationale for Selected Work at position 2:** the Hero already carries the
+**Rationale for Featured Projects at position 2:** the Hero already carries the
 capability line and the value proposition. Making the reader pass through a
 second capability-card section before reaching any evidence delays the proof.
 Projects are the strongest homepage evidence, so they come first; What I Work On
@@ -525,7 +535,7 @@ artifacts rather than tracked repository content.
 - Status is updated in the same PR that changes it, so plan and repository never drift.
 - Every task names its files explicitly. A cold session must not have to guess.
 - **Review gates never self-approve. They stop.** The gates are `P1-00`, `P2-00`,
-  `P5-01` and `P6-08`.
+  `P5-01`, `P6-08`, `P7-12` and `P7-14`.
 - Any deviation from this plan is reported, not silently reconciled.
 
 ---
@@ -1131,14 +1141,181 @@ HSTS outcome.
 
 ---
 
+### Phase 7 — Positioning Refresh & Resume Creation
+
+Approved against baseline `ae92ffe` after a read-only preflight. Phase 7 is
+scheduled **before** Phases 4, 5 and 6 in the §9 PR table, and reuses their
+existing task IDs where one already covers the work: the portrait is `P4-01`
+through `P4-03`, the favicon is `P5-03` pulled forward out of PR 8, and Resume
+publication is `P4-04` through `P4-06`. Phase 7 adds only what had no home:
+the positioning and copy work, and the **creation** of the Resume as opposed to
+publishing one that was handed over.
+
+**Non-goals:** the Hero capability line; the homepage section order; the Skill
+Map; the tools marquee; `/experience/` content; any project case-study body;
+`pacman.md`; any project's `featured` or `order` value; a `/resume/` route; a
+resume-generation pipeline in the repository.
+
+**Locked decisions.** The Hero sentence, the section name, both project titles,
+the About structure, the portrait source, the favicon concept and the Resume
+document strategy were all selected by a human before Phase 7 began. No task
+below reopens them.
+
+#### P7-01 — Hero value proposition
+
+- **Objective:** replace the narrow "My background is in Technical Operations" framing with the locked breadth-first sentence.
+- **Scope:** in — the Hero paragraph only. Out — the capability line, the name, the CTA row, the portrait.
+- **Files:** `src/pages/index.astro`
+- **Dependencies:** none
+- **Definition of Done:** the rendered Hero paragraph reads exactly `Hands-on experience across production systems, infrastructure and data: Technical Operations, monitoring, release readiness, automation and implementation.`; it is one sentence; no banned construction is present; `siteConfig.positioning` is untouched.
+- **Verification:** `npm run verify`; Preview at 360 / 768 / 1440.
+- **Status:** DONE - Hero paragraph replaced with the locked single sentence; `siteConfig.positioning` untouched; no banned construction present.
+
+#### P7-02 — "Featured Projects" heading and per-card label removal
+
+- **Objective:** rename the homepage projects section and remove the redundant per-card label.
+- **Scope:** in — the `h2`, its `aria-labelledby` target, the related local identifiers, and the `Featured Project` eyebrow on both the primary and secondary card templates. Out — card layout, grid degradation logic, ordering, tags, the "View all projects" link.
+- **Files:** `src/pages/index.astro`
+- **Dependencies:** none
+- **Definition of Done:** the heading reads `Featured Projects`; `aria-labelledby` resolves to the renamed `id`; neither card template renders a `Featured Project` label; the first child of each card is its `h3`, with no orphaned top margin; heading hierarchy is unchanged (one `h1`, `h2` sections, `h3` cards).
+- **Verification:** `npm run verify`; confirm the `h2` sequence on Preview; confirm no `Featured Project` string remains in `dist/`.
+- **Status:** DONE - heading is `Featured Projects`; `aria-labelledby` and `id` renamed to `featured-projects-heading`; local `selectedWorkGridClass` renamed to `featuredGridClass`; the `Featured Project` eyebrow removed from both card templates and each `article` now opens directly on its `h3` with no orphaned top margin; `h1` count remains 1 and the `h2` sequence is Featured Projects, What I work on, Skill Map, Tools I work with, Get in touch.
+
+#### P7-03 — Hero CTA and contact row treatment
+
+- **Objective:** make the LinkedIn / GitHub / Email row read as a deliberate contact row rather than as leftover links.
+- **Scope:** in — spacing and text colour on the contact row. Out — the button model, button labels, the Resume conditional, icons, any new element or copy.
+- **Files:** `src/pages/index.astro`
+- **Dependencies:** none
+- **Definition of Done:** the contact row is separated from the button row and readable at body weight; **no decorative element and no added copy**; the Resume conditional still produces `View Projects` primary and `Experience` secondary while `resumePath` is `null`, and would produce `Resume` primary once it is set; mobile usability is checked practically at 360, not against a fixed pixel target.
+- **Verification:** `npm run verify`; Preview at 360 / 768 / 1440; tab through the Hero and confirm focus order and focus visibility are unchanged.
+- **Status:** DONE - contact row moved from `mt-4` to `mt-6`, `text-stone-500` to `text-stone-600`, gap `gap-x-4` to `gap-x-5`; no element, icon or copy added; the Resume conditional still renders `View Projects` primary and `Experience` secondary while `resumePath` is `null`.
+
+#### P7-04 — Project card copy
+
+- **Objective:** front-load the delivery capability on the NameGen card and drop "This" from the portfolio title.
+- **Scope:** in — frontmatter `title`, `description` and `tags` on two project entries. Out — every case-study body, `pacman.md`, `featured`, `order`, and the MIT attribution.
+- **Files:** `src/content/projects/namegen.md`, `src/content/projects/idohail-portfolio.md`
+- **Dependencies:** none
+- **Definition of Done:** NameGen's title is `NameGen: AWS & Kubernetes Delivery Lifecycle`; its description states the ownership boundary and introduces **no** technical fact absent from its own case study; `CI/CD` is added to its tags; the portfolio title is `Portfolio Website`; the portfolio description and tags are unchanged; the Bob Reselman / MIT attribution is byte-identical; no case-study body changed.
+- **Verification:** `npm run verify`; `git diff` shows frontmatter lines only; confirm every description term against the case-study body.
+- **Status:** DONE - NameGen retitled `NameGen: AWS & Kubernetes Delivery Lifecycle`, description rebuilt from facts already in its own case study (lines 27, 40-46, 54, 58) and now stating the ownership boundary on the card, `CI/CD` added to tags; portfolio retitled `Portfolio Website` with description and tags unchanged; the Bob Reselman / MIT attribution and every case-study body are byte-identical; `pacman.md`, `featured` and `order` untouched.
+
+#### P7-05 — Metadata consistency
+
+- **Objective:** stop the retired narrow framing surviving in metadata after the visible copy changes.
+- **Scope:** in — the homepage `description` (this PR) and the About `description` (PR 11). Out — page `<title>` values, the Experience and Projects descriptions, and `BaseLayout.astro`, which already derives Open Graph and Twitter descriptions from the same prop.
+- **Files:** `src/pages/index.astro`; later `src/pages/about/index.astro`
+- **Dependencies:** `P7-01`; later `P7-06` through `P7-09`
+- **Definition of Done:** the homepage `description` is the locked Hero sentence; no page description retains `Technical Operations background` or `Technical Operations experience` as its opening framing; `og:description` and `twitter:description` follow automatically with no template change.
+- **Verification:** `npm run verify`; grep `dist/` for the retired strings.
+- **Status:** IN PROGRESS - homepage slice DONE in PR 10 (`description` is now the locked Hero sentence; `Technical Operations background` no longer appears in `dist/`; `og:description` and `twitter:description` followed with no template change). About slice remains for PR 11.
+
+#### P7-06 — About structure
+
+- **Objective:** turn `/about/` into a compact factual profile.
+- **Scope:** in — delete the `How I work` section; delete the `Outside the terminal` section; remove the two-paragraph lead with no replacement lead. Out — `/experience/`, the homepage.
+- **Files:** `src/pages/about/index.astro`
+- **Dependencies:** PR 10 merged and production-verified
+- **Definition of Done:** neither section exists; there is no lead paragraph; **no military service appears anywhere on the site**; the page contains no narrative construction from the PR checklist.
+- **Verification:** `npm run verify`; Preview; grep `dist/` for the removed strings.
+- **Status:** TODO
+
+#### P7-07 — About Professional background
+
+- **Objective:** present the two roles in the required order with one factual scope line each.
+- **Scope:** in — the `roles` array order, a new `scope` field, the list markup, and removal of the narrative progression paragraphs. Out — employment years, `/experience/` content, `src/content/experience/**`.
+- **Files:** `src/pages/about/index.astro`
+- **Dependencies:** `P7-06`
+- **Definition of Done:** `TechOps Team Lead · YuviTal · 2024 - 2026` precedes `TechOps Engineer · YuviTal · 2023 - 2024`, matching the order `/experience/` already renders; each carries one scope line; no transition prose and no inline `/experience/` link; years and chronology are unchanged; the three-person team composition is stated once.
+- **Verification:** `npm run verify`; compare the rendered order against `/experience/`.
+- **Status:** TODO
+
+#### P7-08 — About cloud and infrastructure evidence boundary
+
+- **Objective:** remove the "More recently" framing without implying professional DevOps, SRE or cloud tenure.
+- **Scope:** in — the section heading and its single line. Out — the Skill Map, `/projects/` content.
+- **Files:** `src/pages/about/index.astro`
+- **Dependencies:** `P7-06`
+- **Definition of Done:** `More recently` is gone; the line labels the evidence as project-backed directly rather than explaining it; the existing `/projects/` link is preserved without adding words; no sentence can be read as employment history.
+- **Verification:** `npm run verify`; grep `dist/` for `More recently`.
+- **Status:** TODO
+
+#### P7-09 — About Professional training section
+
+- **Objective:** represent the two programs as their own factual section.
+- **Scope:** in — a new `Professional training` section carrying two metadata lines, reusing the existing list pattern. Out — a site Certifications section, subject-coverage paragraphs, `/experience/`.
+- **Files:** `src/pages/about/index.astro`
+- **Dependencies:** `P7-06`
+- **Definition of Done:** both programs appear with institution, years and hours as metadata; **no coverage paragraph**; no certification claim; `PCEP` does not appear; none of `fundamentals`, `beginner`, `introductory`, `basic`, `entry-level training`, `coursework` or `foundations` appears anywhere in `dist/`.
+- **Verification:** `npm run verify`; grep `dist/` for each banned word and for `PCEP`.
+- **Status:** TODO
+
+#### P7-10 — SPEC alignment for Phase 7
+
+- **Objective:** keep `SPEC.md` describing the site that exists.
+- **Scope:** sliced per PR, matching the `P3-08` precedent. PR 10 slice — §3.1 Hero value proposition, §3.1 and §6.2 "Selected Work", §3.1 per-card label, §4.1 cross-reference. PR 11 slice — §3.1 `/about` Opening, `How I work`, the section order, the "personal section is permitted and encouraged" paragraph, the `/experience/` link requirement, and the evidence-accuracy paragraph that discourages a structured training section.
+- **Files:** `SPEC.md`
+- **Dependencies:** the task whose behaviour it records, in the same PR
+- **Definition of Done:** no `SPEC.md` statement contradicts the built site after each slice; no stale current-spec or active-plan reference to "Selected Work" or "Outside the terminal" remains once its slice lands. Historical task and PR records keep their original wording and are never rewritten.
+- **Verification:** read each amended section against the built site.
+- **Status:** IN PROGRESS - PR 10 slice DONE (`SPEC.md` §3.1 Hero value proposition rewritten to the one-sentence breadth-first requirement; §3.1 and §6.2 "Selected Work" renamed to "Featured Projects"; §3.1 per-card label prohibition added; §4.1 cross-reference updated). PR 11 slice remains.
+
+#### P7-11 — Market freshness check
+
+- **Objective:** confirm keyword priorities and cluster shapes before Resume content is written.
+- **Scope:** in — roughly 8 to 12 current postings across the three target clusters. Out — repeating the full scan; any repository change.
+- **Files:** none
+- **Dependencies:** PR 11 merged and production-verified
+- **Definition of Done:** each posting was actually fetched and read; no posting from the earlier preflight scan is cited as live; the cluster shapes are confirmed or the deviation is reported.
+- **Verification:** URLs and fetch dates recorded with the findings.
+- **Status:** TODO
+
+#### P7-12 — Resume content build **[REVIEW GATE, BLOCKING]**
+
+- **Objective:** produce the full content of all three Resume documents as reviewable plain text.
+- **Scope:** in — Master, DataOps variant and DevOps variant content, built from the approved evidence, the anchor CV, the corpus audit and `P7-11`. Out — rendering, and any repository change.
+- **Files:** none. The source lives outside the repository, per `SPEC.md` §5.
+- **Dependencies:** `P7-11`
+- **Definition of Done:** every employment fact is identical across all three documents; no unsupported technology appears inside Professional Experience; no present-tense employment claim; every metric carries its exact binding. **The gate stops for human approval of every line.**
+- **Verification:** human approval before `P7-13` begins.
+- **Status:** TODO
+
+#### P7-13 — Resume document generation
+
+- **Objective:** render the approved content as ATS-safe documents.
+- **Scope:** in — PDF output plus a DOCX alongside. Out — committing anything; adding any generation pipeline to the repository.
+- **Files:** none in the repository
+- **Dependencies:** `P7-12` approved
+- **Definition of Done:** text is selectable; a plain-text extraction returns every section heading in order; single column throughout; contact details sit in the document body, not a header or footer region; every hyperlink resolves; page 1 is self-sufficient in all three documents.
+- **Verification:** extract the PDF to plain text and read it; open every link.
+- **Status:** TODO
+
+#### P7-14 — Resume consistency and ATS gate **[REVIEW GATE, BLOCKING]**
+
+- **Objective:** prove the Resume does not contradict the site, before publication.
+- **Scope:** in — reconciliation against `/experience/`, `/about/`, the Skill Map, §5 of this plan and the project ownership boundaries. Out — any repository change.
+- **Files:** none
+- **Dependencies:** `P7-13`
+- **Definition of Done:** titles, dates, every metric and its binding, team size, database naming, cloud and DevOps presented as capability and projects rather than tenure, no SRE or DevOps job title, programs never certifications and no `PCEP`, project ownership boundaries, release wording as readiness rather than approval authority, and contact details against `src/config/site.ts` are each checked explicitly; every technology inside Professional Experience is matched to specific professional evidence; variant-to-variant consistency of every employment fact is confirmed; any wording differing from the site is recorded and justified as factually equivalent. **The gate stops.**
+- **Verification:** human approval before `P4-04` begins.
+- **Status:** TODO
+
+---
+
 ## 9. PR sequence
 
-**12 planned PRs (PR 0 through PR 9c), with PR 7 potentially split into 7a/7b
-depending on asset timing.**
+**PR 0 through PR 9c, plus the Positioning Refresh PRs 10 through 14.**
 
 Each PR has one coherent purpose, is independently reviewable, keeps production
 healthy, receives Preview verification, stops for human review before merge, and
 receives a short production verification after merge.
+
+> **Strict one PR at a time.** The "Blocked by" column is a dependency graph, not
+> a concurrency plan. Two PRs with no dependency between them are still never
+> implemented concurrently. Implement one PR, stop, report, and start the next
+> only when the previous one has been reviewed, merged, production-verified and
+> the next explicitly authorized.
 
 > **Logical labels, not GitHub numbers.**
 > "PR 0", "PR 1", "PR 9b" and so on are **Final Polish sequence labels**, not
@@ -1149,20 +1326,25 @@ receives a short production verification after merge.
 > Identify a Final Polish PR by its **task IDs**, **branch name**, **title** and
 > **sequence label** — never by assuming that "PR 1" means GitHub pull request #1.
 
-| PR     | Tasks                                          | Purpose                                                                                                                                                                                                                     | Blocked by                           |
-| ------ | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| **0**  | `P0-01` through `P0-03`                        | Persist the plan; add the `CLAUDE.md` pointer, mirrored locally into the untracked `AGENTS.md`. Tracked diff is `docs/FINAL_POLISH_PLAN.md` and `CLAUDE.md` only. No rendered content, no SPEC behaviour, no skills change. | —                                    |
-| **1**  | `P6-01` through `P6-03`                        | Documentation and CI truth-up. Fixes live inaccuracies; touches no rendered page.                                                                                                                                           | 0                                    |
-| **2**  | `P1-00`, then `P1-01` through `P1-03`, `P1-12` | **Gated.** `P1-00` proposes Hero directions and stops. Then the identity layer: config, header, Hero, design-review skill, plus SPEC §1, §3.1 Hero and §3.2.                                                                | 1 plus human selection               |
-| **3**  | `P1-04` through `P1-11`                        | Homepage body: remove two sections, reorder with Selected Work second, four capability groups, curated Skill Map with density review, marquee sync, metadata, SPEC.                                                         | 2                                    |
-| **4**  | `P2-00` through `P2-08`                        | **Gated.** `P2-00` evidence preflight first. Then About rewrite, Professional Background, Experience tightening, SPEC §3.1.                                                                                                 | 3 plus consolidated evidence         |
-| **5**  | `P3-01`, `P3-02`, part of `P3-08`              | Projects structure: `year` removal across schema, content and templates; index intro; SPEC §4.1.                                                                                                                            | 4                                    |
-| **6**  | `P3-03` through `P3-07`, rest of `P3-08`       | Case-study editorial, sitewide em-dash and voice pass, SPEC editorial rules.                                                                                                                                                | 5                                    |
-| **7**  | `P4-*`                                         | Portrait and Resume. Split into 7a/7b if the assets arrive separately; neither depends on the other.                                                                                                                        | assets                               |
-| **8**  | `P5-*`                                         | **Gated.** `P5-01` options reviewed first. Then implementation, favicon, OG image, SPEC.                                                                                                                                    | 7 plus option selection              |
-| **9a** | `P6-04` through `P6-07`                        | Launch closure before HSTS: analytics decision, Search Console, indexing audit, accessibility and responsive verification.                                                                                                  | 8                                    |
-| **9b** | `P6-08` only                                   | **HSTS only**, after its review is approved. Nothing else in the PR.                                                                                                                                                        | 9a plus HSTS review approval         |
-| **9c** | `P6-09` only                                   | Final SPEC and acceptance-criteria closeout, after production HSTS verification.                                                                                                                                            | 9b plus production HSTS verification |
+| PR     | Tasks                                                  | Purpose                                                                                                                                                                                                                     | Blocked by                           |
+| ------ | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| **0**  | `P0-01` through `P0-03`                                | Persist the plan; add the `CLAUDE.md` pointer, mirrored locally into the untracked `AGENTS.md`. Tracked diff is `docs/FINAL_POLISH_PLAN.md` and `CLAUDE.md` only. No rendered content, no SPEC behaviour, no skills change. | —                                    |
+| **1**  | `P6-01` through `P6-03`                                | Documentation and CI truth-up. Fixes live inaccuracies; touches no rendered page.                                                                                                                                           | 0                                    |
+| **2**  | `P1-00`, then `P1-01` through `P1-03`, `P1-12`         | **Gated.** `P1-00` proposes Hero directions and stops. Then the identity layer: config, header, Hero, design-review skill, plus SPEC §1, §3.1 Hero and §3.2.                                                                | 1 plus human selection               |
+| **3**  | `P1-04` through `P1-11`                                | Homepage body: remove two sections, reorder with Selected Work second, four capability groups, curated Skill Map with density review, marquee sync, metadata, SPEC.                                                         | 2                                    |
+| **4**  | `P2-00` through `P2-08`                                | **Gated.** `P2-00` evidence preflight first. Then About rewrite, Professional Background, Experience tightening, SPEC §3.1.                                                                                                 | 3 plus consolidated evidence         |
+| **5**  | `P3-01`, `P3-02`, part of `P3-08`                      | Projects structure: `year` removal across schema, content and templates; index intro; SPEC §4.1.                                                                                                                            | 4                                    |
+| **6**  | `P3-03` through `P3-07`, rest of `P3-08`               | Case-study editorial, sitewide em-dash and voice pass, SPEC editorial rules.                                                                                                                                                | 5                                    |
+| **10** | `P7-01` - `P7-04`, `P7-05` and `P7-10` homepage slices | Homepage positioning: Hero value proposition, "Featured Projects" rename and per-card label removal, contact-row treatment, project card copy, homepage metadata, SPEC.                                                     | 6                                    |
+| **11** | `P7-06` - `P7-09`, `P7-05` and `P7-10` About slices    | About becomes a compact factual profile: sections removed, role order, cloud evidence boundary, Professional training, About metadata, five SPEC §3.1 conflicts.                                                            | 10                                   |
+| **12** | `P4-01` - `P4-03`, `P4-06` portrait slice              | Portrait. Logically independent of 10, 11 and 13, but still one PR at a time. Stops and reports rather than merging if the processed image still reads as a social photograph.                                              | 11                                   |
+| **13** | `P5-03` only                                           | Favicon, pulled forward out of PR 8. Logically independent, still sequential.                                                                                                                                               | 12                                   |
+| **14** | `P4-04`, `P4-05`, rest of `P4-06`                      | **Gated.** Resume publication, Master document only, after `P7-11` through `P7-14`.                                                                                                                                         | 13 plus `P7-14`                      |
+| **7**  | ~~`P4-*`~~                                             | **Superseded.** The portrait moved to PR 12 and Resume publication to PR 14; Resume creation is `P7-11` through `P7-14`.                                                                                                    | —                                    |
+| **8**  | `P5-01`, `P5-02`, `P5-04`, `P5-05`                     | **Gated.** `P5-01` options reviewed first. Then implementation, OG image, SPEC. `P5-03` already delivered in PR 13.                                                                                                         | 14 plus option selection             |
+| **9a** | `P6-04` through `P6-07`                                | Launch closure before HSTS: analytics decision, Search Console, indexing audit, accessibility and responsive verification.                                                                                                  | 8                                    |
+| **9b** | `P6-08` only                                           | **HSTS only**, after its review is approved. Nothing else in the PR.                                                                                                                                                        | 9a plus HSTS review approval         |
+| **9c** | `P6-09` only                                           | Final SPEC and acceptance-criteria closeout, after production HSTS verification.                                                                                                                                            | 9b plus production HSTS verification |
 
 ### Why certain PRs are split
 
@@ -1170,6 +1352,9 @@ receives a short production verification after merge.
 - **PR 2 and PR 3** both rewrite `src/pages/index.astro`, the site's largest and most important file. One PR would be an effectively total rewrite; splitting identity from page body gives two reviewable diffs with a working, deployable site between them.
 - **PR 5 and PR 6** separate a schema change that must fail `astro check` if done wrong from a large prose diff that would otherwise hide it.
 - **PR 9b** isolates the one change whose effects cannot be fully withdrawn from clients that already received it. It contains HSTS and nothing else.
+- **PR 10 and PR 11** split the homepage from About. Both are copy diffs under the same factual boundary, but they are different pages with different SPEC conflicts, and PR 11's five §3.1 conflicts need their own review.
+- **PR 12 and PR 13 are separate from each other and from the copy PRs** because a photograph and three icon binaries are reviewed by looking, not by reading. Bundling either with a copy diff would put two unrelated review jobs on one reviewer.
+- **PR 14 carries only the Resume asset** because the document itself is reviewed at the `P7-12` and `P7-14` gates, before any repository change exists. By the time the PR opens there are three lines and a binary left to review.
 - **PR 9c is separate from 9b** because `P6-09` depends on `P6-08` **and on its production verification**. It cannot ship in the same PR as its own dependency, and the HSTS PR must stay single-purpose. Closing out the acceptance criteria before the header is verified in production would record an outcome that has not yet been observed.
 
 ### Per-PR ritual
@@ -1257,6 +1442,7 @@ or after — otherwise `SPEC.md` describes a site that does not exist.
 
 ## 12. Change log
 
-| Date       | Change                                                                                                                                                                                                                                                                                                                                                                              |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-08-31 | Plan created and persisted (`P0-01` through `P0-03`). Baseline `10723c0f`. Approved structure: six phases, 12 planned PRs, four review gates (`P1-00`, `P2-00`, `P5-01`, `P6-08`). `P6-09` separated into PR 9c so it follows its `P6-08` dependency and keeps the HSTS PR single-purpose. `SRE Practices` added as a capability keyword under Production Reliability & Operations. |
+| Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-09-04 | **Positioning Refresh round approved.** Baseline `ae92ffe`, Phase 3 complete. Added §3 minimal-factual-copy rule; added Phase 7 (`P7-01` through `P7-14`) covering homepage and About positioning, project card copy, metadata consistency and Resume creation; scheduled it before Phases 4, 5 and 6 as PRs 10 through 14; reused `P4-01` - `P4-03` for the portrait, `P5-03` for the favicon and `P4-04` - `P4-06` for Resume publication rather than issuing new IDs; superseded the PR 7 row; added two review gates (`P7-12`, `P7-14`); recorded the strict one-PR-at-a-time execution model in §9. Renamed "Selected Work" to "Featured Projects" throughout the current IA description; historical task records left untouched. |
+| 2026-08-31 | Plan created and persisted (`P0-01` through `P0-03`). Baseline `10723c0f`. Approved structure: six phases, 12 planned PRs, four review gates (`P1-00`, `P2-00`, `P5-01`, `P6-08`). `P6-09` separated into PR 9c so it follows its `P6-08` dependency and keeps the HSTS PR single-purpose. `SRE Practices` added as a capability keyword under Production Reliability & Operations.                                                                                                                                                                                                                                                                                                                                                    |

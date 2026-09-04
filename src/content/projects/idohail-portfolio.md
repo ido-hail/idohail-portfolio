@@ -1,5 +1,5 @@
 ---
-title: "This Portfolio Website"
+title: "Portfolio Website"
 description: "A static Astro build on Cloudflare Workers, deployed from one validated artifact per commit and served under a Content-Security-Policy derived from what the build actually contains."
 tags:
   - "Astro"
