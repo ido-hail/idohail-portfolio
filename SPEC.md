@@ -176,23 +176,23 @@ The portfolio website itself must appear as one project with a complete case stu
 
 #### `/about`
 
-The professional story, told as a narrative rather than as a second copy of the résumé. `/experience/` remains the formal record, so this page must not repeat role bullets or restate the measured outcomes; those live on `/experience/`. Deliberately kept short.
+A compact factual profile, not a narrative and not a second copy of the résumé. `/experience/` remains the formal record, so this page must not repeat role bullets or restate the measured outcomes; those live on `/experience/`. Deliberately kept short.
+
+There is no opening or lead paragraph. The page begins at its first section heading.
 
 Contains, in order:
 
-* **Opening** - Technical Operations as the professional background, and the investigation-led working pattern that runs through the work. Two short paragraphs.
-* **Professional background** - the employment progression shown compactly (`TechOps Engineer · YuviTal, 2023 - 2024`; `TechOps Team Lead · YuviTal, 2024 - 2026`), plus a short summary of the move from hands-on engineering into hands-on team leadership and the breadth that came with it. Employment dates and chronology are permitted here specifically, because progression is the point of the section; role bullets are not. Ends with a link to `/experience/`.
-* **How I work** - hands-on working style, curiosity, cross-functional work, ownership of ambiguous problems, mentoring, and composure under pressure. Military service may be referenced once, naturally inside a sentence, and never as a heading, badge or standalone leadership claim.
-* **Cloud, infrastructure and what is underneath** - the cloud and infrastructure expansion, evidenced primarily through the projects, with study and program work mentioned briefly as supporting context.
-* **Outside the terminal** - a short personal closing.
+* **Professional background** - the two roles, most recent first, matching the order `/experience/` renders them. Each carries its years and exactly one factual scope line. Employment dates and ordering are permitted here specifically, because they are what communicates progression; transition prose, career narrative and role bullets are not. No inline link to `/experience/` is required, since it is in the primary navigation on every page.
+* **Cloud and infrastructure** - a single line naming the capability and labelling its evidence as project-backed. No explanatory prose, and no wording that could imply professional cloud, DevOps or SRE employment tenure.
+* **Professional training** - programs of study as metadata only: program name, institution, years and hours. No subject-coverage description.
 
-A brief personal section (e.g. "Outside the terminal") is permitted and encouraged, kept to a few sentences. It must avoid family, relationship, location and other sensitive detail, and must not stretch hobbies into professional analogies.
+No personal or hobby section. No military service anywhere on the site.
 
 The full grouped capability inventory lives in the homepage Skill Map (§3.1) rather than being duplicated here.
 
 **Evidence accuracy**
 
-The site's structure already separates evidence: Experience is professional work, Projects are hands-on engineering projects, and study is study. There is no public "training" or "foundations" categorisation of skills (§3.1); where a program is mentioned on `/about/`, it is named plainly as context rather than used to grade a capability.
+The site's structure already separates evidence: Experience is professional work, Projects are hands-on engineering projects, and study is study. Skills are never publicly categorised by evidence type (§3.1). `/about/` carries a structured `Professional training` section, but it lists programs as factual metadata only - it must never grade a capability, imply a credential, or be used to qualify any skill named elsewhere on the site.
 
 Completed coursework must not be presented as formal certification. Items such as the CCNA or MCSA curricula, the See Security College program and the 2026 DevSecOps program are programs of study, not earned certifications, and there is no Certifications section. Cloud and DevOps capability must never be presented as professional tenure that was not held.
 

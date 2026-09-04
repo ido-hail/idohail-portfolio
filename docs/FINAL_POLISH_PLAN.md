@@ -46,19 +46,19 @@ preflight covering the repository, production, the historical CV corpus and a jo
 scan. Its decisions are locked in §2, §3 and the Phase 7 tasks in §8. There are no
 outstanding copy decisions.
 
-**Logical PR 10 only** — tasks `P7-01`, `P7-02`, `P7-03`, `P7-04`, the homepage slice of
-`P7-05`, and the homepage slice of `P7-10`.
+**Logical PR 10 is merged and production-verified.** ~~Logical PR 10 only — tasks `P7-01`, `P7-02`, `P7-03`, `P7-04`, the homepage slice of `P7-05`, and the homepage slice of `P7-10`.~~ Production serves the merged commit; the homepage Hero, the Featured Projects section and both project card titles are live.
 
-Phases 4, 5 and 6 are not authorized. Phase 7 beyond PR 10 is not authorized.
+**Logical PR 11 only** — tasks `P7-06`, `P7-07`, `P7-08`, `P7-09`, the About slice of
+`P7-05`, and the About slice of `P7-10`.
+
+Phases 4, 5 and 6 are not authorized. Phase 7 beyond PR 11 is not authorized.
 
 Allowed files, complete list:
 
 ```
 docs/FINAL_POLISH_PLAN.md                     (tracked)
 SPEC.md                                       (tracked)
-src/pages/index.astro                         (tracked)
-src/content/projects/namegen.md               (tracked)
-src/content/projects/idohail-portfolio.md     (tracked)
+src/pages/about/index.astro                   (tracked)
 ```
 
 Permission to edit a file is not a requirement to edit it.
@@ -66,27 +66,27 @@ Permission to edit a file is not a requirement to edit it.
 If repository formatting or validation appears to require touching any other
 file, **stop and report** rather than expanding scope.
 
-### Forbidden while logical PR 10 is the authorized scope
+### Forbidden while logical PR 11 is the authorized scope
 
 - `src/config/site.ts`, `src/content.config.ts`, `src/lib/**`, `src/styles/**`
-- `src/pages/about/index.astro`, `src/pages/experience/index.astro`,
-  `src/pages/projects/**`, `src/content/experience/**`,
-  `src/content/projects/pacman.md`
+- `src/pages/index.astro`, `src/pages/experience/index.astro`,
+  `src/pages/projects/**`, `src/content/**`
 - `src/components/**`, `src/layouts/**`
 - `.claude/**`, `public/**`
 - `README.md`, `docs/ARCHITECTURE.md`, `docs/DEPLOYMENT.md`
 - `package.json`, `wrangler.jsonc`, `astro.config.*`, `.github/workflows/**`
 - Cloudflare or GitHub settings
-- Changing the locked Hero capability line (§2, §4)
-- Reopening the homepage section order, the Skill Map, the tools marquee, About
-  positioning or the Experience evidence model
+- Reopening any homepage decision, including the Hero, the Featured Projects
+  section, the section order, the Skill Map and the tools marquee
+- Changing the About `<title>`
+- Changing `/experience/` content or the Experience evidence model
 - Changing employment year data, Experience metrics or their bindings
-- Editing any project case-study body, or `pacman.md` in any form
-- Changing any project's `featured` or `order` value
-- Adding, removing or replacing any project figure
+- Reproducing Experience role bullets or measured outcomes on `/about/`
+- Adding military service anywhere on the site
+- Naming any program as a certification, or publishing `PCEP`
 - Introducing, strengthening or removing a factual claim while rewording
-- Starting any Phase 4, 5 or 6 task, or any Phase 7 task outside PR 10
-- Merging logical PR 10
+- Starting any Phase 4, 5 or 6 task, or any Phase 7 task outside PR 11
+- Merging logical PR 11
 
 ### Stop condition
 
@@ -1209,7 +1209,7 @@ below reopens them.
 - **Dependencies:** `P7-01`; later `P7-06` through `P7-09`
 - **Definition of Done:** the homepage `description` is the locked Hero sentence; no page description retains `Technical Operations background` or `Technical Operations experience` as its opening framing; `og:description` and `twitter:description` follow automatically with no template change.
 - **Verification:** `npm run verify`; grep `dist/` for the retired strings.
-- **Status:** IN PROGRESS - homepage slice DONE in PR 10 (`description` is now the locked Hero sentence; `Technical Operations background` no longer appears in `dist/`; `og:description` and `twitter:description` followed with no template change). About slice remains for PR 11.
+- **Status:** DONE - homepage slice completed in PR 10; About slice completed in PR 11 (`description` replaced with the approved factual line; `<title>` unchanged; `og:description` and `twitter:description` followed with no template change). No page description now opens on the retired Technical Operations framing.
 
 #### P7-06 — About structure
 
@@ -1219,7 +1219,7 @@ below reopens them.
 - **Dependencies:** PR 10 merged and production-verified
 - **Definition of Done:** neither section exists; there is no lead paragraph; **no military service appears anywhere on the site**; the page contains no narrative construction from the PR checklist.
 - **Verification:** `npm run verify`; Preview; grep `dist/` for the removed strings.
-- **Status:** TODO
+- **Status:** DONE - `How I work` and `Outside the terminal` deleted in full; both lead paragraphs removed with no replacement lead, so the page opens at its first section heading; no military service remains anywhere on the site; no banned narrative construction present.
 
 #### P7-07 — About Professional background
 
@@ -1227,9 +1227,9 @@ below reopens them.
 - **Scope:** in — the `roles` array order, a new `scope` field, the list markup, and removal of the narrative progression paragraphs. Out — employment years, `/experience/` content, `src/content/experience/**`.
 - **Files:** `src/pages/about/index.astro`
 - **Dependencies:** `P7-06`
-- **Definition of Done:** `TechOps Team Lead · YuviTal · 2024 - 2026` precedes `TechOps Engineer · YuviTal · 2023 - 2024`, matching the order `/experience/` already renders; each carries one scope line; no transition prose and no inline `/experience/` link; years and chronology are unchanged; the three-person team composition is stated once.
+- **Definition of Done:** `TechOps Team Lead · YuviTal · 2024 - 2026` precedes `TechOps Engineer · YuviTal · 2023 - 2024`, matching the order `/experience/` already renders; each carries one scope line; no transition prose and no inline `/experience/` link; years and chronology are unchanged; the three-person team size is stated once.
 - **Verification:** `npm run verify`; compare the rendered order against `/experience/`.
-- **Status:** TODO
+- **Status:** DONE - `roles` reordered to Team Lead first, matching the order `/experience/` already renders, and given a `scope` field carrying exactly one factual line per role; both narrative progression paragraphs and the inline `/experience/` sentence removed; years, chronology and `src/content/experience/**` unchanged; no Experience role bullet or measured outcome reproduced.
 
 #### P7-08 — About cloud and infrastructure evidence boundary
 
@@ -1239,7 +1239,7 @@ below reopens them.
 - **Dependencies:** `P7-06`
 - **Definition of Done:** `More recently` is gone; the line labels the evidence as project-backed directly rather than explaining it; the existing `/projects/` link is preserved without adding words; no sentence can be read as employment history.
 - **Verification:** `npm run verify`; grep `dist/` for `More recently`.
-- **Status:** TODO
+- **Status:** DONE - heading shortened to `Cloud and infrastructure`; reduced to one line labelling the evidence as `Project-backed`, with the existing `/projects/` link re-anchored on that word so no words were added; `More recently` and all explanatory prose removed; no wording implies cloud, DevOps or SRE employment tenure.
 
 #### P7-09 — About Professional training section
 
@@ -1249,7 +1249,7 @@ below reopens them.
 - **Dependencies:** `P7-06`
 - **Definition of Done:** both programs appear with institution, years and hours as metadata; **no coverage paragraph**; no certification claim; `PCEP` does not appear; none of `fundamentals`, `beginner`, `introductory`, `basic`, `entry-level training`, `coursework` or `foundations` appears anywhere in `dist/`.
 - **Verification:** `npm run verify`; grep `dist/` for each banned word and for `PCEP`.
-- **Status:** TODO
+- **Status:** DONE - new `Professional training` section listing both programs as metadata only, reusing the roles row treatment. `Cyber Security Program · See Security College` is the label the source corpus supports (`updated cvs/Ido Hail CV.pdf` and its identical `GUARDIO/` copy); no source anywhere contains `Systems & Networking`. No coverage line, no certification claim, no `PCEP`, and none of the banned weakening terms.
 
 #### P7-10 — SPEC alignment for Phase 7
 
@@ -1259,7 +1259,7 @@ below reopens them.
 - **Dependencies:** the task whose behaviour it records, in the same PR
 - **Definition of Done:** no `SPEC.md` statement contradicts the built site after each slice; no stale current-spec or active-plan reference to "Selected Work" or "Outside the terminal" remains once its slice lands. Historical task and PR records keep their original wording and are never rewritten.
 - **Verification:** read each amended section against the built site.
-- **Status:** IN PROGRESS - PR 10 slice DONE (`SPEC.md` §3.1 Hero value proposition rewritten to the one-sentence breadth-first requirement; §3.1 and §6.2 "Selected Work" renamed to "Featured Projects"; §3.1 per-card label prohibition added; §4.1 cross-reference updated). PR 11 slice remains.
+- **Status:** DONE - PR 10 slice completed (`SPEC.md` §3.1 Hero value proposition; §3.1 and §6.2 "Selected Work"; §3.1 per-card label; §4.1 cross-reference). PR 11 slice completed: the §3.1 `/about` block was rewritten for all six conflicts (narrative framing, the Opening bullet, the Professional background ordering and `/experience/` link requirement, `How I work`, `Outside the terminal` plus the separate "permitted and encouraged" paragraph), and the evidence-accuracy paragraph now permits the structured `Professional training` metadata section while still forbidding capability grading and credential claims.
 
 #### P7-11 — Market freshness check
 
