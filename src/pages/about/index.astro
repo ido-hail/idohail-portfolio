@@ -8,112 +8,97 @@ const sectionHeading =
 const linkAccent =
   "rounded font-medium text-blue-600 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-900";
 
-// Employment progression, shown as a compact record rather than repeating
-// the role bullets that live on /experience/. Years are locked at year
-// precision to match the Experience content collection.
+// Employment record: role, years and one factual scope line each. Ordered
+// most recent first, matching how /experience/ already renders these two
+// entries. Years stay at year precision to match the Experience content
+// collection, and the role bullets and measured outcomes stay on
+// /experience/ rather than being repeated here.
 const roles = [
-  { title: "TechOps Engineer · YuviTal", years: "2023 - 2024" },
-  { title: "TechOps Team Lead · YuviTal", years: "2024 - 2026" },
+  {
+    title: "TechOps Team Lead · YuviTal",
+    meta: "2024 - 2026",
+    scope:
+      "Hands-on lead for a three-person technical team; production monitoring, release readiness, data-quality automation, access administration and internal tooling.",
+  },
+  {
+    title: "TechOps Engineer · YuviTal",
+    meta: "2023 - 2024",
+    scope:
+      "Production and staging operations, backend and database validation, incident investigation and data-flow troubleshooting.",
+  },
 ] as const;
+
+// Programs of study, as metadata only. Deliberately no coverage or subject
+// description: the Skill Map and the case studies already carry those
+// keywords. Named as programs, never as certifications.
+const training = [
+  {
+    title: "DevSecOps Program · Analiza Education Center",
+    meta: "2026 · 360 hours",
+  },
+  {
+    title: "Cyber Security Program · See Security College",
+    meta: "2021 - 2022 · 450 hours",
+  },
+] as const;
+
+// One row treatment shared by both lists: title left, metadata right,
+// wrapping to two lines on narrow viewports.
+const listRow =
+  "flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-t border-stone-200 pt-3";
 ---
 
 <BaseLayout
   title={`About ${siteConfig.name} | Production & Reliability`}
-  description="About Ido Hail: Technical Operations experience across production systems, data and reliability, plus hands-on infrastructure and DevOps projects."
+  description="Ido Hail: TechOps Team Lead and TechOps Engineer at YuviTal. Project-backed cloud and infrastructure capability, and professional training."
 >
   <h1 class="text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl">
     About
   </h1>
 
-  <div class="mt-6 space-y-4">
-    <p class={prose}>
-      My background is in Technical Operations: running production systems and
-      staying close to what they are actually doing.
-    </p>
-    <p class={prose}>
-      Much of that work starts as investigation. Reading the logs, querying the
-      database, following data through a system until its behavior makes sense,
-      then turning what I find into the monitoring, automation and validation
-      that stop the same question coming back.
-    </p>
-  </div>
-
-  <section aria-labelledby="background-heading" class="mt-16">
+  <section aria-labelledby="background-heading" class="mt-10">
     <h2 id="background-heading" class={sectionHeading}>
       Professional background
     </h2>
 
-    <ul class="mt-6 max-w-2xl space-y-3">
+    <ul class="mt-6 max-w-2xl space-y-4">
       {
         roles.map((role) => (
-          <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-t border-stone-200 pt-3">
-            <span class="font-medium text-stone-900">{role.title}</span>
-            <span class="text-sm text-stone-500">{role.years}</span>
+          <li>
+            <div class={listRow}>
+              <span class="font-medium text-stone-900">{role.title}</span>
+              <span class="text-sm text-stone-500">{role.meta}</span>
+            </div>
+            <p class="mt-2 text-sm leading-relaxed text-stone-600">
+              {role.scope}
+            </p>
           </li>
         ))
       }
     </ul>
-
-    <div class="mt-6 space-y-4">
-      <p class={prose}>
-        I joined YuviTal as a TechOps Engineer, working hands-on across
-        production and staging: backend and database testing, investigating
-        production issues, and validating the data flows and integrations behind
-        them.
-      </p>
-      <p class={prose}>
-        Moving into the Team Lead role added ownership without moving me away
-        from the systems. I led a three-person team, one developer and two
-        TechOps engineers, and stayed directly involved in monitoring, release
-        readiness, data-quality automation, access administration and internal
-        tooling. The detailed record is on the <a
-          href="/experience/"
-          class={linkAccent}>experience</a
-        > page.
-      </p>
-    </div>
-  </section>
-
-  <section aria-labelledby="how-i-work-heading" class="mt-16">
-    <h2 id="how-i-work-heading" class={sectionHeading}>How I work</h2>
-    <div class="mt-6 space-y-4">
-      <p class={prose}>
-        I am hands-on by default and work from the evidence before deciding what
-        the fix should be. I am curious, comfortable owning a problem nobody has
-        pinned down yet, and used to translating technical constraints for the
-        engineering, product, business, vendor and client stakeholders who do
-        not live in them every day. I have mentored teammates while staying
-        hands-on. I am also a former combat commander, an experience that taught
-        me to stay composed under pressure.
-      </p>
-    </div>
   </section>
 
   <section aria-labelledby="cloud-heading" class="mt-16">
-    <h2 id="cloud-heading" class={sectionHeading}>
-      Cloud, infrastructure and what is underneath
-    </h2>
-    <div class="mt-6 space-y-4">
-      <p class={prose}>
-        More recently, I have been building the cloud and infrastructure side
-        through hands-on projects: AWS with Terraform, Kubernetes and
-        containers, CI/CD and observability. The <a
-          href="/projects/"
-          class={linkAccent}>projects</a
-        > on this site are where that work is demonstrated, and a 2026 DevSecOps program
-        and earlier study at See Security College cover the same ground more formally.
-        It all helps when a problem turns out to sit a layer lower than expected.
-      </p>
-    </div>
+    <h2 id="cloud-heading" class={sectionHeading}>Cloud and infrastructure</h2>
+    <p class={`mt-6 ${prose}`}>
+      <a href="/projects/" class={linkAccent}>Project-backed</a> infrastructure: AWS,
+      Terraform, Docker, Kubernetes/EKS, ECR, GitHub Actions/OIDC, CI/CD, Prometheus
+      and Grafana.
+    </p>
   </section>
 
-  <section aria-labelledby="outside-heading" class="mt-16">
-    <h2 id="outside-heading" class={sectionHeading}>Outside the terminal</h2>
-    <div class="mt-6 space-y-4">
-      <p class={prose}>
-        Outside work I spend time in the gym and, when I get the chance,
-        underwater. Scuba diving is the one I would keep if I had to pick.
-      </p>
-    </div>
+  <section aria-labelledby="training-heading" class="mt-16">
+    <h2 id="training-heading" class={sectionHeading}>Professional training</h2>
+
+    <ul class="mt-6 max-w-2xl space-y-3">
+      {
+        training.map((program) => (
+          <li class={listRow}>
+            <span class="font-medium text-stone-900">{program.title}</span>
+            <span class="text-sm text-stone-500">{program.meta}</span>
+          </li>
+        ))
+      }
+    </ul>
   </section>
 </BaseLayout>
