@@ -1227,7 +1227,7 @@ below reopens them.
 - **Scope:** in — the `roles` array order, a new `scope` field, the list markup, and removal of the narrative progression paragraphs. Out — employment years, `/experience/` content, `src/content/experience/**`.
 - **Files:** `src/pages/about/index.astro`
 - **Dependencies:** `P7-06`
-- **Definition of Done:** `TechOps Team Lead · YuviTal · 2024 - 2026` precedes `TechOps Engineer · YuviTal · 2023 - 2024`, matching the order `/experience/` already renders; each carries one scope line; no transition prose and no inline `/experience/` link; years and chronology are unchanged; the three-person team composition is stated once.
+- **Definition of Done:** `TechOps Team Lead · YuviTal · 2024 - 2026` precedes `TechOps Engineer · YuviTal · 2023 - 2024`, matching the order `/experience/` already renders; each carries one scope line; no transition prose and no inline `/experience/` link; years and chronology are unchanged; the three-person team size is stated once.
 - **Verification:** `npm run verify`; compare the rendered order against `/experience/`.
 - **Status:** DONE - `roles` reordered to Team Lead first, matching the order `/experience/` already renders, and given a `scope` field carrying exactly one factual line per role; both narrative progression paragraphs and the inline `/experience/` sentence removed; years, chronology and `src/content/experience/**` unchanged; no Experience role bullet or measured outcome reproduced.
 
