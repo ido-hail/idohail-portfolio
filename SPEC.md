@@ -49,7 +49,9 @@ Contains, in order:
   * Short value proposition: a single sentence that leads with hands-on breadth across production systems, infrastructure and data, and names Technical Operations as one capability within that breadth rather than as the identity under the name. It must not narrate how the work is done.
   * CTAs: View Projects (primary) and Experience (secondary) while no resume asset is configured; once `resumePath` is set, Resume becomes the primary CTA with View Projects and Experience remaining reachable. No dedicated `/resume/` route.
   * Compact plain-text LinkedIn/GitHub/Email links in the Hero, visually distinct from the CTA row. No icons and no icon dependency; accessible names come from the visible link text.
-  * A portrait image, presented as a 4:5 rounded frame alongside the text on wide viewports and after the CTAs on narrow ones. A neutral local placeholder is acceptable during development; the real portrait must be in place before public launch on the custom domain.
+  * A portrait image. **Publication is deferred until an approved photograph exists**, so the Hero is currently text-only: no portrait, no placeholder, no empty frame, and no reserved column at any width. The text-only Hero is a valid temporary state, not the final design.
+
+    Once an approved asset exists, the portrait returns with the treatment already agreed: reduced desktop prominence beside the text at large widths, a compact treatment at narrow widths that never becomes a large trailing block, decorative `alt=""` because the adjacent Hero already names the person, and a single locally-served optimized image. Layout specifics belong to that implementation, not to this specification.
 
   The capability line is deliberately a set of professional domains rather than a single job title. Data is significant technical depth but must not dominate the profile, and DevOps/cloud/infrastructure capability is evidenced through projects rather than presented as professional tenure.
 

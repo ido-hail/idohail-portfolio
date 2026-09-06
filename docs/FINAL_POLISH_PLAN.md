@@ -48,17 +48,22 @@ outstanding copy decisions.
 
 **Logical PR 10 is merged and production-verified.** ~~Logical PR 10 only — tasks `P7-01`, `P7-02`, `P7-03`, `P7-04`, the homepage slice of `P7-05`, and the homepage slice of `P7-10`.~~ Production serves the merged commit; the homepage Hero, the Featured Projects section and both project card titles are live.
 
-**Logical PR 11 only** — tasks `P7-06`, `P7-07`, `P7-08`, `P7-09`, the About slice of
-`P7-05`, and the About slice of `P7-10`.
+**Logical PR 11 is merged and production-verified.** ~~Logical PR 11 only — tasks `P7-06`, `P7-07`, `P7-08`, `P7-09`, the About slice of `P7-05`, and the About slice of `P7-10`.~~ `/about/` is live as a compact factual profile.
 
-Phases 4, 5 and 6 are not authorized. Phase 7 beyond PR 11 is not authorized.
+**The portrait visual gate failed.** The approved source photograph was tested under `P4-01` and rejected. See the `P4-01` status below for the full record. No rejected image was published.
+
+**Logical PR 12A only** — temporary portrait deferral and placeholder removal. Portrait
+tasks are **not** completed by this PR; they stay deferred pending a replacement asset.
+
+Phases 5 and 6 are not authorized. Phase 7 beyond PR 11 is not authorized.
 
 Allowed files, complete list:
 
 ```
 docs/FINAL_POLISH_PLAN.md                     (tracked)
 SPEC.md                                       (tracked)
-src/pages/about/index.astro                   (tracked)
+src/pages/index.astro                         (tracked)
+public/portrait-placeholder.svg               (tracked, DELETION ONLY)
 ```
 
 Permission to edit a file is not a requirement to edit it.
@@ -66,27 +71,27 @@ Permission to edit a file is not a requirement to edit it.
 If repository formatting or validation appears to require touching any other
 file, **stop and report** rather than expanding scope.
 
-### Forbidden while logical PR 11 is the authorized scope
+### Forbidden while logical PR 12A is the authorized scope
 
 - `src/config/site.ts`, `src/content.config.ts`, `src/lib/**`, `src/styles/**`
-- `src/pages/index.astro`, `src/pages/experience/index.astro`,
+- `src/pages/about/index.astro`, `src/pages/experience/index.astro`,
   `src/pages/projects/**`, `src/content/**`
 - `src/components/**`, `src/layouts/**`
-- `.claude/**`, `public/**`
+- `.claude/**`, `public/**` other than deleting `public/portrait-placeholder.svg`
 - `README.md`, `docs/ARCHITECTURE.md`, `docs/DEPLOYMENT.md`
 - `package.json`, `wrangler.jsonc`, `astro.config.*`, `.github/workflows/**`
 - Cloudflare or GitHub settings
-- Reopening any homepage decision, including the Hero, the Featured Projects
-  section, the section order, the Skill Map and the tools marquee
-- Changing the About `<title>`
-- Changing `/experience/` content or the Experience evidence model
-- Changing employment year data, Experience metrics or their bindings
-- Reproducing Experience role bullets or measured outcomes on `/about/`
-- Adding military service anywhere on the site
-- Naming any program as a certification, or publishing `PCEP`
-- Introducing, strengthening or removing a factual claim while rewording
-- Starting any Phase 4, 5 or 6 task, or any Phase 7 task outside PR 11
-- Merging logical PR 11
+- **Publishing any portrait, including the rejected source photograph**
+- **Adding a replacement placeholder image of any kind**
+- Adding `image` to the Person JSON-LD
+- Adding an Open Graph image
+- Changing the name, capability line, Hero sentence, CTA labels or contact links
+- Changing homepage metadata, the section order, or any section after the Hero
+- Changing About, Experience or project content
+- Redesigning the Hero beyond removing the reserved portrait column
+- Marking any portrait task DONE
+- Starting PR 13 or any favicon, market-research or Resume work
+- Merging logical PR 12A
 
 ### Stop condition
 
@@ -915,7 +920,7 @@ a plain link to a same-origin PDF is not governed by any CSP directive); no
 - **Dependencies:** the real portrait image, supplied by Ido
 - **Definition of Done:** the real portrait is served locally; `public/portrait-placeholder.svg` is deleted; no remote image reference.
 - **Verification:** `npm run verify`; Preview at 360 / 768 / 1440.
-- **Status:** BLOCKED — awaiting the portrait image
+- **Status:** DEFERRED - replacement portrait required. The approved source (`protfolio img.jpeg`, 3840x5120, 3.4 MB) was tested on 2026-09-04 under the PR 12 visual gate. Non-generative processing only: 4:5 crops from head-and-shoulders to face-dominant, and partial grey-world white balance at six strengths with desaturation, contrast and brightness trims. It failed. The magenta is a directional coloured key light, not a global cast, so correcting the average leaves a pink band across the forehead and cheek while pushing the background teal; and the blurred figures behind the subject sit at x 2250-3330 in the original, so no 4:5 crop that still contains his head can exclude them. At the intended 300px desktop size the result still reads as bar and restaurant social photography, with string bulbs, a neon streak and recognisable seated figures. **No rejected image was published.** Encoding was never the constraint: 640x800 WebP lands at 40-77 KB. Work resumes when a replacement asset is supplied.
 
 #### P4-02 — Portrait Hero integration
 
@@ -925,7 +930,7 @@ a plain link to a same-origin PDF is not governed by any CSP directive); no
 - **Dependencies:** `P4-01`
 - **Definition of Done:** smaller and less dominant than the current placeholder; visually balanced with the copy; **it must not appear as a large block beneath the intro on mobile**; the image stays within its container at every width.
 - **Verification:** `npm run verify`; Preview at 360 / 768 / 1440.
-- **Status:** BLOCKED
+- **Status:** DEFERRED - blocked by `P4-01`. Logical PR 12A removed the placeholder and the reserved portrait column so the Hero is an intentional text-only layout in the meantime; that is a temporary state and does **not** satisfy this task.
 
 #### P4-03 — Portrait alt text and JSON-LD
 
@@ -935,7 +940,7 @@ a plain link to a same-origin PDF is not governed by any CSP directive); no
 - **Dependencies:** `P4-01`
 - **Definition of Done:** the `alt` decision is recorded — recommended `alt=""`, since the name sits immediately adjacent and the image is decorative; if `image` is added to JSON-LD it resolves absolutely and the structured data stays valid.
 - **Verification:** `npm run verify`; JSON-LD validation; screen-reader spot check.
-- **Status:** BLOCKED
+- **Status:** DEFERRED - blocked by `P4-01`. No `alt` decision is rendered and no `image` was added to the Person JSON-LD, because no portrait exists to describe.
 
 #### P4-04 — Resume asset
 
@@ -959,13 +964,23 @@ a plain link to a same-origin PDF is not governed by any CSP directive); no
 
 #### P4-06 — SPEC alignment for Phase 4
 
-- **Objective:** record the portrait and resume as delivered.
-- **Scope:** in — `SPEC.md` §3.1 portrait and §5 resume. Out — other sections.
+- **Objective:** keep `SPEC.md` describing the portrait and resume states that actually exist.
+- **Scope:** three independent slices, each shipping in the PR that changes the corresponding behaviour. Out — every other `SPEC.md` section.
+
+  | Slice             | Covers                                                                                         | Ships in               |
+  | ----------------- | ---------------------------------------------------------------------------------------------- | ---------------------- |
+  | **§3.1 deferral** | The portrait is deferred and the Hero is text-only, with no placeholder and no reserved column | Logical PR 12A         |
+  | **§3.1 portrait** | A real portrait is delivered and rendered                                                      | The future portrait PR |
+  | **§5 resume**     | The resume asset exists and is linked                                                          | Logical PR 14          |
+
 - **Files:** `SPEC.md`
-- **Dependencies:** `P4-01` through `P4-05`
-- **Definition of Done:** SPEC no longer describes a placeholder portrait or an absent resume.
-- **Verification:** read `SPEC.md` §3.1 and §5 against the built site.
-- **Status:** BLOCKED
+- **Dependencies:** slice-specific, never collective. The **§3.1 deferral slice** depends on nothing beyond the `P4-01` gate outcome. The **§3.1 portrait slice** depends on `P4-01` through `P4-03`. The **§5 resume slice** depends on `P4-04` and `P4-05` **only**, and is explicitly **not** blocked by the deferred portrait tasks.
+- **Definition of Done:** each slice is done when `SPEC.md` matches the state the site is actually in after its PR. **`P4-06` as a whole is DONE only once both the portrait and the resume have reached a delivered state and SPEC records both.** It must not be marked DONE while either remains deferred or absent.
+- **Verification:** read the amended `SPEC.md` section against the built site, per slice.
+- **Status:** IN PROGRESS.
+  - **§3.1 deferral slice: DONE** in logical PR 12A. SPEC records the deferral, the text-only Hero as a valid temporary state, and the treatment the portrait will use when an approved asset exists.
+  - **§3.1 portrait slice: DEFERRED**, with `P4-01` through `P4-03`. Outstanding until a replacement photograph is supplied; it is the only `P4-06` work the future portrait PR carries.
+  - **§5 resume slice: BLOCKED** on `P4-04` and `P4-05`. Not blocked by the portrait, and free to complete in logical PR 14.
 
 ---
 
@@ -1326,25 +1341,26 @@ receives a short production verification after merge.
 > Identify a Final Polish PR by its **task IDs**, **branch name**, **title** and
 > **sequence label** — never by assuming that "PR 1" means GitHub pull request #1.
 
-| PR     | Tasks                                                  | Purpose                                                                                                                                                                                                                     | Blocked by                           |
-| ------ | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| **0**  | `P0-01` through `P0-03`                                | Persist the plan; add the `CLAUDE.md` pointer, mirrored locally into the untracked `AGENTS.md`. Tracked diff is `docs/FINAL_POLISH_PLAN.md` and `CLAUDE.md` only. No rendered content, no SPEC behaviour, no skills change. | —                                    |
-| **1**  | `P6-01` through `P6-03`                                | Documentation and CI truth-up. Fixes live inaccuracies; touches no rendered page.                                                                                                                                           | 0                                    |
-| **2**  | `P1-00`, then `P1-01` through `P1-03`, `P1-12`         | **Gated.** `P1-00` proposes Hero directions and stops. Then the identity layer: config, header, Hero, design-review skill, plus SPEC §1, §3.1 Hero and §3.2.                                                                | 1 plus human selection               |
-| **3**  | `P1-04` through `P1-11`                                | Homepage body: remove two sections, reorder with Selected Work second, four capability groups, curated Skill Map with density review, marquee sync, metadata, SPEC.                                                         | 2                                    |
-| **4**  | `P2-00` through `P2-08`                                | **Gated.** `P2-00` evidence preflight first. Then About rewrite, Professional Background, Experience tightening, SPEC §3.1.                                                                                                 | 3 plus consolidated evidence         |
-| **5**  | `P3-01`, `P3-02`, part of `P3-08`                      | Projects structure: `year` removal across schema, content and templates; index intro; SPEC §4.1.                                                                                                                            | 4                                    |
-| **6**  | `P3-03` through `P3-07`, rest of `P3-08`               | Case-study editorial, sitewide em-dash and voice pass, SPEC editorial rules.                                                                                                                                                | 5                                    |
-| **10** | `P7-01` - `P7-04`, `P7-05` and `P7-10` homepage slices | Homepage positioning: Hero value proposition, "Featured Projects" rename and per-card label removal, contact-row treatment, project card copy, homepage metadata, SPEC.                                                     | 6                                    |
-| **11** | `P7-06` - `P7-09`, `P7-05` and `P7-10` About slices    | About becomes a compact factual profile: sections removed, role order, cloud evidence boundary, Professional training, About metadata, five SPEC §3.1 conflicts.                                                            | 10                                   |
-| **12** | `P4-01` - `P4-03`, `P4-06` portrait slice              | Portrait. Logically independent of 10, 11 and 13, but still one PR at a time. Stops and reports rather than merging if the processed image still reads as a social photograph.                                              | 11                                   |
-| **13** | `P5-03` only                                           | Favicon, pulled forward out of PR 8. Logically independent, still sequential.                                                                                                                                               | 12                                   |
-| **14** | `P4-04`, `P4-05`, rest of `P4-06`                      | **Gated.** Resume publication, Master document only, after `P7-11` through `P7-14`.                                                                                                                                         | 13 plus `P7-14`                      |
-| **7**  | ~~`P4-*`~~                                             | **Superseded.** The portrait moved to PR 12 and Resume publication to PR 14; Resume creation is `P7-11` through `P7-14`.                                                                                                    | —                                    |
-| **8**  | `P5-01`, `P5-02`, `P5-04`, `P5-05`                     | **Gated.** `P5-01` options reviewed first. Then implementation, OG image, SPEC. `P5-03` already delivered in PR 13.                                                                                                         | 14 plus option selection             |
-| **9a** | `P6-04` through `P6-07`                                | Launch closure before HSTS: analytics decision, Search Console, indexing audit, accessibility and responsive verification.                                                                                                  | 8                                    |
-| **9b** | `P6-08` only                                           | **HSTS only**, after its review is approved. Nothing else in the PR.                                                                                                                                                        | 9a plus HSTS review approval         |
-| **9c** | `P6-09` only                                           | Final SPEC and acceptance-criteria closeout, after production HSTS verification.                                                                                                                                            | 9b plus production HSTS verification |
+| PR         | Tasks                                                  | Purpose                                                                                                                                                                                                                                                              | Blocked by                           |
+| ---------- | ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| **0**      | `P0-01` through `P0-03`                                | Persist the plan; add the `CLAUDE.md` pointer, mirrored locally into the untracked `AGENTS.md`. Tracked diff is `docs/FINAL_POLISH_PLAN.md` and `CLAUDE.md` only. No rendered content, no SPEC behaviour, no skills change.                                          | —                                    |
+| **1**      | `P6-01` through `P6-03`                                | Documentation and CI truth-up. Fixes live inaccuracies; touches no rendered page.                                                                                                                                                                                    | 0                                    |
+| **2**      | `P1-00`, then `P1-01` through `P1-03`, `P1-12`         | **Gated.** `P1-00` proposes Hero directions and stops. Then the identity layer: config, header, Hero, design-review skill, plus SPEC §1, §3.1 Hero and §3.2.                                                                                                         | 1 plus human selection               |
+| **3**      | `P1-04` through `P1-11`                                | Homepage body: remove two sections, reorder with Selected Work second, four capability groups, curated Skill Map with density review, marquee sync, metadata, SPEC.                                                                                                  | 2                                    |
+| **4**      | `P2-00` through `P2-08`                                | **Gated.** `P2-00` evidence preflight first. Then About rewrite, Professional Background, Experience tightening, SPEC §3.1.                                                                                                                                          | 3 plus consolidated evidence         |
+| **5**      | `P3-01`, `P3-02`, part of `P3-08`                      | Projects structure: `year` removal across schema, content and templates; index intro; SPEC §4.1.                                                                                                                                                                     | 4                                    |
+| **6**      | `P3-03` through `P3-07`, rest of `P3-08`               | Case-study editorial, sitewide em-dash and voice pass, SPEC editorial rules.                                                                                                                                                                                         | 5                                    |
+| **10**     | `P7-01` - `P7-04`, `P7-05` and `P7-10` homepage slices | Homepage positioning: Hero value proposition, "Featured Projects" rename and per-card label removal, contact-row treatment, project card copy, homepage metadata, SPEC.                                                                                              | 6                                    |
+| **11**     | `P7-06` - `P7-09`, `P7-05` and `P7-10` About slices    | About becomes a compact factual profile: sections removed, role order, cloud evidence boundary, Professional training, About metadata, five SPEC §3.1 conflicts.                                                                                                     | 10                                   |
+| ~~**12**~~ | ~~`P4-01` - `P4-03`, `P4-06` portrait slice~~          | **Not shipped.** The visual gate failed: the approved source still read as social photography after non-generative crop and correction, so it was rejected and nothing was published. Replaced by PR 12A, plus a future portrait PR once a replacement asset exists. | 11                                   |
+| **12A**    | `P4-06` §3.1 deferral slice                            | Temporary portrait deferral: delete `public/portrait-placeholder.svg`, remove the reserved portrait column so the Hero is an intentional text-only layout, and record the deferral in `SPEC.md` and this plan. **Completes no portrait task.**                       | 11                                   |
+| **13**     | `P5-03` only                                           | Favicon, pulled forward out of PR 8. Unblocked by 12A; does not wait on the portrait.                                                                                                                                                                                | 12A                                  |
+| **14**     | `P4-04`, `P4-05`, `P4-06` §5 resume slice              | **Gated.** Resume publication, Master document only, after `P7-11` through `P7-14`.                                                                                                                                                                                  | 13 plus `P7-14`                      |
+| **7**      | ~~`P4-*`~~                                             | **Superseded.** The portrait moved to PR 12 and Resume publication to PR 14; Resume creation is `P7-11` through `P7-14`.                                                                                                                                             | —                                    |
+| **8**      | `P5-01`, `P5-02`, `P5-04`, `P5-05`                     | **Gated.** `P5-01` options reviewed first. Then implementation, OG image, SPEC. `P5-03` already delivered in PR 13.                                                                                                                                                  | 14 plus option selection             |
+| **9a**     | `P6-04` through `P6-07`                                | Launch closure before HSTS: analytics decision, Search Console, indexing audit, accessibility and responsive verification.                                                                                                                                           | 8                                    |
+| **9b**     | `P6-08` only                                           | **HSTS only**, after its review is approved. Nothing else in the PR.                                                                                                                                                                                                 | 9a plus HSTS review approval         |
+| **9c**     | `P6-09` only                                           | Final SPEC and acceptance-criteria closeout, after production HSTS verification.                                                                                                                                                                                     | 9b plus production HSTS verification |
 
 ### Why certain PRs are split
 
@@ -1373,19 +1389,19 @@ receives a short production verification after merge.
 
 ## 10. Deferred decisions
 
-| Decision                                                                                                      | Marker                                                 |
-| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| Hero value-proposition wording — model approved, directions produced by `P1-00` and selected by a human       | DEFER TO PHASE 1                                       |
-| Final curated public Skill Map contents, after the 360 / 768 / 1440 density review                            | DEFER TO PHASE 1                                       |
-| Whether dbt and Kafka get logos in the marquee or render name-only, depending on redistributable assets       | DEFER TO PHASE 1                                       |
-| Final About paragraph count, which proof point or points appear, and where the combat-commander sentence sits | DEFER TO PHASE 2 — needs `P2-00` evidence              |
-| How aggressively each case study is cut; depth is preserved, volume is judged per section                     | DEFER TO PHASE 3                                       |
-| Portrait crop, size and mobile placement                                                                      | DEFER TO PHASE 4 — needs the real image                |
-| Resume filename, and whether Resume becomes the Hero's primary button                                         | DEFER TO PHASE 4 — needs the PDF                       |
-| Which CSS-only interaction treatment is adopted                                                               | DEFER TO PHASE 5 — options at the `P5-01` gate         |
-| Favicon and Open Graph image visual design                                                                    | DEFER TO PHASE 5                                       |
-| Whether analytics is pursued at all, and in what form                                                         | DEFER TO PHASE 6 — preference recorded, not decided    |
-| The entire HSTS policy — `max-age`, `includeSubDomains`, implementation location, preload                     | DEFER TO PHASE 6 — `P6-08` review, nothing preselected |
+| Decision                                                                                                      | Marker                                                                                                                                                                           |
+| ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hero value-proposition wording — model approved, directions produced by `P1-00` and selected by a human       | DEFER TO PHASE 1                                                                                                                                                                 |
+| Final curated public Skill Map contents, after the 360 / 768 / 1440 density review                            | DEFER TO PHASE 1                                                                                                                                                                 |
+| Whether dbt and Kafka get logos in the marquee or render name-only, depending on redistributable assets       | DEFER TO PHASE 1                                                                                                                                                                 |
+| Final About paragraph count, which proof point or points appear, and where the combat-commander sentence sits | DEFER TO PHASE 2 — needs `P2-00` evidence                                                                                                                                        |
+| How aggressively each case study is cut; depth is preserved, volume is judged per section                     | DEFER TO PHASE 3                                                                                                                                                                 |
+| Portrait crop, size and placement                                                                             | **DEFERRED - the approved source failed the `P4-01` visual gate; needs a replacement photograph.** Until then the Hero is text-only, with no placeholder and no reserved column. |
+| Resume filename, and whether Resume becomes the Hero's primary button                                         | DEFER TO PHASE 4 — needs the PDF                                                                                                                                                 |
+| Which CSS-only interaction treatment is adopted                                                               | DEFER TO PHASE 5 — options at the `P5-01` gate                                                                                                                                   |
+| Favicon and Open Graph image visual design                                                                    | DEFER TO PHASE 5                                                                                                                                                                 |
+| Whether analytics is pursued at all, and in what form                                                         | DEFER TO PHASE 6 — preference recorded, not decided                                                                                                                              |
+| The entire HSTS policy — `max-age`, `includeSubDomains`, implementation location, preload                     | DEFER TO PHASE 6 — `P6-08` review, nothing preselected                                                                                                                           |
 
 ---
 
@@ -1444,5 +1460,6 @@ or after — otherwise `SPEC.md` describes a site that does not exist.
 
 | Date       | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-09-06 | **Portrait deferred; sequence changed so it stops blocking.** The approved source photograph failed the `P4-01` visual gate (see its status) and was not published. Logical PR 12A removes `public/portrait-placeholder.svg` and the reserved portrait column, leaving an intentional text-only Hero as a temporary state, and records the deferral in `SPEC.md` §3.1. `P4-01`, `P4-02`, `P4-03` and the `P4-06` portrait slice are **DEFERRED, not complete**. Logical PR 12 is struck from §9 and PR 13 now depends on 12A rather than on the portrait. The portrait remains an explicit future PR once a replacement asset is supplied.                                                                                             |
 | 2026-09-04 | **Positioning Refresh round approved.** Baseline `ae92ffe`, Phase 3 complete. Added §3 minimal-factual-copy rule; added Phase 7 (`P7-01` through `P7-14`) covering homepage and About positioning, project card copy, metadata consistency and Resume creation; scheduled it before Phases 4, 5 and 6 as PRs 10 through 14; reused `P4-01` - `P4-03` for the portrait, `P5-03` for the favicon and `P4-04` - `P4-06` for Resume publication rather than issuing new IDs; superseded the PR 7 row; added two review gates (`P7-12`, `P7-14`); recorded the strict one-PR-at-a-time execution model in §9. Renamed "Selected Work" to "Featured Projects" throughout the current IA description; historical task records left untouched. |
 | 2026-08-31 | Plan created and persisted (`P0-01` through `P0-03`). Baseline `10723c0f`. Approved structure: six phases, 12 planned PRs, four review gates (`P1-00`, `P2-00`, `P5-01`, `P6-08`). `P6-09` separated into PR 9c so it follows its `P6-08` dependency and keeps the HSTS PR single-purpose. `SRE Practices` added as a capability keyword under Production Reliability & Operations.                                                                                                                                                                                                                                                                                                                                                    |
