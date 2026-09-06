@@ -52,10 +52,10 @@ const jsonLdScript = jsonLd
       /* Browser identity only, served locally under `img-src 'self'`. The ICO
         carries 16/32/48 for older clients; the SVG is preferred where
         supported. Deliberately no web manifest: the served CSP is
-        `manifest-src 'none'` and a five-page static site gains nothing from
+        `manifest-src 'none'` and a small static site gains nothing from
         one. See docs/FINAL_POLISH_PLAN.md `P5-03`. */
     }
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
