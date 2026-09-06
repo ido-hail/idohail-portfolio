@@ -52,46 +52,50 @@ outstanding copy decisions.
 
 **The portrait visual gate failed.** The approved source photograph was tested under `P4-01` and rejected. See the `P4-01` status below for the full record. No rejected image was published.
 
-**Logical PR 12A only** — temporary portrait deferral and placeholder removal. Portrait
-tasks are **not** completed by this PR; they stay deferred pending a replacement asset.
+**Logical PR 12A is merged and production-verified.** ~~Logical PR 12A only — temporary portrait deferral and placeholder removal.~~ The placeholder is gone, the Hero is an intentional text-only layout, and the portrait tasks remain deferred pending a replacement asset.
 
-Phases 5 and 6 are not authorized. Phase 7 beyond PR 11 is not authorized.
+**Logical PR 13 only** — task `P5-03`, the favicon, pulled forward out of PR 8.
+
+`P5-01`, `P5-02`, `P5-04` and `P5-05` are **not** authorized. Phase 6 is not authorized.
+PR 14 is not authorized and stays blocked on the Resume gates.
 
 Allowed files, complete list:
 
 ```
 docs/FINAL_POLISH_PLAN.md                     (tracked)
-SPEC.md                                       (tracked)
-src/pages/index.astro                         (tracked)
-public/portrait-placeholder.svg               (tracked, DELETION ONLY)
+public/favicon.svg                            (tracked, new)
+public/favicon.ico                            (tracked, new)
+public/apple-touch-icon.png                   (tracked, new)
+src/layouts/BaseLayout.astro                  (tracked)
 ```
+
+`SPEC.md` needs no change: §8.3 already lists `Favicons` among permitted static assets and
+nothing in it contradicts a favicon.
 
 Permission to edit a file is not a requirement to edit it.
 
 If repository formatting or validation appears to require touching any other
 file, **stop and report** rather than expanding scope.
 
-### Forbidden while logical PR 12A is the authorized scope
+### Forbidden while logical PR 13 is the authorized scope
 
 - `src/config/site.ts`, `src/content.config.ts`, `src/lib/**`, `src/styles/**`
-- `src/pages/about/index.astro`, `src/pages/experience/index.astro`,
-  `src/pages/projects/**`, `src/content/**`
-- `src/components/**`, `src/layouts/**`
-- `.claude/**`, `public/**` other than deleting `public/portrait-placeholder.svg`
+- `src/pages/**`, `src/content/**`, `src/components/**`
+- `SPEC.md`, `.claude/**`
+- `public/**` other than the three favicon assets
 - `README.md`, `docs/ARCHITECTURE.md`, `docs/DEPLOYMENT.md`
 - `package.json`, `wrangler.jsonc`, `astro.config.*`, `.github/workflows/**`
-- Cloudflare or GitHub settings
-- **Publishing any portrait, including the rejected source photograph**
-- **Adding a replacement placeholder image of any kind**
-- Adding `image` to the Person JSON-LD
-- Adding an Open Graph image
-- Changing the name, capability line, Hero sentence, CTA labels or contact links
-- Changing homepage metadata, the section order, or any section after the Hero
-- Changing About, Experience or project content
-- Redesigning the Hero beyond removing the reserved portrait column
-- Marking any portrait task DONE
-- Starting PR 13 or any favicon, market-research or Resume work
-- Merging logical PR 12A
+- `public/_headers`, the CSP, or any Cloudflare or GitHub setting
+- **A web manifest of any kind**, and any `<link rel="manifest">`
+- **Any Open Graph or Twitter image work**, including a default `ogImage`
+  (that is `P5-04`, still TODO)
+- Changing `<title>` logic, canonical, Open Graph, Twitter metadata, JSON-LD,
+  viewport or the meta description
+- Any body markup change, or putting the mark anywhere in the visible page UI
+- Introducing executable JavaScript
+- Publishing a portrait, or reopening any deferred portrait task
+- Starting `P5-01`, `P5-02`, `P5-04`, `P5-05`, market research or Resume work
+- Merging logical PR 13
 
 ### Stop condition
 
@@ -1015,9 +1019,9 @@ animation beyond the single approved treatment; redesigning the tools marquee.
 - **Scope:** in — the asset and `<head>` wiring. Out — a web manifest.
 - **Files:** `public/`, `src/layouts/BaseLayout.astro`
 - **Dependencies:** none
-- **Definition of Done:** the favicon is served locally and resolves under `img-src 'self'`; **no `site.webmanifest`** — it would require adding `manifest-src 'self'` to the CSP for no benefit on a five-page static site.
+- **Definition of Done:** the favicon is served locally and resolves under `img-src 'self'`; **no `site.webmanifest`** — it would require adding `manifest-src 'self'` to the CSP for no benefit on a small static site.
 - **Verification:** `npm run verify`; confirm the icon loads on Preview with no CSP violation.
-- **Status:** TODO
+- **Status:** DONE - `public/favicon.svg` (64 viewBox, rounded dark tile, white `IH` drawn as four plain rects, no font dependency, no gradient, script, `foreignObject` or remote reference), a real multi-size `public/favicon.ico` (type 1, entries at 16, 32 and 48) and a square 180x180 `public/apple-touch-icon.png`. Wired in `BaseLayout` as ICO with `sizes="16x16 32x32 48x48"`, SVG preferred where supported, and the Apple touch icon. All three are local and resolve under `img-src 'self'`. **No web manifest**, per the Definition of Done and the served `manifest-src 'none'`. Legibility checked at 16 and 32 px: three stems and the crossbar stay distinct. The mark appears in browser identity only, never in page UI.
 
 #### P5-04 — Default Open Graph image
 
