@@ -964,13 +964,23 @@ a plain link to a same-origin PDF is not governed by any CSP directive); no
 
 #### P4-06 — SPEC alignment for Phase 4
 
-- **Objective:** record the portrait and resume as delivered.
-- **Scope:** in — `SPEC.md` §3.1 portrait and §5 resume. Out — other sections.
+- **Objective:** keep `SPEC.md` describing the portrait and resume states that actually exist.
+- **Scope:** three independent slices, each shipping in the PR that changes the corresponding behaviour. Out — every other `SPEC.md` section.
+
+  | Slice             | Covers                                                                                         | Ships in               |
+  | ----------------- | ---------------------------------------------------------------------------------------------- | ---------------------- |
+  | **§3.1 deferral** | The portrait is deferred and the Hero is text-only, with no placeholder and no reserved column | Logical PR 12A         |
+  | **§3.1 portrait** | A real portrait is delivered and rendered                                                      | The future portrait PR |
+  | **§5 resume**     | The resume asset exists and is linked                                                          | Logical PR 14          |
+
 - **Files:** `SPEC.md`
-- **Dependencies:** `P4-01` through `P4-05`
-- **Definition of Done:** SPEC no longer describes a placeholder portrait or an absent resume.
-- **Verification:** read `SPEC.md` §3.1 and §5 against the built site.
-- **Status:** BLOCKED - the portrait slice is deferred with `P4-01`. `SPEC.md` §3.1 was updated in logical PR 12A to record the deferral and the text-only Hero as a valid temporary state; the slice that records a delivered portrait is still outstanding. The resume slice remains blocked on `P4-04`.
+- **Dependencies:** slice-specific, never collective. The **§3.1 deferral slice** depends on nothing beyond the `P4-01` gate outcome. The **§3.1 portrait slice** depends on `P4-01` through `P4-03`. The **§5 resume slice** depends on `P4-04` and `P4-05` **only**, and is explicitly **not** blocked by the deferred portrait tasks.
+- **Definition of Done:** each slice is done when `SPEC.md` matches the state the site is actually in after its PR. **`P4-06` as a whole is DONE only once both the portrait and the resume have reached a delivered state and SPEC records both.** It must not be marked DONE while either remains deferred or absent.
+- **Verification:** read the amended `SPEC.md` section against the built site, per slice.
+- **Status:** IN PROGRESS.
+  - **§3.1 deferral slice: DONE** in logical PR 12A. SPEC records the deferral, the text-only Hero as a valid temporary state, and the treatment the portrait will use when an approved asset exists.
+  - **§3.1 portrait slice: DEFERRED**, with `P4-01` through `P4-03`. Outstanding until a replacement photograph is supplied; it is the only `P4-06` work the future portrait PR carries.
+  - **§5 resume slice: BLOCKED** on `P4-04` and `P4-05`. Not blocked by the portrait, and free to complete in logical PR 14.
 
 ---
 
@@ -1345,7 +1355,7 @@ receives a short production verification after merge.
 | ~~**12**~~ | ~~`P4-01` - `P4-03`, `P4-06` portrait slice~~          | **Not shipped.** The visual gate failed: the approved source still read as social photography after non-generative crop and correction, so it was rejected and nothing was published. Replaced by PR 12A, plus a future portrait PR once a replacement asset exists. | 11                                   |
 | **12A**    | `P4-06` §3.1 deferral slice                            | Temporary portrait deferral: delete `public/portrait-placeholder.svg`, remove the reserved portrait column so the Hero is an intentional text-only layout, and record the deferral in `SPEC.md` and this plan. **Completes no portrait task.**                       | 11                                   |
 | **13**     | `P5-03` only                                           | Favicon, pulled forward out of PR 8. Unblocked by 12A; does not wait on the portrait.                                                                                                                                                                                | 12A                                  |
-| **14**     | `P4-04`, `P4-05`, rest of `P4-06`                      | **Gated.** Resume publication, Master document only, after `P7-11` through `P7-14`.                                                                                                                                                                                  | 13 plus `P7-14`                      |
+| **14**     | `P4-04`, `P4-05`, `P4-06` §5 resume slice              | **Gated.** Resume publication, Master document only, after `P7-11` through `P7-14`.                                                                                                                                                                                  | 13 plus `P7-14`                      |
 | **7**      | ~~`P4-*`~~                                             | **Superseded.** The portrait moved to PR 12 and Resume publication to PR 14; Resume creation is `P7-11` through `P7-14`.                                                                                                                                             | —                                    |
 | **8**      | `P5-01`, `P5-02`, `P5-04`, `P5-05`                     | **Gated.** `P5-01` options reviewed first. Then implementation, OG image, SPEC. `P5-03` already delivered in PR 13.                                                                                                                                                  | 14 plus option selection             |
 | **9a**     | `P6-04` through `P6-07`                                | Launch closure before HSTS: analytics decision, Search Console, indexing audit, accessibility and responsive verification.                                                                                                                                           | 8                                    |
