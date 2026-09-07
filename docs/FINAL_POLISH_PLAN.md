@@ -1288,7 +1288,7 @@ below reopens them.
 - **Dependencies:** PR 11 merged and production-verified
 - **Definition of Done:** each posting was actually fetched and read; no posting from the earlier preflight scan is cited as live; the cluster shapes are confirmed or the deviation is reported.
 - **Verification:** URLs and fetch dates recorded with the findings.
-- **Status:** DONE - focused market freshness check completed 2026-09-06: 11 live Israel-accessible postings fetched and read across production/technical operations, DataOps/data quality and DevOps/cloud/platform, with 6 stale or out-of-scope candidates rejected and the live DevOps/cloud/platform sample all requiring established professional tenure. Cluster shapes confirmed; the finding that Israeli DevOps requisitions gate on DevOps-titled tenure hardened, and the data-quality cluster confirmed as the tightest direct evidence match.
+- **Status:** DONE - focused market freshness check completed 2026-09-06: 11 live Israel-accessible postings fetched and read across production/technical operations, DataOps/data quality and DevOps/cloud/platform, with 6 stale or out-of-scope candidates rejected. Within this sample, the DevOps/cloud/platform roles required established relevant professional experience, while DataOps/data quality showed the strongest direct evidence match and near-term accessibility.
 
 #### P7-12 — Resume content build **[REVIEW GATE, BLOCKING]**
 
