@@ -984,7 +984,7 @@ a plain link to a same-origin PDF is not governed by any CSP directive); no
 - **Status:** IN PROGRESS.
   - **§3.1 deferral slice: DONE** in logical PR 12A. SPEC records the deferral, the text-only Hero as a valid temporary state, and the treatment the portrait will use when an approved asset exists.
   - **§3.1 portrait slice: DEFERRED**, with `P4-01` through `P4-03`. Outstanding until a replacement photograph is supplied; it is the only `P4-06` work the future portrait PR carries.
-  - **§5 resume slice: DONE** in logical PR 14. `SPEC.md` §5 now records the resume as published at `/Ido-Hail-Resume.pdf` with all three surfaces rendering, while keeping the nullable/conditional requirement, the direct-PDF rule, no `/resume/` route, manual maintenance and no generation pipeline.
+  - **§5 resume slice: DONE** in logical PR 14. `SPEC.md` §5 now records the resume as published at `/Ido-Hail-Resume.pdf` with the configured Resume surfaces rendering, while keeping the nullable/conditional requirement, the direct-PDF rule, no `/resume/` route, manual maintenance and no generation pipeline.
 
 ---
 
@@ -1288,7 +1288,7 @@ below reopens them.
 - **Dependencies:** PR 11 merged and production-verified
 - **Definition of Done:** each posting was actually fetched and read; no posting from the earlier preflight scan is cited as live; the cluster shapes are confirmed or the deviation is reported.
 - **Verification:** URLs and fetch dates recorded with the findings.
-- **Status:** DONE - focused market freshness check completed 2026-09-06: 11 live Israel-accessible postings fetched and read across production/technical operations, DataOps/data quality and junior DevOps, with 6 stale or out-of-scope candidates rejected. Cluster shapes confirmed; the finding that Israeli DevOps requisitions gate on DevOps-titled tenure hardened, and the data-quality cluster confirmed as the tightest direct evidence match.
+- **Status:** DONE - focused market freshness check completed 2026-09-06: 11 live Israel-accessible postings fetched and read across production/technical operations, DataOps/data quality and DevOps/cloud/platform, with 6 stale or out-of-scope candidates rejected and the live DevOps/cloud/platform sample all requiring established professional tenure. Cluster shapes confirmed; the finding that Israeli DevOps requisitions gate on DevOps-titled tenure hardened, and the data-quality cluster confirmed as the tightest direct evidence match.
 
 #### P7-12 — Resume content build **[REVIEW GATE, BLOCKING]**
 

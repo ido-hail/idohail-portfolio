@@ -277,7 +277,7 @@ The same principle applies to experience entries.
 
 ## 5. Resume
 
-A current resume PDF is stored as a static site asset and linked from the Hero, primary navigation, and Footer. It is published at `/Ido-Hail-Resume.pdf` and `siteConfig.resumePath` points at it, so all three surfaces render.
+A current resume PDF is stored as a static site asset and linked from the Hero, primary navigation, closing Contact/CTA, and Footer. It is published at `/Ido-Hail-Resume.pdf` and `siteConfig.resumePath` points at it.
 
 The resume link is a direct link to the PDF asset — there is no dedicated `/resume/` route.
 

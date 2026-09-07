@@ -7,7 +7,9 @@
  *
  * `resumePath`, `linkedinUrl` and `email` all hold real values now, but
  * they stay nullable and every consumer keeps rendering them conditionally,
- * so an absent asset degrades to no link rather than a placeholder URL.
+ * so an unconfigured value produces no link rather than a placeholder URL.
+ * Consumers test the configuration value only; nothing verifies at runtime
+ * that the asset it points at exists.
  *
  * `nav` holds internal navigation only (Projects/Experience/About). The
  * site wordmark/"Home" link is not a `nav` entry — it is a separate,
@@ -41,7 +43,7 @@ export interface SiteConfig {
   readonly linkedinUrl: string | null;
   /** Contact email — nullable so consumers keep rendering it conditionally. */
   readonly email: string | null;
-  /** Path to the resume asset, relative to the site root — nullable so consumers keep rendering it conditionally. */
+  /** Path to the resume asset, relative to the site root — nullable so consumers keep rendering it conditionally when unset. */
   readonly resumePath: string | null;
   /** Internal navigation (Projects/Experience/About), in display order. */
   readonly nav: readonly NavItem[];
