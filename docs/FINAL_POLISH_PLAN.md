@@ -54,48 +54,48 @@ outstanding copy decisions.
 
 **Logical PR 12A is merged and production-verified.** ~~Logical PR 12A only — temporary portrait deferral and placeholder removal.~~ The placeholder is gone, the Hero is an intentional text-only layout, and the portrait tasks remain deferred pending a replacement asset.
 
-**Logical PR 13 only** — task `P5-03`, the favicon, pulled forward out of PR 8.
+**Logical PR 13 is merged and production-verified.** ~~Logical PR 13 only — task `P5-03`, the favicon.~~ The `IH` mark is live in browser identity on every route.
+
+**The Resume gates are complete.** `P7-11` through `P7-14` all passed, ending with explicit human approval to publish. See their statuses in §8.
+
+**Logical PR 14 only** — tasks `P4-04`, `P4-05`, and the **§5 Resume slice of `P4-06` only**.
 
 `P5-01`, `P5-02`, `P5-04` and `P5-05` are **not** authorized. Phase 6 is not authorized.
-PR 14 is not authorized and stays blocked on the Resume gates.
+The portrait tasks stay **DEFERRED** and no later PR is authorized.
 
 Allowed files, complete list:
 
 ```
 docs/FINAL_POLISH_PLAN.md                     (tracked)
-public/favicon.svg                            (tracked, new)
-public/favicon.ico                            (tracked, new)
-public/apple-touch-icon.png                   (tracked, new)
-src/layouts/BaseLayout.astro                  (tracked)
+SPEC.md                                       (tracked)
+src/config/site.ts                            (tracked)
+public/Ido-Hail-Resume.pdf                    (tracked, new)
 ```
-
-`SPEC.md` needs no change: §8.3 already lists `Favicons` among permitted static assets and
-nothing in it contradicts a favicon.
 
 Permission to edit a file is not a requirement to edit it.
 
 If repository formatting or validation appears to require touching any other
 file, **stop and report** rather than expanding scope.
 
-### Forbidden while logical PR 13 is the authorized scope
+### Forbidden while logical PR 14 is the authorized scope
 
-- `src/config/site.ts`, `src/content.config.ts`, `src/lib/**`, `src/styles/**`
-- `src/pages/**`, `src/content/**`, `src/components/**`
-- `SPEC.md`, `.claude/**`
-- `public/**` other than the three favicon assets
+- `src/pages/**`, `src/components/**`, `src/layouts/**`, `src/styles/**`
+- `src/content/**`, `src/lib/**`, `src/content.config.ts`
+- `public/**` other than adding `public/Ido-Hail-Resume.pdf`
 - `README.md`, `docs/ARCHITECTURE.md`, `docs/DEPLOYMENT.md`
 - `package.json`, `wrangler.jsonc`, `astro.config.*`, `.github/workflows/**`
 - `public/_headers`, the CSP, or any Cloudflare or GitHub setting
-- **A web manifest of any kind**, and any `<link rel="manifest">`
-- **Any Open Graph or Twitter image work**, including a default `ogImage`
-  (that is `P5-04`, still TODO)
-- Changing `<title>` logic, canonical, Open Graph, Twitter metadata, JSON-LD,
-  viewport or the meta description
-- Any body markup change, or putting the mark anywhere in the visible page UI
-- Introducing executable JavaScript
-- Publishing a portrait, or reopening any deferred portrait task
-- Starting `P5-01`, `P5-02`, `P5-04`, `P5-05`, market research or Resume work
-- Merging logical PR 13
+- **Publishing the DataOps or DevOps resume, or any DOCX**
+- **Regenerating, re-exporting, recompressing or otherwise altering the approved Master PDF**
+- Creating a `/resume/` route, page, redirect or download endpoint
+- Changing any template to force the Resume to render; the Phase 1 conditionals
+  must light up unmodified, and a failure there is reported, not patched
+- Changing the Hero CTA labels or layout
+- Any homepage, About, Experience, project, Skill Map or tools-marquee change
+- Any portrait or favicon work
+- Marking `P4-06` DONE as a whole while the portrait slice is deferred
+- Starting `P5-01`, `P5-02`, `P5-04`, `P5-05` or any Phase 6 task
+- Merging logical PR 14
 
 ### Stop condition
 
@@ -954,7 +954,7 @@ a plain link to a same-origin PDF is not governed by any CSP directive); no
 - **Dependencies:** the final Resume PDF, supplied by Ido
 - **Definition of Done:** the PDF is served locally; `resumePath` is set; **the consistency gate is satisfied** — the PDF has been read and reconciled against `/experience/`, About's Professional Background and the Skill Map, with no contradiction.
 - **Verification:** `npm run verify`; fetch the PDF from Preview.
-- **Status:** BLOCKED — awaiting the Resume PDF
+- **Status:** DONE - the approved **Master** resume only is published at `/Ido-Hail-Resume.pdf`, copied byte-for-byte from the frozen P7-13 artifact (SHA-256 `d34e91be...9a802a`, verified identical in the repository) and never regenerated. `siteConfig.resumePath` set. The consistency gate is satisfied by `P7-14`. The DataOps and DevOps variants and all DOCX files stay outside the repository.
 
 #### P4-05 — Verify Resume surfaces
 
@@ -964,7 +964,7 @@ a plain link to a same-origin PDF is not governed by any CSP directive); no
 - **Dependencies:** `P4-04`
 - **Definition of Done:** Resume renders in primary navigation, the Hero CTA row and the footer, and resolves to the PDF in all three; **no template change was required** — if one is, that is a defect in the Phase 1 conditional and is reported.
 - **Verification:** on Preview, click all three and confirm the PDF loads.
-- **Status:** BLOCKED
+- **Status:** DONE - Resume renders in primary navigation, the Hero CTA row as the primary button, and the footer, all resolving to `/Ido-Hail-Resume.pdf`. **No template change was required**; the Phase 1 conditionals lit up unmodified, as designed.
 
 #### P4-06 — SPEC alignment for Phase 4
 
@@ -984,7 +984,7 @@ a plain link to a same-origin PDF is not governed by any CSP directive); no
 - **Status:** IN PROGRESS.
   - **§3.1 deferral slice: DONE** in logical PR 12A. SPEC records the deferral, the text-only Hero as a valid temporary state, and the treatment the portrait will use when an approved asset exists.
   - **§3.1 portrait slice: DEFERRED**, with `P4-01` through `P4-03`. Outstanding until a replacement photograph is supplied; it is the only `P4-06` work the future portrait PR carries.
-  - **§5 resume slice: BLOCKED** on `P4-04` and `P4-05`. Not blocked by the portrait, and free to complete in logical PR 14.
+  - **§5 resume slice: DONE** in logical PR 14. `SPEC.md` §5 now records the resume as published at `/Ido-Hail-Resume.pdf` with all three surfaces rendering, while keeping the nullable/conditional requirement, the direct-PDF rule, no `/resume/` route, manual maintenance and no generation pipeline.
 
 ---
 
@@ -1288,7 +1288,7 @@ below reopens them.
 - **Dependencies:** PR 11 merged and production-verified
 - **Definition of Done:** each posting was actually fetched and read; no posting from the earlier preflight scan is cited as live; the cluster shapes are confirmed or the deviation is reported.
 - **Verification:** URLs and fetch dates recorded with the findings.
-- **Status:** TODO
+- **Status:** DONE - focused market freshness check completed 2026-09-06: 11 live Israel-accessible postings fetched and read across production/technical operations, DataOps/data quality and junior DevOps, with 6 stale or out-of-scope candidates rejected. Cluster shapes confirmed; the finding that Israeli DevOps requisitions gate on DevOps-titled tenure hardened, and the data-quality cluster confirmed as the tightest direct evidence match.
 
 #### P7-12 — Resume content build **[REVIEW GATE, BLOCKING]**
 
@@ -1298,7 +1298,7 @@ below reopens them.
 - **Dependencies:** `P7-11`
 - **Definition of Done:** every employment fact is identical across all three documents; no unsupported technology appears inside Professional Experience; no present-tense employment claim; every metric carries its exact binding. **The gate stops for human approval of every line.**
 - **Verification:** human approval before `P7-13` begins.
-- **Status:** TODO
+- **Status:** DONE - content for all three resume documents received line-by-line human approval after two revision passes. Locked: minimal factual copy, no evidence-source qualifiers in Skills, approved release wording verbatim, exact metric bindings, explicit project ownership boundaries, programs never certifications.
 
 #### P7-13 — Resume document generation
 
@@ -1308,7 +1308,7 @@ below reopens them.
 - **Dependencies:** `P7-12` approved
 - **Definition of Done:** text is selectable; a plain-text extraction returns every section heading in order; single column throughout; contact details sit in the document body, not a header or footer region; every hyperlink resolves; page 1 is self-sufficient in all three documents.
 - **Verification:** extract the PDF to plain text and read it; open every link.
-- **Status:** TODO
+- **Status:** DONE - six ATS-safe files generated outside the repository from the locked content: Master, DataOps and DevOps as DOCX plus 2-page PDF each. Single column, no tables or text boxes, contact in the document body, selectable text, embedded Arial, no image-only pages. Hyperlink Definition of Done completed: 7 identical targets per file, PDF and DOCX matched, and every HTTP target fetched live.
 
 #### P7-14 — Resume consistency and ATS gate **[REVIEW GATE, BLOCKING]**
 
@@ -1318,7 +1318,7 @@ below reopens them.
 - **Dependencies:** `P7-13`
 - **Definition of Done:** titles, dates, every metric and its binding, team size, database naming, cloud and DevOps presented as capability and projects rather than tenure, no SRE or DevOps job title, programs never certifications and no `PCEP`, project ownership boundaries, release wording as readiness rather than approval authority, and contact details against `src/config/site.ts` are each checked explicitly; every technology inside Professional Experience is matched to specific professional evidence; variant-to-variant consistency of every employment fact is confirmed; any wording differing from the site is recorded and justified as factually equivalent. **The gate stops.**
 - **Verification:** human approval before `P4-04` begins.
-- **Status:** TODO
+- **Status:** DONE - consistency, evidence, ATS and fresh visual gates all passed against `main` at `5d4cc5f`. Employment identity, team size, every metric binding, release wording, per-technology evidence inside Professional Experience, About and Skill Map reconciliation, both project ownership boundaries, training and contact all verified, with zero unsupported skills and zero forbidden cloud technologies in any YuviTal bullet. Human-approved for publication.
 
 ---
 
