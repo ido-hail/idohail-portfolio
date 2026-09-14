@@ -242,10 +242,12 @@ const personJsonLd = {
       </p>
 
       {
-        /* Resume CTA is conditional so Phase 4 (adding the resume asset)
-          needs no template change: Resume becomes primary once
-          `resumePath` is set, and Projects/Experience access shifts down
-          rather than disappearing. */
+        /* Resume CTA is conditional and stays that way even though
+          `siteConfig.resumePath` is intentionally null: no resume asset is
+          published, so this renders View Projects primary with Experience
+          secondary. Setting `resumePath` again makes Resume primary and
+          shifts Projects/Experience access down rather than removing it,
+          with no template change. */
       }
       <div class="mt-8 flex flex-wrap items-center gap-4">
         {
