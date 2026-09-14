@@ -31,9 +31,9 @@ Running both providers under the same prompt makes their output coverage directl
 
 **Abstention over hallucination.** The prompt instructs the model to return no enrichment where the evidence is weak, instead of producing its best guess. This trades coverage for trustworthiness deliberately: the pipeline is allowed to return less, and is not allowed to return something manufactured.
 
-**Structured output.** Responses are constrained to a predictable JSON schema rather than free-form text. This removes response parsing as a source of failure, and makes a malformed response an immediate, detectable error rather than something that quietly degrades downstream.
+**Structured output.** Responses are requested in a fixed JSON structure rather than free-form text. This reduces parsing ambiguity and makes malformed or incomplete responses easier to detect before they reach downstream processing.
 
-**Validation after generation.** Model output is treated as untrusted input to the rest of the pipeline, not as a result. Every returned record is checked for presence, duplication and support in the source data before acceptance, so the validation layer does not depend on the model having behaved.
+**Validation after generation.** Model output is treated as untrusted pipeline input. Returned batches are checked for required structure, expected record count, input-model identity, duplicates and missing records before acceptance.
 
 **Provider comparison.** Both providers run the identical prompt so that differences in output coverage reflect the models rather than the instructions. That is the basis for evaluating model fit for this task, rather than choosing a provider by reputation.
 
