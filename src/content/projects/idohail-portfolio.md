@@ -7,8 +7,8 @@ tags:
   - "Cloudflare Workers"
   - "GitHub Actions"
 githubUrl: "https://github.com/ido-hail/idohail-portfolio"
-featured: true
-order: 2
+featured: false
+order: 4
 ---
 
 ## Context

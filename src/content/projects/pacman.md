@@ -8,8 +8,8 @@ tags:
   - "Terraform"
   - "GitHub Actions"
 githubUrl: "https://github.com/ido-hail/pacman-project"
-featured: false
-order: 3
+featured: true
+order: 2
 ---
 
 ## Context
