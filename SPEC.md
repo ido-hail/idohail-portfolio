@@ -47,7 +47,7 @@ Contains, in order:
   * Name
   * Capability/domain line: "Production & Reliability · DevOps & Infrastructure · Data & Automation" — deliberately not a job title.
   * Short value proposition: a single sentence that leads with hands-on breadth across production systems, infrastructure and data, and names Technical Operations as one capability within that breadth rather than as the identity under the name. It must not narrate how the work is done.
-  * CTAs: View Projects (primary) and Experience (secondary) while no resume asset is configured; once `resumePath` is set, Resume becomes the primary CTA with View Projects and Experience remaining reachable. No dedicated `/resume/` route.
+  * CTAs: View Projects (primary) and Experience (secondary). No resume asset is configured (§5), which is the current intentional state; if `resumePath` were set again, Resume would become the primary CTA with View Projects and Experience remaining reachable. No dedicated `/resume/` route.
   * Compact plain-text LinkedIn/GitHub/Email links in the Hero, visually distinct from the CTA row. No icons and no icon dependency; accessible names come from the visible link text.
   * A portrait image. **Publication is deferred until an approved photograph exists**, so the Hero is currently text-only: no portrait, no placeholder, no empty frame, and no reserved column at any width. The text-only Hero is a valid temporary state, not the final design.
 
@@ -205,11 +205,11 @@ Persistent top-level navigation:
 * Projects
 * Experience
 * About
-* Resume
+* Resume — conditional, and not rendered in the current configuration (§5)
 
 `Home` is not a separate primary navigation item — the site wordmark link, reading "Home", links to `/` and is the sole home link. It is not duplicated as a `nav` list item, and it receives `aria-current="page"` when the current route is the homepage.
 
-`Resume` links directly to the resume PDF asset (§5); it is not a page route, and it is omitted from navigation while no resume asset is configured.
+`Resume` would link directly to a resume PDF asset (§5); it is not a page route, and it is omitted from navigation while no resume asset is configured — which is the current state.
 
 `Contact` is not a primary navigation item. Contact links appear in the homepage's closing Contact/CTA section and persist in the Footer.
 
@@ -277,15 +277,15 @@ The same principle applies to experience entries.
 
 ## 5. Resume
 
-A current resume PDF is stored as a static site asset and linked from the Hero, primary navigation, closing Contact/CTA, and Footer. It is published at `/Ido-Hail-Resume.pdf` and `siteConfig.resumePath` points at it.
+Resume integration is optional, and it is **currently intentionally unset**.
 
-The resume link is a direct link to the PDF asset — there is no dedicated `/resume/` route.
+`siteConfig.resumePath` is nullable and is `null`. No resume asset is published in `public/`, and no public resume is reachable at any URL on the site.
 
-The resume is maintained manually.
+This is a deliberate product decision, not an unfinished state. Resume documents are adapted per application and maintained outside this repository, rather than presented as one canonical public download that would go stale. The site must therefore continue to work normally with no resume configured, and no surface may substitute another resume-related action in its place.
 
-There is no resume-generation pipeline.
+If a resume is ever published again, it is a direct link to a PDF asset — there is no dedicated `/resume/` route — it is maintained manually, and there is no resume-generation pipeline.
 
-The resume link must remain easy to find and work without JavaScript. `resumePath` stays nullable and every surface stays conditional: if the asset is ever unconfigured, the link must not be rendered rather than pointing to a broken or placeholder URL.
+The nullable field and every conditional consumer are kept intact so the integration can be re-enabled by setting `resumePath` alone, with no component or template change. `resumePath` stays nullable and every surface (Hero, primary navigation, closing Contact/CTA, Footer) stays conditional: while the asset is unconfigured the link must not be rendered rather than pointing to a broken or placeholder URL, and when configured the link must remain easy to find and work without JavaScript.
 
 ---
 
@@ -426,7 +426,7 @@ rather than dependency resolution through `npm install`.
 
 Static assets may include:
 
-* Resume
+* Resume — none is currently published (§5)
 * Portrait image
 * Background texture
 * Tool logos
@@ -1174,13 +1174,16 @@ After launch:
 
 ### 18.12 Resume
 
-Verify the resume link from:
+No resume asset is configured (§5), so the check is an absence check. Confirm that no Resume link renders in:
 
 * Hero
 * Primary navigation
+* Closing Contact/CTA
 * Footer
 
-Confirm it resolves to the current PDF, and confirm the link (and the primary navigation entry) do not render while no resume asset is configured.
+Confirm the Hero CTA row falls back to View Projects (primary) and Experience (secondary) with no gap or empty conditional container, and that no resume PDF is reachable in the built site.
+
+If a resume asset is configured again, verify instead that the link resolves to the current PDF from each of those four surfaces.
 
 ---
 

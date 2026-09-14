@@ -5,19 +5,25 @@
  * (identity, external links, primary navigation). Components and pages
  * should read from here rather than hard-coding these values locally.
  *
- * `resumePath`, `linkedinUrl` and `email` all hold real values now, but
- * they stay nullable and every consumer keeps rendering them conditionally,
- * so an unconfigured value produces no link rather than a placeholder URL.
- * Consumers test the configuration value only; nothing verifies at runtime
- * that the asset it points at exists.
+ * `linkedinUrl` and `email` hold real values; `resumePath` is intentionally
+ * `null`. All three stay nullable and every consumer keeps rendering them
+ * conditionally, so an unconfigured value produces no link rather than a
+ * placeholder URL. Consumers test the configuration value only; nothing
+ * verifies at runtime that the asset it points at exists.
+ *
+ * Resume integration is deliberately unconfigured: resumes are now adapted
+ * per application and managed outside this repository rather than published
+ * as one canonical download, so no resume asset ships in `public/`. The
+ * nullable field and every conditional consumer are kept intact so the
+ * integration can be re-enabled later by setting this value alone.
  *
  * `nav` holds internal navigation only (Projects/Experience/About). The
  * site wordmark/"Home" link is not a `nav` entry — it is a separate,
  * hard-coded element in SiteHeader so it never duplicates a `nav` item.
- * Resume is intentionally not a nav entry either — it links directly to
- * a PDF asset rather than an internal route, and must not appear at all
- * while `resumePath` is null. Consumers render it as a separate,
- * conditional element alongside `nav` (see SiteHeader).
+ * Resume is intentionally not a nav entry either — it would link directly
+ * to a PDF asset rather than an internal route, and must not appear at all
+ * while `resumePath` is null (its current state). Consumers render it as a
+ * separate, conditional element alongside `nav` (see SiteHeader).
  *
  * There is no `siteUrl` field here: the canonical production origin
  * lives in exactly one place, `astro.config.mjs`'s `site` value, read at
@@ -43,7 +49,11 @@ export interface SiteConfig {
   readonly linkedinUrl: string | null;
   /** Contact email — nullable so consumers keep rendering it conditionally. */
   readonly email: string | null;
-  /** Path to the resume asset, relative to the site root — nullable so consumers keep rendering it conditionally when unset. */
+  /**
+   * Path to the resume asset, relative to the site root — nullable so
+   * consumers keep rendering it conditionally when unset. Currently `null`
+   * by intent: no public resume asset is published.
+   */
   readonly resumePath: string | null;
   /** Internal navigation (Projects/Experience/About), in display order. */
   readonly nav: readonly NavItem[];
@@ -56,7 +66,7 @@ export const siteConfig: SiteConfig = {
   githubUrl: "https://github.com/ido-hail",
   linkedinUrl: "https://www.linkedin.com/in/ido-hail/",
   email: "ido16h@gmail.com",
-  resumePath: "/Ido-Hail-Resume.pdf",
+  resumePath: null,
   nav: [
     { label: "Projects", href: "/projects/" },
     { label: "Experience", href: "/experience/" },
