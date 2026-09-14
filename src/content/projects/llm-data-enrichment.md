@@ -23,7 +23,7 @@ Precision and controlled abstention rather than maximum coverage. A record the m
 
 ## Workflow
 
-Records are processed in batches. Each batch is sent as the same constrained enrichment task to both an OpenAI model API and a Google model API, with responses requested as structured JSON rather than prose. Returned records are then validated programmatically before anything is accepted: entries that are missing, duplicated, or not supported by the input are rejected rather than merged.
+Records are processed in batches. Each batch is sent as the same constrained enrichment task to both an OpenAI model API and a Google model API, with responses requested as structured JSON rather than prose. Returned batches are parsed and validated programmatically before acceptance, and batches that fail structural or record-integrity checks are rejected rather than merged.
 
 Running both providers under the same prompt makes their output coverage directly comparable, which is what the comparison was for.
 
