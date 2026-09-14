@@ -50,6 +50,16 @@ const workAreas = [
 // case studies and Experience entries rather than becoming a chip. See
 // §6 for the curation rules and the density-review requirement this
 // list was checked against at 360/768/1440.
+//
+// Aligned against the current resume, which is the evidence source and
+// not a template: this is a curated subset, not keyword parity. Two
+// curation calls worth recording — `Release Management & Readiness` is
+// one chip rather than the two near-duplicates it replaced, and the AI
+// group omits `ChatGPT` because Claude Code, Codex and Cursor already
+// carry the assistant-tooling signal and `LLM APIs` covers the API
+// surface. Maestro is deliberately absent: the evidence is directing a
+// QA automation developer's E2E coverage, which `E2E Testing` states
+// without implying sole authorship of the suite.
 const skillMap = [
   {
     title: "Production Reliability & Operations",
@@ -60,8 +70,8 @@ const skillMap = [
       "Root Cause Analysis",
       "Monitoring & Alerting",
       "Observability",
-      "Release Management",
-      "Release Readiness",
+      "Release Management & Readiness",
+      "Axiom",
       "Prometheus",
       "Grafana",
     ],
@@ -74,8 +84,10 @@ const skillMap = [
       "Infrastructure as Code",
       "Docker",
       "Kubernetes",
+      "Helm",
       "CI/CD",
       "GitHub Actions",
+      "OIDC",
       "Immutable Delivery",
       "Cloudflare Workers",
     ],
@@ -93,13 +105,21 @@ const skillMap = [
       "dbt",
       "Kafka",
       "Data Modeling",
-      "Data Quality",
+      "Data Quality & Validation",
+      "Data Analysis",
       "Database Migrations",
     ],
   },
   {
     title: "Programming & Automation",
-    skills: ["Python", "JavaScript", "TypeScript", "Bash", "Git"],
+    skills: [
+      "Python",
+      "JavaScript",
+      "TypeScript",
+      "Bash",
+      "Git",
+      "Workflow Automation",
+    ],
   },
   {
     title: "APIs, Integrations & Internal Tooling",
@@ -110,7 +130,7 @@ const skillMap = [
       "Retool",
       "Metabase",
       "Jira",
-      "Zendesk",
+      "Zendesk Administration",
     ],
   },
   {
@@ -121,10 +141,14 @@ const skillMap = [
       "Identity & Access Management",
       "JumpCloud",
       "Google Workspace Administration",
+      "User Lifecycle",
       "RBAC",
+      "Access & Security Policies",
+      "Endpoint & Agent Administration",
       "TCP/IP",
       "DNS",
       "CCNA",
+      "MCSA",
     ],
   },
   {
@@ -134,9 +158,25 @@ const skillMap = [
       "Vulnerability Scanning",
       "Trivy",
       "Container Hardening",
-      "QA & Test Coordination",
+      "QA & Test Planning",
+      "Integration & Regression Testing",
+      "E2E Testing",
       "Cyber Security",
       "HIPAA / GDPR",
+    ],
+  },
+  {
+    title: "AI & Engineering Productivity",
+    skills: [
+      "AI-Assisted Development",
+      "Claude Code",
+      "Codex",
+      "Cursor",
+      "LLM APIs",
+      "Prompt Design",
+      "Structured Outputs",
+      "LLM Data Enrichment",
+      "AI-Assisted Automation",
     ],
   },
 ] as const;
@@ -181,12 +221,17 @@ const featuredGridClass =
       ? "mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3"
       : "mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3 lg:grid-rows-2";
 
+// `flex flex-col` matters only in the three-featured layout, where the
+// primary card is row-spanned to the height of the two stacked secondary
+// cards. Without it a short primary description leaves a large void under
+// the CTA; with it, the CTA is pushed to the card's baseline (`mt-auto`
+// below) so the extra height reads as card padding rather than a gap.
 const primaryCardClass =
   featuredCount <= 1
     ? "rounded-2xl border border-stone-200 bg-white p-6 sm:p-8"
     : featuredCount === 2
       ? "rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 lg:col-span-2"
-      : "rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 lg:col-span-2 lg:row-span-2";
+      : "flex flex-col rounded-2xl border border-stone-200 bg-white p-6 sm:p-8 lg:col-span-2 lg:row-span-2";
 
 // schema.org/Person for the homepage only (SPEC §10.3). Built only from
 // facts already present in siteConfig — no job title, email, location,
@@ -356,7 +401,7 @@ const personJsonLd = {
             )}
             <a
               href={`/projects/${primaryProject.id}/`}
-              class={`mt-4 inline-block ${linkAccent}`}
+              class={`mt-4 self-start lg:mt-auto lg:pt-4 ${linkAccent}`}
             >
               Case study →
             </a>

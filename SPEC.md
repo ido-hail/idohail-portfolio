@@ -83,11 +83,12 @@ Contains, in order:
 
   * Exists because a deliberately targeted CV cannot show the full supported technical range. Its purpose is breadth without exaggeration.
   * A curated public presentation derived from the internal evidence inventory (`docs/FINAL_POLISH_PLAN.md` §5) — not a dump of it. Low-value implementation detail stays in the case studies and Experience entries rather than becoming a chip.
-  * Seven evidence-based families: Production Reliability & Operations; DevOps, Cloud & Infrastructure; Data Engineering & Platforms; Programming & Automation; APIs, Integrations & Internal Tooling; Systems, Identity & Networking; Security, QA & Compliance.
+  * Eight evidence-based families: Production Reliability & Operations; DevOps, Cloud & Infrastructure; Data Engineering & Platforms; Programming & Automation; APIs, Integrations & Internal Tooling; Systems, Identity & Networking; Security, QA & Compliance; AI & Engineering Productivity.
   * Compact chips grouped under named domains — never progress bars, percentages, stars, years-per-skill, or beginner/intermediate/expert labels.
   * No coursework/project/professional labels and no framing sentence establishing an evidence hierarchy; a skill is presented simply as a skill.
   * No group is named after a job title, and no `SRE` group exists. `SRE Practices` may appear only as a chip inside Production Reliability & Operations — never as a group, a claimed role, or job tenure.
-  * `CCNA` appears as a bare keyword, never `CCNA Certified` and never qualified as coursework or fundamentals.
+  * `CCNA` and `MCSA` appear as bare keywords, never `CCNA Certified`/`MCSA Certified` and never qualified as coursework or fundamentals. There is no Certifications section; they are chips alongside the other Systems, Identity & Networking capabilities.
+  * The AI & Engineering Productivity family covers AI-assisted development, LLM API usage and enrichment work. It must not imply production AI ownership at an employer, ML engineering, model training, fine-tuning, MLOps or AI platform engineering, none of which are evidenced.
   * Tableau does not appear; its exclusion is a deliberate positioning decision, not a gap in evidence (see `docs/FINAL_POLISH_PLAN.md` §5).
   * Group sizes follow the evidence, not visual symmetry. Chip counts are checked against a visual-density review at representative widths so no family reads as a keyword wall.
 
